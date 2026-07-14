@@ -10,8 +10,10 @@ fun question: **"who are you becoming as a developer?"**
 Once one person deploys it, **anyone** can use that deployment — just embed an
 `<img>` URL with your username. No token, no config, nothing to install.
 
+**https://gitlevel.vercel.app/**
+
 ```html
-<img height="220" src="https://YOUR_GITLEVEL_URL/api/card?username=YOUR_GITHUB_LOGIN&theme=volt" alt="GitLevel card" />
+<img height="220" src="https://gitlevel.vercel.app/api/card?username=GavinnnTann&theme=volt" alt="GitLevel card" />
 ```
 
 ## What's on the card
