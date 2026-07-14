@@ -16,6 +16,58 @@ Once one person deploys it, **anyone** can use that deployment — just embed an
 
 ![GitLevel](https://gitlevel.vercel.app/api/card?username=gavinnntann&theme=volt)
 
+## Use it in your README
+
+Paste this in and swap in your own GitHub username — that's the only change:
+
+```md
+![GitLevel](https://gitlevel.vercel.app/api/card?username=YOUR_GITHUB_LOGIN)
+```
+
+Or with sizing and a theme:
+
+```html
+<img height="220" src="https://gitlevel.vercel.app/api/card?username=YOUR_GITHUB_LOGIN&theme=volt" alt="GitLevel card" />
+```
+
+> Using your own deployment? Swap `gitlevel.vercel.app` for your domain — see
+> [Deploy your own](#deploy-your-own-5-minutes).
+
+## The class gallery
+
+Your most-used language becomes your **class**, shown here at Legendary rank so
+every crest wears its full regalia (emblem · rune ring · crown · 4 stars):
+
+<table>
+<tr>
+<td><img src="examples/class-python.svg" width="400" alt="Python — Archoracle" /></td>
+<td><img src="examples/class-typescript.svg" width="400" alt="TypeScript — High Arbiter" /></td>
+</tr>
+<tr>
+<td><img src="examples/class-javascript.svg" width="400" alt="JavaScript — Legend" /></td>
+<td><img src="examples/class-rust.svg" width="400" alt="Rust — Eternal Guardian" /></td>
+</tr>
+<tr>
+<td><img src="examples/class-go.svg" width="400" alt="Go — Wayfinder" /></td>
+<td><img src="examples/class-java.svg" width="400" alt="Java — Grand Chancellor" /></td>
+</tr>
+<tr>
+<td><img src="examples/class-cpp.svg" width="400" alt="C++ — Overlord" /></td>
+<td><img src="examples/class-csharp.svg" width="400" alt="C# — Archsmith" /></td>
+</tr>
+<tr>
+<td><img src="examples/class-ruby.svg" width="400" alt="Ruby — Grand Maestro" /></td>
+<td><img src="examples/class-php.svg" width="400" alt="PHP — Master Artificer" /></td>
+</tr>
+<tr>
+<td><img src="examples/class-kotlin.svg" width="400" alt="Kotlin — Paragon" /></td>
+<td><img src="examples/class-swift.svg" width="400" alt="Swift — Grand Duelist" /></td>
+</tr>
+</table>
+
+Any other language falls back to a generic path so every developer still gets a
+crest.
+
 ## What's on the card
 
 - **Class** — your most-used language becomes an RPG profession
@@ -85,6 +137,21 @@ Master*) so every developer still gets classed.
 | `ice`         | cyan `#56d4dd`                                        |
 | `transparent` | no background — blends into any README                |
 
+<table>
+<tr>
+<td align="center"><code>volt</code><br/><img src="examples/theme-volt.svg" width="360" alt="volt theme" /></td>
+<td align="center"><code>midnight</code><br/><img src="examples/theme-midnight.svg" width="360" alt="midnight theme" /></td>
+</tr>
+<tr>
+<td align="center"><code>sunset</code><br/><img src="examples/theme-sunset.svg" width="360" alt="sunset theme" /></td>
+<td align="center"><code>matrix</code><br/><img src="examples/theme-matrix.svg" width="360" alt="matrix theme" /></td>
+</tr>
+<tr>
+<td align="center"><code>ice</code><br/><img src="examples/theme-ice.svg" width="360" alt="ice theme" /></td>
+<td align="center"><code>transparent</code><br/><em>no background — blends into any README</em></td>
+</tr>
+</table>
+
 All motion runs once on load and settles (plus a soft glow pulse on the level),
 and cards respect `prefers-reduced-motion`.
 
@@ -113,6 +180,13 @@ Renders GitLevel cards from mock profiles — every theme, class, and tier — i
 `preview/*.svg` and a `preview/index.html` gallery. Open it in a browser to see
 the animations. Live API calls need a token; use `vercel dev` with a `.env`
 (see `.env.example`) to test the real endpoint.
+
+The curated cards embedded in this README live in `examples/` (committed, unlike
+`preview/`). Regenerate them after changing the crest art or themes:
+
+```bash
+npm run examples
+```
 
 ## How it works
 

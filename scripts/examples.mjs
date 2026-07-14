@@ -3,7 +3,10 @@
  *
  * Unlike `preview/` (gitignored, exhaustive), this writes a small curated set of
  * committed SVGs so the cards render on the GitHub repo page via relative-path
- * <img> tags. Cards are animated — they play once and settle when viewed.
+ * <img> tags. These are rendered STATIC (animation off) on purpose: a browser
+ * embedding an SVG via <img> does not advance its CSS animations, so an animated
+ * card would sit stranded at its opacity:0 start frame and show blank. The live
+ * card (served from the deployment) animates normally.
  *
  * Usage: npm run examples   (re-run whenever the crest art or themes change)
  */
@@ -27,9 +30,9 @@ const LEGENDARY = {
   stars: 24000, followers: 3400, streak: 200,
 };
 
-// The hero card at the top of the README — a mid-journey Epic so the numbers
+// The profile used for the theme showcase — a mid-journey Epic so the numbers
 // read as real rather than maxed.
-const HERO = {
+const THEME_DEMO = {
   name: "Ada Vega", login: "adavega",
   commits: 3200, closedIssues: 210, mergedPRs: 430, reposCreated: 48,
   stars: 12500, followers: 420, streak: 66,
@@ -37,11 +40,9 @@ const HERO = {
 };
 
 const files = [];
-const card = (profile, opts) => renderGitLevelCard(computeCharacter(profile), opts);
+const card = (profile, opts) =>
+  renderGitLevelCard(computeCharacter(profile), { ...opts, animation: false });
 const safe = (l) => l.toLowerCase().replace(/\+/g, "p").replace(/#/g, "sharp").replace(/[^a-z0-9]+/g, "");
-
-// Hero.
-files.push(["hero.svg", card(HERO, { colors: themes.volt })]);
 
 // One Legendary card per class — the emblem gallery.
 for (const l of Object.keys(CLASS_PATHS)) {
@@ -49,15 +50,9 @@ for (const l of Object.keys(CLASS_PATHS)) {
   files.push([`class-${safe(l)}.svg`, card(profile, { colors: themes.volt })]);
 }
 
-// The creator's edition (login-gated bespoke sigil).
-files.push(["creator.svg", card({
-  ...LEGENDARY, name: "Gavin Tan", login: "GavinnnTann",
-  languages: [lang("Python"), lang("Rust")],
-}, { colors: themes.volt })]);
-
-// The hero profile across the built-in themes.
+// The same profile across the built-in themes.
 for (const name of ["volt", "midnight", "sunset", "matrix", "ice"]) {
-  files.push([`theme-${name}.svg`, card(HERO, { colors: themes[name] })]);
+  files.push([`theme-${name}.svg`, card(THEME_DEMO, { colors: themes[name] })]);
 }
 
 await mkdir(outDir, { recursive: true });

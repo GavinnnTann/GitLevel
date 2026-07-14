@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="500" height="210" viewBox="0 0 500 210" role="img" aria-labelledby="card-title-a11y card-desc-a11y">
+<title id="card-title-a11y">Ada Vega — Level 35 TypeScript Justicar (Epic)</title>
+<desc id="card-desc-a11y">Epic TypeScript Justicar, subclass Rust Guardian. Level 35, 129200 XP (94% to next). Fame +1670, Combo x66.</desc>
+<style>
+text { font-family: 'Segoe UI', Ubuntu, 'Helvetica Neue', sans-serif; }
+.title { font-size: 18px; font-weight: 600; fill: #39d353; }
+.title-icon { fill: #39d353; }
+.icon { fill: #39d353; }
+
+
+.gl-name { font-size: 21px; font-weight: 700; fill: #39d353; }
+.gl-lvl { font-size: 15px; font-weight: 800; letter-spacing: 1.5px; fill: #39d353; }
+.gl-class { font-size: 17px; font-weight: 700; fill: #3178c6; }
+.gl-sub { font-size: 13px; font-weight: 600; fill: #9ff0a9; opacity: 0.75; }
+.gl-meta { font-size: 11px; fill: #9ff0a9; opacity: 0.7; }
+.gl-pct { font-size: 16px; font-weight: 800; fill: #39d353; }
+.gl-chip-label { font-size: 12px; font-weight: 600; fill: #9ff0a9; }
+.gl-chip-value { font-size: 12px; font-weight: 800; fill: #3178c6; }
+.gl-hint { font-size: 10px; fill: #9ff0a9; opacity: 0.62; }
+.gl-rarity { font-size: 9px; font-weight: 700; letter-spacing: 2.5px; fill: #a371f7; }
+
+</style>
+<defs><linearGradient id="card-bg" x1="0" y1="0" x2="1" y2="1" gradientTransform="rotate(90, 0.5, 0.5)"><stop offset="0.0%" stop-color="#071108"/><stop offset="100.0%" stop-color="#0c2213"/></linearGradient><filter id="card-glow" x="-50%" y="-50%" width="200%" height="200%">
+    <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="blur"/>
+    <feFlood flood-color="#39d353" flood-opacity="0.55" result="tint"/>
+    <feComposite in="tint" in2="blur" operator="in" result="softGlow"/>
+    <feMerge><feMergeNode in="softGlow"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter><filter id="gl-glow" x="-60%" y="-60%" width="220%" height="220%">
+    <feGaussianBlur in="SourceGraphic" stdDeviation="2.4" result="b"/>
+    <feFlood flood-color="#3178c6" flood-opacity="0.55" result="t"/>
+    <feComposite in="t" in2="b" operator="in" result="g"/>
+    <feMerge><feMergeNode in="g"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <filter id="gl-rarity" x="-20%" y="-20%" width="140%" height="140%">
+    <feGaussianBlur stdDeviation="2.4"/>
+  </filter></defs>
+<rect x="0.5" y="0.5" width="499" height="209" rx="14" fill="url(#card-bg)" stroke="#a371f7" stroke-width="1.4" stroke-opacity="0.6"/>
+<rect x="3.5" y="3.5" width="493" height="203" rx="11" fill="none" stroke="#1d3b24" stroke-opacity="0.4"/>
+
+<rect x="2" y="2" width="496" height="206" rx="13" fill="none" stroke="#a371f7" stroke-width="3.5" stroke-opacity="0.4" filter="url(#gl-rarity)"/>
+<g class="fade">
+    <g class="">
+      <g class="flourish"><g transform="translate(84,0)"><g transform="translate(0,98)" fill="#3178c6">
+    <path d="M20 0 Q 40 -12 50 2 Q 36 -2 28 4 Z" opacity="0.82"/>
+    <path d="M21 6 Q 38 0 48 16 Q 34 9 28 11 Z" opacity="0.64"/>
+    <path d="M22 12 Q 34 12 44 24 Q 32 17 27 17 Z" opacity="0.48"/>
+  </g></g><g transform="translate(84,0) scale(-1,1)"><g transform="translate(0,98)" fill="#3178c6">
+    <path d="M20 0 Q 40 -12 50 2 Q 36 -2 28 4 Z" opacity="0.82"/>
+    <path d="M21 6 Q 38 0 48 16 Q 34 9 28 11 Z" opacity="0.64"/>
+    <path d="M22 12 Q 34 12 44 24 Q 32 17 27 17 Z" opacity="0.48"/>
+  </g></g></g>
+      <circle cx="84" cy="98" r="44" fill="#3178c6" fill-opacity="0.08" stroke="#3178c6" stroke-opacity="0.35" stroke-width="1.5"/>
+      <g class="">
+    <circle cx="84" cy="98" r="38" fill="none" stroke="#3178c6" stroke-opacity="0.6" stroke-width="1.4" stroke-dasharray="1.5 7" stroke-linecap="round"/>
+    <circle cx="84" cy="98" r="34" fill="none" stroke="#3178c6" stroke-opacity="0.25" stroke-width="0.8"/>
+  </g>
+      <g class="" filter="url(#gl-glow)"><svg class="" x="51" y="65" width="66" height="66" viewBox="0 0 48 48" aria-hidden="true"><defs><radialGradient id="tsHalo" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#3178c6" stop-opacity="0.42"/><stop offset="1" stop-color="#3178c6" stop-opacity="0"/></radialGradient><linearGradient id="tsMetal" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f5e5bb"/><stop offset="0.5" stop-color="#e6bf55"/><stop offset="1" stop-color="#73602b"/></linearGradient></defs>
+    <circle cx="24" cy="24" r="21" fill="url(#tsHalo)"/>
+    <path d="M24 11 l2 2 l-2 2 l-2 -2 Z" fill="#fff3c4"/>
+    <rect x="23.1" y="14" width="1.8" height="21" rx="0.6" fill="url(#tsMetal)"/>
+    <rect x="18" y="33" width="12" height="2.4" rx="0.8" fill="url(#tsMetal)"/>
+    <path d="M9 17 H39" stroke="url(#tsMetal)" stroke-width="2.2" stroke-linecap="round"/>
+    <g stroke="#e6bf55" stroke-width="0.8" stroke-opacity="0.8"><path d="M11 17 L7 24 M11 17 L15 24 M37 17 L33 24 M37 17 L41 24"/></g>
+    <g transform="translate(5 24)"><path d="M0 0 Q6 8 12 0 Z" fill="url(#tsMetal)" stroke="#b8860b" stroke-width="0.5"/></g>
+    <g transform="translate(31 24)"><path d="M0 0 Q6 8 12 0 Z" fill="url(#tsMetal)" stroke="#b8860b" stroke-width="0.5"/></g></svg></g>
+      
+    </g>
+    <g><g class="" transform="translate(49.5, 150.5) scale(0.625)" fill="#a371f7" stroke="#a371f7" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" opacity="1">
+    <path d="M12 3 L14.5 8.6 L20.6 9.3 L16 13.5 L17.4 19.6 L12 16.5 L6.6 19.6 L8 13.5 L3.4 9.3 L9.5 8.6 Z"/>
+  </g><g class="" transform="translate(67.5, 150.5) scale(0.625)" fill="#a371f7" stroke="#a371f7" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" opacity="1">
+    <path d="M12 3 L14.5 8.6 L20.6 9.3 L16 13.5 L17.4 19.6 L12 16.5 L6.6 19.6 L8 13.5 L3.4 9.3 L9.5 8.6 Z"/>
+  </g><g class="" transform="translate(85.5, 150.5) scale(0.625)" fill="#a371f7" stroke="#a371f7" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" opacity="1">
+    <path d="M12 3 L14.5 8.6 L20.6 9.3 L16 13.5 L17.4 19.6 L12 16.5 L6.6 19.6 L8 13.5 L3.4 9.3 L9.5 8.6 Z"/>
+  </g><g class="" transform="translate(103.5, 150.5) scale(0.625)" fill="#9ff0a9" stroke="#9ff0a9" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" opacity="0.22">
+    <path d="M12 3 L14.5 8.6 L20.6 9.3 L16 13.5 L17.4 19.6 L12 16.5 L6.6 19.6 L8 13.5 L3.4 9.3 L9.5 8.6 Z"/>
+  </g></g>
+    <text class="gl-rarity" x="84" y="178" text-anchor="middle">EPIC</text>
+  </g>
+<g class="fade" style="animation-delay:.15s">
+    <text class="gl-name" x="150" y="54">Ada Vega</text>
+    <text class="gl-lvl glow-pulse" x="474" y="52" text-anchor="end" filter="url(#gl-glow)">LV 35</text>
+    <line x1="150" y1="64" x2="474" y2="64" stroke="#3178c6" stroke-opacity="0.22" stroke-width="1"/>
+
+    <circle cx="154" cy="83" r="4" fill="#3178c6"/>
+    <text class="gl-class" x="166" y="88">TypeScript Justicar</text>
+    <text class="gl-sub" x="150" y="107">Subclass · Rust Guardian</text>
+
+    <text class="gl-meta" x="150" y="131">129.2k / 129.6k XP</text>
+    <text class="gl-pct " x="474" y="132" text-anchor="end">94%</text>
+    <rect x="150" y="139" width="324" height="10" rx="5" fill="#9ff0a9" fill-opacity="0.14"/>
+    <rect class="xp-fill " x="150" y="139" width="305.7464788732394" height="10" rx="5" fill="#39d353" filter="url(#gl-glow)"/>
+    <text class="gl-hint" x="150" y="164">400 XP to Lv 36 — almost there!</text>
+
+    <g transform="translate(150, 190)">
+      <svg class="icon" x="0" y="-11" width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path fill-rule="evenodd" d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25zm0 2.445L6.615 5.5a.75.75 0 0 1-.564.41l-3.097.45 2.24 2.184a.75.75 0 0 1 .216.664l-.528 3.084 2.769-1.456a.75.75 0 0 1 .698 0l2.77 1.456-.53-3.084a.75.75 0 0 1 .216-.664l2.24-2.183-3.096-.45a.75.75 0 0 1-.564-.41L8 2.694v.001z"/></svg>
+      <text class="gl-chip-label" x="22" y="0">Fame</text>
+      <text class="gl-chip-value" x="64" y="0">+1670</text>
+    </g>
+    <g transform="translate(284, 190)">
+      <svg class="icon" x="0" y="-11" width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path fill-rule="evenodd" d="M8 1c1.7 2.3 4.2 4 4.2 7.1a4.2 4.2 0 0 1-8.4 0c0-1.1.4-2 1.1-2.8-.1 1 .5 1.8 1.4 1.9-.1-1.9.6-3.7 1.8-5.1.1 1 .6 1.6 1.4 1.9.1-1.4-.5-2.7-1.5-3.9z"/></svg>
+      <text class="gl-chip-label" x="22" y="0">Combo</text>
+      <text class="gl-chip-value" x="80" y="0">x66</text>
+    </g>
+  </g>
+</svg>

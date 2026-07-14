@@ -8,7 +8,8 @@
     "node": ">=18"
   },
   "scripts": {
-    "preview": "node scripts/preview.mjs"
+    "preview": "node scripts/preview.mjs",
+    "examples": "node scripts/examples.mjs"
   },
   "repository": {
     "type": "git",
