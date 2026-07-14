@@ -240,10 +240,19 @@ and cards respect `prefers-reduced-motion`.
    import your repo. Zero config needed.
 4. **Add the env var:** Project → Settings → Environment Variables →
    `GITHUB_TOKEN = <your token>`. Optionally add `PAT_1`, `PAT_2`, … for token
-   rotation (a random one is used per request). Redeploy.
+   rotation (a random one is used per request, spreading the rate-limit budget).
+   Redeploy.
 5. **Test:** open `https://your-deployment.vercel.app/api/card?username=YOUR_LOGIN`.
 
 The token stays server-side and serves every viewer of your deployment.
+
+**Optional env vars**
+
+| Env var                 | Default  | Notes                                                        |
+| ----------------------- | -------- | ------------------------------------------------------------ |
+| `GITHUB_TOKEN`          | —        | required; public read is enough                              |
+| `PAT_1`, `PAT_2`, …     | —        | extra tokens; one is picked at random per request            |
+| `PROFILE_CACHE_TTL_MS`  | `600000` | in-memory per-user cache TTL (10 min) — see How it works     |
 
 ## Local preview (no token needed)
 
@@ -267,11 +276,17 @@ npm run examples
 
 ```
 README <img> → GitHub Camo → /api/card (Vercel serverless, holds the token)
-             → GitHub GraphQL → stat engine → hand-rolled animated SVG
+             → per-user cache → GitHub GraphQL → stat engine → animated SVG
              → Cache-Control headers so Camo/CDN absorb repeat views
 ```
 
 - **Zero runtime dependencies** — `fetch` + template strings, nothing else.
+- **Two caching layers.** The CDN (`Cache-Control`) caches each *rendered URL*.
+  Behind it, a per-warm-instance cache keyed on **username alone** holds the raw
+  GraphQL payload, so the same user in six themes is six CDN keys but **one** API
+  call. Rendering params are applied after the cache, never multiplying requests.
+- **Rate-limit budget** (`rateLimit { remaining resetAt }`) is logged on every
+  live fetch, so quota pressure is diagnosable in the deployment logs.
 - Errors never break the image slot: unknown user, rate limits, and bad tokens
   all render a small error SVG with HTTP 200.
 - All query params are validated/escaped before touching SVG markup.

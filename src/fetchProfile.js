@@ -12,8 +12,37 @@ import { githubGraphQL, pickToken, StatsError } from "./github.js";
 
 const FALLBACK_COLOR = "#8b949e";
 
+/**
+ * Per-warm-instance cache of normalized profiles, keyed by username alone. A
+ * serverless lambda is reused between invocations, so this collapses repeated
+ * requests for the same user into one GraphQL call: a card embedded in six
+ * themes is six distinct CDN URLs (six cache keys) but resolves to a single API
+ * hit within the TTL. Rendering params (theme, colours, width) are applied by
+ * the renderer *after* this layer, so they never multiply API calls.
+ *
+ * TTL is short by default (freshness > savings); tune via PROFILE_CACHE_TTL_MS.
+ */
+const PROFILE_TTL_MS = Number(process.env.PROFILE_CACHE_TTL_MS) || 10 * 60 * 1000;
+const PROFILE_CACHE_MAX = 500; // bound memory on long-lived warm instances
+const profileCache = new Map();
+
+function cacheGet(key) {
+  const hit = profileCache.get(key);
+  if (hit && hit.expires > Date.now()) return hit.profile;
+  if (hit) profileCache.delete(key); // expired
+  return null;
+}
+
+function cacheSet(key, profile) {
+  if (profileCache.size >= PROFILE_CACHE_MAX) {
+    profileCache.delete(profileCache.keys().next().value); // evict oldest (FIFO)
+  }
+  profileCache.set(key, { profile, expires: Date.now() + PROFILE_TTL_MS });
+}
+
 const PROFILE_QUERY = `
 query gitlevel($login: String!) {
+  rateLimit { limit cost remaining resetAt }
   user(login: $login) {
     name
     login
@@ -76,8 +105,19 @@ function currentStreak(calendar) {
 }
 
 export async function fetchProfile({ username }) {
+  const key = username.toLowerCase();
+  const cached = cacheGet(key);
+  if (cached) return cached;
+
   const token = pickToken();
   const data = await githubGraphQL(PROFILE_QUERY, { login: username }, token);
+
+  // Rate-limit budget is diagnosable in the deployment logs rather than mysterious.
+  const rl = data?.rateLimit;
+  if (rl) {
+    console.log(`[gitlevel] GraphQL rateLimit: ${rl.remaining}/${rl.limit} remaining (cost ${rl.cost}, resets ${rl.resetAt})`);
+  }
+
   const user = data?.user;
   if (!user) {
     throw new StatsError("USER_NOT_FOUND", "User not found", "Double-check the username in the card URL");
@@ -90,7 +130,7 @@ export async function fetchProfile({ username }) {
     ? (Date.now() - Date.parse(user.createdAt)) / (365.25 * 24 * 3600 * 1000)
     : 0;
 
-  return {
+  const profile = {
     name: user.name || user.login,
     login: user.login,
     accountAgeYears,
@@ -104,4 +144,6 @@ export async function fetchProfile({ username }) {
     streak: currentStreak(contribs.contributionCalendar),
     languages: aggregateLanguages(repos),
   };
+  cacheSet(key, profile);
+  return profile;
 }
