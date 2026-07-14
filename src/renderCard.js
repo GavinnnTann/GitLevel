@@ -46,7 +46,7 @@ export function renderGitLevelCard(character, {
   const pct = Math.round(progress * 100);
   const nearLevel = progress >= 0.9; // "so close to LV up" — pulse it
   const fillW = Math.max(0, barW * progress);
-  const stars = (cls.tier ?? 0) + 1; // 1..4 filled
+  const stars = (cls.tier ?? 0) + 1; // 1..5 filled (Common..Mythic)
 
   const css = `
 .gl-name { font-size: 21px; font-weight: 700; fill: ${colors.title}; }
@@ -109,8 +109,8 @@ ${nearLevel ? ".near-pulse { animation: glNear 1.3s ease-in-out infinite 1.6s; }
       <g class="${animation ? "crest-pop" : ""}" filter="url(#gl-glow)">${crestArt}</g>
       ${theCrown}
     </g>
-    <g>${[0, 1, 2, 3].map((i) => solidStar(
-        CREST.cx - 27 + i * 18, CREST.cy + CREST.r + 16, 15,
+    <g>${[0, 1, 2, 3, 4].map((i) => solidStar(
+        CREST.cx - 32 + i * 16, CREST.cy + CREST.r + 16, 13,
         i < stars ? rarity.color : colors.text,
         { opacity: i < stars ? 1 : 0.22, className: i < stars && animation ? "twinkle" : "" },
       )).join("")}</g>

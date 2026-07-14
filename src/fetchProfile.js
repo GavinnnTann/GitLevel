@@ -1,8 +1,8 @@
 /**
  * One GraphQL round-trip → the normalized profile GitLevel needs:
- * XP inputs (commits, closed issues, merged PRs, repos created, stars,
- * followers), the aggregated language list (→ class/subclass), and the current
- * contribution streak (→ combo).
+ * craft inputs → XP (commits, closed issues, merged PRs, PR reviews, repos
+ * created), reach inputs → Fame (stars, followers), the aggregated language
+ * list (→ class/subclass), and the current contribution streak (→ combo).
  *
  * Pure data only — no game logic here. The engine (src/engine.js) turns this
  * object into a character. Errors surface as StatsError (safe to render).
@@ -17,10 +17,12 @@ query gitlevel($login: String!) {
   user(login: $login) {
     name
     login
+    createdAt
     followers { totalCount }
     contributionsCollection {
       totalCommitContributions
       restrictedContributionsCount
+      totalPullRequestReviewContributions
       contributionCalendar {
         weeks { contributionDays { date contributionCount } }
       }
@@ -84,13 +86,18 @@ export async function fetchProfile({ username }) {
   const contribs = user.contributionsCollection ?? {};
   const repos = user.repositories?.nodes ?? [];
   const totalStars = repos.reduce((sum, r) => sum + (r?.stargazers?.totalCount ?? 0), 0);
+  const accountAgeYears = user.createdAt
+    ? (Date.now() - Date.parse(user.createdAt)) / (365.25 * 24 * 3600 * 1000)
+    : 0;
 
   return {
     name: user.name || user.login,
     login: user.login,
+    accountAgeYears,
     commits: (contribs.totalCommitContributions ?? 0) + (contribs.restrictedContributionsCount ?? 0),
     closedIssues: user.closedIssues?.totalCount ?? 0,
     mergedPRs: user.mergedPRs?.totalCount ?? 0,
+    reviews: contribs.totalPullRequestReviewContributions ?? 0,
     reposCreated: user.repositories?.totalCount ?? 0,
     stars: totalStars,
     followers: user.followers?.totalCount ?? 0,

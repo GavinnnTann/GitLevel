@@ -8,31 +8,53 @@
 
 import { resolveClass, rarityForTier, creatorClassFor } from "./classes.js";
 
-export const DEFAULT_CONFIG = {
-  // XP awarded per action.
-  xp: {
-    commit: 10,
-    closedIssue: 20,
-    mergedPR: 50,
-    repoCreated: 100,
-    star: 5,
-    follower: 10,
-  },
-  // Level curve: XP needed to *reach* level L is baseXP * L^2.
-  baseXP: 100,
+/**
+ * XP awarded per contribution — the single source of truth for the curve
+ * (mirrored in README §XP & Levelling; keep them in sync).
+ *
+ * XP measures *craft/activity only* — what you built. Popularity (stars,
+ * followers) is deliberately NOT here; it lives in Fame instead, so the two
+ * stats stay orthogonal: a quiet high-level dev and a famous low-level dev read
+ * as distinct characters rather than the same thing counted twice.
+ */
+export const XP_WEIGHTS = {
+  commit: 10,
+  closedIssue: 30,
+  mergedPR: 65,
+  review: 40,       // pull-request reviews — collaboration is craft
+  repoCreated: 120,
 };
 
-/** Total XP from a profile under a config. */
-export function computeXP(profile, cfg = DEFAULT_CONFIG) {
-  const w = cfg.xp;
+/** Level curve: XP needed to *reach* level L is BASE_XP * L^2. */
+export const BASE_XP = 100;
+
+/**
+ * Tenure — years on GitHub *amplify* craft rather than adding flat XP:
+ * effectiveXP = craftXP × (1 + min(years, maxYears) × bonusPerYear).
+ * A multiplier (not a bonus) means an old but empty account still scores ~0,
+ * while a long-standing, genuinely productive dev is rewarded for the long haul
+ * — so "15 years, 20 excellent repos" can reach the top tiers on merit.
+ */
+export const TENURE = { bonusPerYear: 0.05, maxYears: 15 }; // up to +75%
+
+export const DEFAULT_CONFIG = { xp: XP_WEIGHTS, baseXP: BASE_XP, tenure: TENURE };
+
+/** Raw craft XP before tenure — commits/issues/PRs/reviews/repos only. */
+export function computeCraftXP(profile, w = XP_WEIGHTS) {
   return (
     (profile.commits ?? 0) * w.commit +
     (profile.closedIssues ?? 0) * w.closedIssue +
     (profile.mergedPRs ?? 0) * w.mergedPR +
-    (profile.reposCreated ?? 0) * w.repoCreated +
-    (profile.stars ?? 0) * w.star +
-    (profile.followers ?? 0) * w.follower
+    (profile.reviews ?? 0) * w.review +
+    (profile.reposCreated ?? 0) * w.repoCreated
   );
+}
+
+/** Total XP: craft amplified by tenure. Craft only — never popularity. */
+export function computeXP(profile, cfg = DEFAULT_CONFIG) {
+  const craft = computeCraftXP(profile, cfg.xp);
+  const years = Math.min(Math.max(profile.accountAgeYears ?? 0, 0), cfg.tenure.maxYears);
+  return Math.round(craft * (1 + years * cfg.tenure.bonusPerYear));
 }
 
 /**

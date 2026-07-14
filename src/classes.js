@@ -1,39 +1,40 @@
 /**
  * The class system: a developer's primary language is their class, their second
- * language their subclass, and their level promotes the title through four
+ * language their subclass, and their level promotes the title through five
  * tiers. Data mirrors GitLevel.md / classes.md.
  *
  *   symbol   — key into src/classIcons.js (the crest glyph)
  *   color    — the class's signature accent (used to tint the crest)
  *   flourish — the elite decoration added to the crest at Tier 3+
  *              ("wings" | "banner" | "laurel"), per classes.md's global rules
- *   tiers    — [T1 (Lv 1-10), T2 (11-25), T3 (26-50), T4 (51+)] titles
+ *   tiers    — five titles by rarity band (see tierForLevel):
+ *              [Common, Rare, Epic, Legendary, Mythic]
  *
  * Keys are GitHub's exact language names. Anything unmapped falls back to a
  * generic path so every developer still gets a class.
  */
 
 export const CLASS_PATHS = {
-  Python:     { symbol: "eye",        color: "#4b8bbe", flourish: "wings",  tiers: ["Adept", "Oracle", "Seer", "Archoracle"] },
-  TypeScript: { symbol: "scales",     color: "#3178c6", flourish: "wings",  tiers: ["Scribe", "Arbiter", "Justicar", "High Arbiter"] },
-  JavaScript: { symbol: "dagger",     color: "#f1e05a", flourish: "wings",  tiers: ["Wanderer", "Maverick", "Outrider", "Legend"] },
-  Rust:       { symbol: "shield",     color: "#dea584", flourish: "wings",  tiers: ["Watchman", "Sentinel", "Guardian", "Eternal Guardian"] },
-  Go:         { symbol: "compass",    color: "#00add8", flourish: "banner", tiers: ["Explorer", "Pathfinder", "Trailblazer", "Wayfinder"] },
-  Java:       { symbol: "throne",     color: "#e76f00", flourish: "banner", tiers: ["Steward", "Chancellor", "Magistrate", "Grand Chancellor"] },
-  "C++":      { symbol: "greatsword", color: "#f34b7d", flourish: "banner", tiers: ["Soldier", "Warlord", "Conqueror", "Overlord"] },
-  "C#":       { symbol: "hammer",     color: "#a371f7", flourish: "wings",  tiers: ["Enchanter", "Spellsmith", "Spellmaster", "Archsmith"] },
-  Ruby:       { symbol: "lyre",       color: "#cc342d", flourish: "laurel", tiers: ["Performer", "Virtuoso", "Maestro", "Grand Maestro"] },
-  PHP:        { symbol: "gear",       color: "#8a91d0", flourish: "banner", tiers: ["Tinkerer", "Artificer", "Inventor", "Master Artificer"] },
-  Kotlin:     { symbol: "lotus",      color: "#b57bff", flourish: "laurel", tiers: ["Disciple", "Ascendant", "Exemplar", "Paragon"] },
-  Swift:      { symbol: "rapier",     color: "#f05138", flourish: "laurel", tiers: ["Fencer", "Duelist", "Champion", "Grand Duelist"] },
+  Python:     { symbol: "eye",        color: "#4b8bbe", flourish: "wings",  tiers: ["Adept", "Oracle", "Seer", "Archoracle", "Godseer"] },
+  TypeScript: { symbol: "scales",     color: "#3178c6", flourish: "wings",  tiers: ["Scribe", "Arbiter", "Justicar", "High Arbiter", "Lawgiver"] },
+  JavaScript: { symbol: "dagger",     color: "#f1e05a", flourish: "wings",  tiers: ["Wanderer", "Maverick", "Outrider", "Legend", "Mythmaker"] },
+  Rust:       { symbol: "shield",     color: "#dea584", flourish: "wings",  tiers: ["Watchman", "Sentinel", "Guardian", "Eternal Guardian", "Undying"] },
+  Go:         { symbol: "compass",    color: "#00add8", flourish: "banner", tiers: ["Explorer", "Pathfinder", "Trailblazer", "Wayfinder", "Worldwalker"] },
+  Java:       { symbol: "throne",     color: "#e76f00", flourish: "banner", tiers: ["Steward", "Chancellor", "Magistrate", "Grand Chancellor", "Sovereign"] },
+  "C++":      { symbol: "greatsword", color: "#f34b7d", flourish: "banner", tiers: ["Soldier", "Warlord", "Conqueror", "Overlord", "Warbringer"] },
+  "C#":       { symbol: "hammer",     color: "#a371f7", flourish: "wings",  tiers: ["Enchanter", "Spellsmith", "Spellmaster", "Archsmith", "Runelord"] },
+  Ruby:       { symbol: "lyre",       color: "#cc342d", flourish: "laurel", tiers: ["Performer", "Virtuoso", "Maestro", "Grand Maestro", "Luminary"] },
+  PHP:        { symbol: "gear",       color: "#8a91d0", flourish: "banner", tiers: ["Tinkerer", "Artificer", "Inventor", "Master Artificer", "Demiurge"] },
+  Kotlin:     { symbol: "lotus",      color: "#b57bff", flourish: "laurel", tiers: ["Disciple", "Ascendant", "Exemplar", "Paragon", "Ascended"] },
+  Swift:      { symbol: "rapier",     color: "#f05138", flourish: "laurel", tiers: ["Fencer", "Duelist", "Champion", "Grand Duelist", "Blademaster"] },
 };
 
 /**
  * Creator's edition — the developers who built GitLevel get a unique class that
  * overrides their language entirely: a bespoke gold sigil (see `creatorSigil` in
- * portraits.js, keyed by `language: "Creator"`), a custom title, and full
- * Legendary regalia (tier 3 → gold frame, crown, rune ring, 4 stars) regardless
- * of real level. Match is case-insensitive on GitHub login. Add logins here.
+ * portraits.js, keyed by `language: "Creator"`), a custom title, and full Mythic
+ * regalia (tier 4 → frame, crown, rune ring, 5 stars) regardless of real level.
+ * Match is case-insensitive on GitHub login. Add logins here.
  */
 export const CREATOR_LOGINS = new Set(["gavinnntann"]);
 
@@ -46,7 +47,7 @@ export function creatorClassFor(login) {
     symbol: "rune",               // fallback glyph (a portrait exists, so unused)
     color: "#ffd873",             // signature gold — tints crest + class name
     flourish: null,               // the sigil carries its own wings; don't double up
-    tier: 3,                      // always Legendary
+    tier: 4,                      // always Mythic (the pinnacle)
     creator: true,
   };
 }
@@ -54,30 +55,36 @@ export function creatorClassFor(login) {
 /** Any language without a dedicated path still gets a class. */
 export const FALLBACK_PATH = {
   symbol: "rune", color: "#8b949e", flourish: "laurel",
-  tiers: ["Novice", "Adept", "Expert", "Master"],
+  tiers: ["Novice", "Adept", "Expert", "Master", "Grandmaster"],
 };
 
 /**
- * Rarity by tier — the prestige frame. Index = tier (0..3).
- * Level 1-10 Common, 11-25 Rare, 26-50 Epic, 51+ Legendary.
+ * Rarity by tier — the prestige frame. Index = tier (0..4). See tierForLevel
+ * for the level bands. Mythic (top band) is reserved for the elite few.
  */
 export const RARITIES = [
   { name: "Common",    color: "#9aa4af" },
   { name: "Rare",      color: "#58a6ff" },
   { name: "Epic",      color: "#a371f7" },
   { name: "Legendary", color: "#e3b341" },
+  { name: "Mythic",    color: "#ff5edb" },
 ];
 
 export function rarityForTier(tier) {
   return RARITIES[tier] ?? RARITIES[0];
 }
 
-/** Level → 0-based tier index (T1 Lv1-10, T2 11-25, T3 26-50, T4 51+). */
+/**
+ * Level → 0-based tier index. Front-loaded so the early tiers come quickly and
+ * strong contributors reach Legendary, while Mythic stays a rare summit:
+ *   Common 1–5 · Rare 6–14 · Epic 15–28 · Legendary 29–54 · Mythic 55+
+ */
 export function tierForLevel(level) {
-  if (level <= 10) return 0;
-  if (level <= 25) return 1;
-  if (level <= 50) return 2;
-  return 3;
+  if (level <= 5) return 0;
+  if (level <= 14) return 1;
+  if (level <= 28) return 2;
+  if (level <= 54) return 3;
+  return 4;
 }
 
 /**
