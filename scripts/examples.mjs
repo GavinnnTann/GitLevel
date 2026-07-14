@@ -19,6 +19,7 @@ import { computeCharacter } from "../src/engine.js";
 import { renderGitLevelCard } from "../src/renderCard.js";
 import { themes } from "../src/themes.js";
 import { CLASS_PATHS } from "../src/classes.js";
+import { hasPortrait } from "../src/portraits.js";
 
 const outDir = path.join(path.dirname(fileURLToPath(import.meta.url)), "..", "examples");
 const lang = (name) => ({ name, color: "#888", size: 1 });
@@ -44,8 +45,10 @@ const card = (profile, opts) =>
   renderGitLevelCard(computeCharacter(profile), { ...opts, animation: false });
 const safe = (l) => l.toLowerCase().replace(/\+/g, "p").replace(/#/g, "sharp").replace(/[^a-z0-9]+/g, "");
 
-// One Legendary card per class — the emblem gallery.
-for (const l of Object.keys(CLASS_PATHS)) {
+// One Legendary card per flagship class — the emblem gallery embedded in the
+// README. Restricted to languages with a rich portrait (the other, glyph-only
+// classes are listed in the README class table but not showcased here).
+for (const l of Object.keys(CLASS_PATHS).filter(hasPortrait)) {
   const profile = { ...LEGENDARY, name: `${l} Dev`, login: "x", languages: [lang(l), lang("Go")] };
   files.push([`class-${safe(l)}.svg`, card(profile, { colors: themes.volt })]);
 }
