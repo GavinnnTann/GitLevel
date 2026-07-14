@@ -7,3 +7,5 @@ preview/
 .DS_Store
 docs/
 
+
+.vercel
