@@ -1,0 +1,4 @@
+# Normalize line endings so forks on any OS get consistent diffs.
+* text=auto eol=lf
+*.png binary
+*.svg text eol=lf

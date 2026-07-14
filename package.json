@@ -1,0 +1,28 @@
+{
+  "name": "gitlevel",
+  "version": "1.0.0",
+  "description": "Level up your GitHub profile — an RPG character card (class, level, XP, fame, combo) rendered as an animated SVG from your own Vercel deployment.",
+  "type": "module",
+  "private": true,
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "preview": "node scripts/preview.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GavinnnTann/gitlevel"
+  },
+  "keywords": [
+    "github",
+    "rpg",
+    "gamification",
+    "svg",
+    "readme",
+    "vercel",
+    "serverless"
+  ],
+  "author": "GavinnnTann",
+  "license": "MIT"
+}

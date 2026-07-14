@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>GitLevel — Level up your GitHub profile</title>
+<meta name="description" content="Turn your GitHub activity into an RPG character card — class, level, XP, fame and combo — for embedding in your README." />
+<link rel="icon" href="/favicon.ico" sizes="any" />
+<link rel="icon" type="image/png" href="/icon.png" />
+<link rel="apple-touch-icon" href="/icon.png" />
+<meta property="og:title" content="GitLevel — Level up your GitHub profile" />
+<meta property="og:description" content="Turn your GitHub activity into an RPG character card for your README." />
+<meta property="og:image" content="/icon.png" />
+<meta property="og:type" content="website" />
+<style>
+  :root {
+    --navy: #0b1630;
+    --navy-2: #0d1b3a;
+    --panel: #101f42;
+    --gold: #e3b341;
+    --gold-lt: #ffd873;
+    --blue: #58a6ff;
+    --text: #c9d6ef;
+    --muted: #8ba0c8;
+    --line: #22345f;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', Ubuntu, 'Helvetica Neue', sans-serif;
+    color: var(--text);
+    background:
+      radial-gradient(1200px 600px at 50% -10%, #16295a 0%, transparent 60%),
+      linear-gradient(180deg, var(--navy-2), var(--navy));
+    min-height: 100vh;
+    line-height: 1.6;
+  }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 56px 24px 72px; }
+  header { text-align: center; }
+  header img { width: 148px; height: 148px; border-radius: 26px; box-shadow: 0 12px 40px rgba(0,0,0,.5); }
+  h1 {
+    margin: 22px 0 6px;
+    font-size: 44px;
+    letter-spacing: .5px;
+    background: linear-gradient(180deg, var(--gold-lt), var(--gold));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .tag { color: var(--muted); font-size: 18px; margin: 0; }
+  .demo { margin: 40px auto 8px; text-align: center; }
+  .demo img { max-width: 100%; height: auto; filter: drop-shadow(0 10px 30px rgba(0,0,0,.45)); }
+  .demo figcaption { color: var(--muted); font-size: 13px; margin-top: 10px; }
+  section { margin-top: 44px; }
+  h2 { color: #e8eefb; font-size: 22px; margin: 0 0 14px; }
+  h2 .n { color: var(--gold); font-variant-numeric: tabular-nums; margin-right: 8px; }
+  p { margin: 0 0 14px; }
+  code, pre { font-family: 'SF Mono', 'Cascadia Code', Consolas, monospace; }
+  pre {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 16px 18px;
+    overflow-x: auto;
+    font-size: 13.5px;
+    color: #d7e2fb;
+    position: relative;
+  }
+  pre code { color: inherit; }
+  .hl { color: var(--gold-lt); }
+  .copy {
+    position: absolute; top: 10px; right: 10px;
+    background: #1a2c56; color: var(--text); border: 1px solid var(--line);
+    border-radius: 7px; padding: 5px 10px; font-size: 12px; cursor: pointer;
+  }
+  .copy:hover { background: #223a70; color: #fff; }
+  ul.params { list-style: none; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 10px 24px; }
+  ul.params li { border-bottom: 1px dashed var(--line); padding-bottom: 8px; }
+  ul.params code { color: var(--gold-lt); }
+  ul.params span { color: var(--muted); font-size: 13.5px; }
+  .themes { display: flex; flex-wrap: wrap; gap: 8px; }
+  .themes a {
+    text-decoration: none; color: var(--text);
+    background: var(--panel); border: 1px solid var(--line);
+    border-radius: 999px; padding: 6px 14px; font-size: 13.5px;
+  }
+  .themes a:hover { border-color: var(--gold); color: var(--gold-lt); }
+  footer { margin-top: 56px; text-align: center; color: var(--muted); font-size: 13.5px; border-top: 1px solid var(--line); padding-top: 22px; }
+  footer a { color: var(--blue); text-decoration: none; }
+  @media (max-width: 560px) {
+    h1 { font-size: 34px; }
+    ul.params { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <img src="/icon.png" alt="GitLevel logo — a crowned shield with a winged staff" />
+    <h1>GitLevel</h1>
+    <p class="tag">Level up your GitHub profile.</p>
+  </header>
+
+  <figure class="demo">
+    <img src="/api/card?username=GavinnnTann" alt="Example GitLevel character card" width="500" />
+    <figcaption>A live GitLevel card, rendered from real GitHub activity.</figcaption>
+  </figure>
+
+  <section>
+    <p>GitLevel turns your GitHub activity into an RPG-style <strong>character card</strong> — your language becomes your
+    <em>class</em>, your contributions become <em>XP</em> and <em>levels</em>, and your followers and stars become <em>fame</em>.
+    Drop it into your profile README and let your commit history speak in swords and spellbooks.</p>
+  </section>
+
+  <section>
+    <h2><span class="n">1</span>Add it to your README</h2>
+    <p>Paste this into your GitHub profile README and swap in your own username — that's the only thing you change:</p>
+    <pre><button class="copy" onclick="copyCode(this)">Copy</button><code>![GitLevel](https://YOUR-DEPLOYMENT.vercel.app/api/card?username=<span class="hl">YOUR_GITHUB_USERNAME</span>)</code></pre>
+    <p style="color:var(--muted);font-size:13.5px">No token, no fork, no setup — you only supply your username. Cards are cached, so repeated README views stay fast.</p>
+  </section>
+
+  <section>
+    <h2><span class="n">2</span>Pick a theme</h2>
+    <p>Append <code style="color:var(--gold-lt)">&amp;theme=NAME</code> to the URL:</p>
+    <div class="themes">
+      <a href="/api/card?username=GavinnnTann&amp;theme=volt">volt</a>
+      <a href="/api/card?username=GavinnnTann&amp;theme=midnight">midnight</a>
+      <a href="/api/card?username=GavinnnTann&amp;theme=sunset">sunset</a>
+      <a href="/api/card?username=GavinnnTann&amp;theme=ice">ice</a>
+      <a href="/api/card?username=GavinnnTann&amp;theme=matrix">matrix</a>
+      <a href="/api/card?username=GavinnnTann&amp;theme=transparent">transparent</a>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="n">3</span>Tweak it</h2>
+    <ul class="params">
+      <li><code>theme</code> <span>— color palette (see above)</span></li>
+      <li><code>hide_border</code> <span>— true / false</span></li>
+      <li><code>border_radius</code> <span>— corner rounding (0–60)</span></li>
+      <li><code>card_width</code> <span>— width in px (440–800)</span></li>
+      <li><code>animation</code> <span>— true / false</span></li>
+      <li><code>cache_seconds</code> <span>— cache TTL (3600–86400)</span></li>
+    </ul>
+  </section>
+
+  <footer>
+    Created by <a href="https://github.com/GavinnnTann">Gavin</a> · GitLevel is open and self-hosted on Vercel.
+  </footer>
+</div>
+
+<script>
+  function copyCode(btn) {
+    const code = btn.parentElement.querySelector('code').innerText;
+    navigator.clipboard.writeText(code).then(() => {
+      const old = btn.textContent;
+      btn.textContent = 'Copied!';
+      setTimeout(() => (btn.textContent = old), 1400);
+    });
+  }
+</script>
+</body>
+</html>
