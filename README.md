@@ -16,6 +16,10 @@ Once one person deploys it, **anyone** can use that deployment — just embed an
 <img height="220" src="https://gitlevel.vercel.app/api/card?username=GavinnnTann&theme=volt" alt="GitLevel card" />
 ```
 
+## How does it look like
+
+![GitLevel](https://gitlevel.vercel.app/api/card?username=gavinnntann&theme=volt)
+
 ## What's on the card
 
 - **Class** — your most-used language becomes an RPG profession
