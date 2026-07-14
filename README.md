@@ -186,6 +186,17 @@ Your primary language → class, promoted through five tiers by level (see
 | PHP        | Tinkerer   | Artificer  | Inventor    | Master Artificer | Demiurge    |
 | Kotlin     | Disciple   | Ascendant  | Exemplar    | Paragon          | Ascended    |
 | Swift      | Fencer     | Duelist    | Champion    | Grand Duelist    | Blademaster |
+| C          | Operator   | Machinist  | Systemwright| Kernel Lord      | Machine God |
+| Zig        | Kindler    | Voltmage   | Tempest     | Stormlord        | Thunderking |
+| Lua        | Moonling   | Lunar Adept| Moon Sage   | Selenarch        | Moonlord    |
+| Verilog / VHDL | Drafter | Circuitwright | Logic Architect | Chip Lord   | Silicon Sovereign |
+| Elixir     | Brewer     | Alchemist  | Potion Sage | Grand Alchemist  | Philosopher |
+| Haskell    | Scholar    | Lambda Adept| Monadic Sage| Category Archon | The Pure    |
+| Shell      | Scripter   | Shellbinder| Daemoncaller| Terminal Lord    | Root Sovereign |
+| Dart       | Thrower    | Marksman   | Sharpshooter| Deadeye          | Truesight   |
+| Scala      | Climber    | Ridgewright| Summit Sage | Peak Lord        | Skybreaker  |
+| R          | Analyst    | Statmage   | Data Augur  | Grand Statistician | Numbermancer |
+| SQL        | Clerk      | Archivist  | Query Weaver| Grand Archivist  | Data Warden |
 
 Any other language falls back to a generic path (*Novice → Adept → Expert →
 Master → Grandmaster*) so every developer still gets classed.

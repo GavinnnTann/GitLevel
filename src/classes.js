@@ -27,6 +27,22 @@ export const CLASS_PATHS = {
   PHP:        { symbol: "gear",       color: "#8a91d0", flourish: "banner", tiers: ["Tinkerer", "Artificer", "Inventor", "Master Artificer", "Demiurge"] },
   Kotlin:     { symbol: "lotus",      color: "#b57bff", flourish: "laurel", tiers: ["Disciple", "Ascendant", "Exemplar", "Paragon", "Ascended"] },
   Swift:      { symbol: "rapier",     color: "#f05138", flourish: "laurel", tiers: ["Fencer", "Duelist", "Champion", "Grand Duelist", "Blademaster"] },
+
+  // Systems, hardware, and long-tail languages — bespoke ladders so these devs
+  // get a real class instead of the generic fallback. (Crest glyphs live in
+  // classIcons.js; rich portraits are a follow-up — these render the line glyph.)
+  C:          { symbol: "chip",       color: "#659ad2", flourish: "banner", tiers: ["Operator", "Machinist", "Systemwright", "Kernel Lord", "Machine God"] },
+  Zig:        { symbol: "bolt",       color: "#ec915c", flourish: "wings",  tiers: ["Kindler", "Voltmage", "Tempest", "Stormlord", "Thunderking"] },
+  Lua:        { symbol: "moon",       color: "#6b7bd6", flourish: "laurel", tiers: ["Moonling", "Lunar Adept", "Moon Sage", "Selenarch", "Moonlord"] },
+  Verilog:    { symbol: "circuit",    color: "#b2b7f8", flourish: "banner", tiers: ["Drafter", "Circuitwright", "Logic Architect", "Chip Lord", "Silicon Sovereign"] },
+  VHDL:       { symbol: "circuit",    color: "#adb2cb", flourish: "banner", tiers: ["Drafter", "Circuitwright", "Logic Architect", "Chip Lord", "Silicon Sovereign"] },
+  Elixir:     { symbol: "flask",      color: "#a06fb5", flourish: "laurel", tiers: ["Brewer", "Alchemist", "Potion Sage", "Grand Alchemist", "Philosopher"] },
+  Haskell:    { symbol: "lambda",     color: "#8f7fd8", flourish: "wings",  tiers: ["Scholar", "Lambda Adept", "Monadic Sage", "Category Archon", "The Pure"] },
+  Shell:      { symbol: "prompt",     color: "#89e051", flourish: "banner", tiers: ["Scripter", "Shellbinder", "Daemoncaller", "Terminal Lord", "Root Sovereign"] },
+  Dart:       { symbol: "target",     color: "#4bc0b8", flourish: "laurel", tiers: ["Thrower", "Marksman", "Sharpshooter", "Deadeye", "Truesight"] },
+  Scala:      { symbol: "peak",       color: "#dc3d54", flourish: "banner", tiers: ["Climber", "Ridgewright", "Summit Sage", "Peak Lord", "Skybreaker"] },
+  R:          { symbol: "chart",      color: "#2f9ff0", flourish: "wings",  tiers: ["Analyst", "Statmage", "Data Augur", "Grand Statistician", "Numbermancer"] },
+  SQL:        { symbol: "database",   color: "#e0a13b", flourish: "banner", tiers: ["Clerk", "Archivist", "Query Weaver", "Grand Archivist", "Data Warden"] },
 };
 
 /**

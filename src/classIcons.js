@@ -81,6 +81,62 @@ const SYMBOLS = {
     <path d="M8 15 C9 12 15 12 16 15 M12 15 V20" ${strokeAttrs(c)}/>
     <circle cx="12" cy="21" r="1.1" fill="${c}"/>`,
 
+  // C — silicon chip
+  chip: (c) => `
+    <rect x="7" y="7" width="10" height="10" rx="1.5" ${strokeAttrs(c)}/>
+    <rect x="10" y="10" width="4" height="4" fill="${c}"/>
+    <path d="M9.5 7 V4 M14.5 7 V4 M9.5 17 V20 M14.5 17 V20 M7 9.5 H4 M7 14.5 H4 M17 9.5 H20 M17 14.5 H20" ${strokeAttrs(c, 1.6)}/>`,
+
+  // Zig — lightning bolt
+  bolt: (c) => `<path d="M13 3 L6 13 H11 L9 21 L18 10 H13 Z" fill="${c}" stroke="${c}" stroke-width="1" stroke-linejoin="round"/>`,
+
+  // Lua — crescent moon
+  moon: (c) => `<path d="M15.5 3 A9 9 0 1 0 15.5 21 A7 7 0 1 1 15.5 3 Z" fill="${c}"/>`,
+
+  // Verilog / VHDL — circuit
+  circuit: (c) => `
+    <path d="M4 8 H9 M15 8 H20 M12 4 V9 M12 15 V20 M4 16 H9 M15 16 H20" ${strokeAttrs(c, 1.6)}/>
+    <circle cx="12" cy="12" r="3.2" ${strokeAttrs(c)}/>
+    <circle cx="9" cy="8" r="1.3" fill="${c}"/><circle cx="15" cy="16" r="1.3" fill="${c}"/>
+    <path d="M9.6 8.6 L10.5 10 M14.4 15.4 L13.5 14" ${strokeAttrs(c, 1.4)}/>`,
+
+  // Elixir — alchemist's flask
+  flask: (c) => `
+    <path d="M10 3.5 H14 M11 4 V9.5 L6.6 18 A2 2 0 0 0 8.4 21 H15.6 A2 2 0 0 0 17.4 18 L13 9.5 V4" ${strokeAttrs(c)}/>
+    <path d="M8.9 15 H15.1" ${strokeAttrs(c, 1.4)}/>`,
+
+  // Haskell — lambda
+  lambda: (c) => `<path d="M8 4 H10.5 L17 20 M12.8 11 L7 20" ${strokeAttrs(c, 2.2)}/>`,
+
+  // Shell / Bash — terminal prompt
+  prompt: (c) => `
+    <rect x="3.5" y="5" width="17" height="14" rx="2" ${strokeAttrs(c, 1.6)}/>
+    <path d="M7 10 L10 12.5 L7 15 M12 15 H16" ${strokeAttrs(c, 1.8)}/>`,
+
+  // Dart — bullseye
+  target: (c) => `
+    <circle cx="12" cy="12" r="8.5" ${strokeAttrs(c)}/>
+    <circle cx="12" cy="12" r="4.6" ${strokeAttrs(c, 1.6)}/>
+    <circle cx="12" cy="12" r="1.5" fill="${c}"/>`,
+
+  // Scala — summit
+  peak: (c) => `
+    <path d="M3 19 L10 7 L14 13 L16 10 L21 19 Z" ${strokeAttrs(c)}/>
+    <path d="M8 10 L10 7 L12 10" ${strokeAttrs(c, 1.4)}/>`,
+
+  // R — data bars
+  chart: (c) => `
+    <path d="M4 20 H20" ${strokeAttrs(c, 1.6)}/>
+    <rect x="6" y="12" width="3" height="6" rx="0.5" fill="${c}"/>
+    <rect x="10.5" y="7" width="3" height="11" rx="0.5" fill="${c}"/>
+    <rect x="15" y="14" width="3" height="4" rx="0.5" fill="${c}"/>`,
+
+  // SQL — database
+  database: (c) => `
+    <ellipse cx="12" cy="6" rx="7" ry="2.6" ${strokeAttrs(c)}/>
+    <path d="M5 6 V18 A7 2.6 0 0 0 19 18 V6" ${strokeAttrs(c)}/>
+    <path d="M5 12 A7 2.6 0 0 0 19 12" ${strokeAttrs(c, 1.3)}/>`,
+
   // Fallback — rune
   rune: (c) => `
     <path d="M12 3 L20 12 L12 21 L4 12 Z" ${strokeAttrs(c)}/>
