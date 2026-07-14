@@ -36,7 +36,7 @@ Or with sizing and a theme:
 ## The class gallery
 
 Your most-used language becomes your **class**, shown here at Legendary rank so
-every crest wears its full regalia (emblem · rune ring · crown · 4 stars):
+every crest wears its full regalia (emblem · rune ring · crown · 4 of 5 stars):
 
 <table>
 <tr>
@@ -73,14 +73,77 @@ crest.
 - **Class** — your most-used language becomes an RPG profession
   (Python → *Oracle*, Rust → *Sentinel*, C++ → *Warlord*, …), with a crest glyph.
 - **Subclass** — your second language (e.g. *Python Oracle · C++ Warlord*).
-- **Level & XP** — an XP curve over commits, merged PRs, closed issues, repos,
-  stars, and followers. Early levels come fast; veteran levels take real work.
-- **Promotion tiers** — your title evolves as you level: *Adept → Oracle → Seer
-  → Archoracle*. Tier is shown by the pips (and a crown at Tier 4).
-- **Fame** — followers + stars/10 (MapleStory-style).
+- **Level & XP** — earned from **craft**: commits, merged PRs, closed issues, PR
+  reviews, and repos, amplified by how long you've been on GitHub. Popularity is
+  deliberately *not* here. Early levels come fast; the top tiers take real work.
+  See [XP & Levelling](#xp--levelling).
+- **Rarity tiers** — your title and frame evolve through five bands as you level
+  (*Common → Rare → Epic → Legendary → **Mythic***), shown by the stars, the frame
+  colour, and a crown at Legendary+.
+- **Fame** — a separate axis of *reach*: followers + stars/10. Kept apart from XP
+  on purpose, so a quiet high-level dev and a famous low-level dev read as
+  genuinely different characters.
 - **Combo** — your current contribution-streak in days.
 
 A GitHub username is the **only** required input; everything else is inferred.
+
+## XP & Levelling
+
+XP measures **craft**, not popularity. Stars and followers never touch it — they
+feed [Fame](#whats-on-the-card) instead, so the two stats stay orthogonal.
+
+**1. Craft XP** — each contribution is worth a fixed number of points:
+
+| Contribution        | XP  |
+| ------------------- | --- |
+| Repo created        | 120 |
+| Merged pull request | 65  |
+| Pull-request review | 40  |
+| Closed issue        | 30  |
+| Commit              | 10  |
+
+**2. Tenure multiplier** — years on GitHub *amplify* craft rather than adding flat
+XP, so a long-standing, genuinely productive dev is rewarded for the long haul
+while an old but empty account still scores ≈ 0:
+
+```
+totalXP = craftXP × (1 + min(yearsOnGitHub, 15) × 0.05)      # up to +75%
+```
+
+**3. Level curve** — quadratic, so early levels come fast and each one costs a
+little more than the last:
+
+```
+level      = floor( sqrt( totalXP / 100 ) )
+XP to reach level L = 100 × L²
+```
+
+**Worked example** — a 4-year dev with 1,800 commits, 120 merged PRs, 60 closed
+issues, 30 reviews, and 15 repos:
+
+```
+craftXP = 1800×10 + 120×65 + 30×40 + 60×30 + 15×120
+        = 18000 + 7800 + 1200 + 1800 + 1800  = 30,600
+totalXP = 30,600 × (1 + 4×0.05)  = 30,600 × 1.20 = 36,720
+level   = floor( sqrt(36,720 / 100) ) = floor(19.16) = 19   →  Epic, 16% to Lv 20
+```
+
+**Rarity tiers** — level bands are front-loaded, so most active devs climb quickly
+and **Mythic** stays a rare summit:
+
+| Tier          | Levels  | Craft XP to reach¹ | Stars |
+| ------------- | ------- | ------------------ | ----- |
+| ⚪ Common      | 1 – 5   | 0                  | ★     |
+| 🔵 Rare        | 6 – 14  | 3,600              | ★★    |
+| 🟣 Epic        | 15 – 28 | 22,500             | ★★★   |
+| 🟡 Legendary   | 29 – 54 | 84,100             | ★★★★  |
+| 🔴 Mythic      | 55 +    | 302,500            | ★★★★★ |
+
+¹ Before the tenure multiplier — a long-tenured dev reaches each tier with
+proportionally less raw craft.
+
+> The single source of truth for these numbers is `XP_WEIGHTS`, `BASE_XP`, and
+> `TENURE` in [`src/engine.js`](src/engine.js); this table mirrors them.
 
 ## `GET /api/card` — the character card
 
@@ -106,25 +169,26 @@ still control the surrounding chrome.
 
 ## Classes
 
-Your primary language → class, promoted through four tiers by level:
+Your primary language → class, promoted through five tiers by level (see
+[XP & Levelling](#xp--levelling) for the level bands):
 
-| Language   | T1 (Lv 1–10) | T2 (11–25) | T3 (26–50) | T4 (51+)          |
-| ---------- | ------------ | ---------- | ---------- | ----------------- |
-| Python     | Adept        | Oracle     | Seer       | Archoracle        |
-| TypeScript | Scribe       | Arbiter    | Justicar   | High Arbiter      |
-| JavaScript | Wanderer     | Maverick   | Outrider   | Legend            |
-| Rust       | Watchman     | Sentinel   | Guardian   | Eternal Guardian  |
-| Go         | Explorer     | Pathfinder | Trailblazer| Wayfinder         |
-| Java       | Steward      | Chancellor | Magistrate | Grand Chancellor  |
-| C++        | Soldier      | Warlord    | Conqueror  | Overlord          |
-| C#         | Enchanter    | Spellsmith | Spellmaster| Archsmith         |
-| Ruby       | Performer    | Virtuoso   | Maestro    | Grand Maestro     |
-| PHP        | Tinkerer     | Artificer  | Inventor   | Master Artificer  |
-| Kotlin     | Disciple     | Ascendant  | Exemplar   | Paragon           |
-| Swift      | Fencer       | Duelist    | Champion   | Grand Duelist     |
+| Language   | Common     | Rare       | Epic        | Legendary        | Mythic      |
+| ---------- | ---------- | ---------- | ----------- | ---------------- | ----------- |
+| Python     | Adept      | Oracle     | Seer        | Archoracle       | Godseer     |
+| TypeScript | Scribe     | Arbiter    | Justicar    | High Arbiter     | Lawgiver    |
+| JavaScript | Wanderer   | Maverick   | Outrider    | Legend           | Mythmaker   |
+| Rust       | Watchman   | Sentinel   | Guardian    | Eternal Guardian | Undying     |
+| Go         | Explorer   | Pathfinder | Trailblazer | Wayfinder        | Worldwalker |
+| Java       | Steward    | Chancellor | Magistrate  | Grand Chancellor | Sovereign   |
+| C++        | Soldier    | Warlord    | Conqueror   | Overlord         | Warbringer  |
+| C#         | Enchanter  | Spellsmith | Spellmaster | Archsmith        | Runelord    |
+| Ruby       | Performer  | Virtuoso   | Maestro     | Grand Maestro    | Luminary    |
+| PHP        | Tinkerer   | Artificer  | Inventor    | Master Artificer | Demiurge    |
+| Kotlin     | Disciple   | Ascendant  | Exemplar    | Paragon          | Ascended    |
+| Swift      | Fencer     | Duelist    | Champion    | Grand Duelist    | Blademaster |
 
 Any other language falls back to a generic path (*Novice → Adept → Expert →
-Master*) so every developer still gets classed.
+Master → Grandmaster*) so every developer still gets classed.
 
 ## Themes
 
