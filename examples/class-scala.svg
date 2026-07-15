@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="500" height="230" viewBox="0 0 500 230" role="img" aria-labelledby="card-title-a11y card-desc-a11y">
-<title id="card-title-a11y">Rust Dev — Level 56 Rust Undying (Mythic)</title>
-<desc id="card-desc-a11y">Mythic Rust Undying, subclass Go Worldwalker. Level 56, 319620 XP (53% to next). Fame +5800, Combo x200. Badges: On a Roll, Collaborator, Founder.</desc>
+<title id="card-title-a11y">Scala Dev — Level 56 Scala Skybreaker (Mythic)</title>
+<desc id="card-desc-a11y">Mythic Scala Skybreaker, subclass Go Worldwalker. Level 56, 319620 XP (53% to next). Fame +5800, Combo x200. Badges: On a Roll, Collaborator, Founder.</desc>
 <style>
 text { font-family: 'Segoe UI', Ubuntu, 'Helvetica Neue', sans-serif; }
 .title { font-size: 18px; font-weight: 600; fill: #58a6ff; }
@@ -10,12 +10,12 @@ text { font-family: 'Segoe UI', Ubuntu, 'Helvetica Neue', sans-serif; }
 
 .gl-name { font-size: 21px; font-weight: 700; fill: #58a6ff; }
 .gl-lvl { font-size: 15px; font-weight: 800; letter-spacing: 1.5px; fill: #58a6ff; }
-.gl-class { font-size: 17px; font-weight: 700; fill: #dea584; }
+.gl-class { font-size: 17px; font-weight: 700; fill: #dc3d54; }
 .gl-sub { font-size: 13px; font-weight: 600; fill: #c9d1d9; opacity: 0.75; }
 .gl-meta { font-size: 11px; fill: #c9d1d9; opacity: 0.7; }
 .gl-pct { font-size: 16px; font-weight: 800; fill: #58a6ff; }
 .gl-chip-label { font-size: 12px; font-weight: 600; fill: #c9d1d9; }
-.gl-chip-value { font-size: 12px; font-weight: 800; fill: #dea584; }
+.gl-chip-value { font-size: 12px; font-weight: 800; fill: #dc3d54; }
 .gl-hint { font-size: 10px; fill: #c9d1d9; opacity: 0.62; }
 .gl-rarity { font-size: 9px; font-weight: 700; letter-spacing: 2.5px; fill: #ff5edb; }
 
@@ -27,7 +27,7 @@ text { font-family: 'Segoe UI', Ubuntu, 'Helvetica Neue', sans-serif; }
     <feMerge><feMergeNode in="softGlow"/><feMergeNode in="SourceGraphic"/></feMerge>
   </filter><filter id="gl-glow" x="-60%" y="-60%" width="220%" height="220%">
     <feGaussianBlur in="SourceGraphic" stdDeviation="2.4" result="b"/>
-    <feFlood flood-color="#dea584" flood-opacity="0.55" result="t"/>
+    <feFlood flood-color="#dc3d54" flood-opacity="0.55" result="t"/>
     <feComposite in="t" in2="b" operator="in" result="g"/>
     <feMerge><feMergeNode in="g"/><feMergeNode in="SourceGraphic"/></feMerge>
   </filter>
@@ -40,29 +40,24 @@ text { font-family: 'Segoe UI', Ubuntu, 'Helvetica Neue', sans-serif; }
 <rect x="2" y="2" width="496" height="226" rx="13" fill="none" stroke="#ff5edb" stroke-width="3.5" stroke-opacity="0.4" filter="url(#gl-rarity)"/>
 <g class="fade">
     <g class="">
-      <g class="flourish"><g transform="translate(84,0)"><g transform="translate(0,98)" fill="#dea584">
-    <path d="M20 0 Q 40 -12 50 2 Q 36 -2 28 4 Z" opacity="0.82"/>
-    <path d="M21 6 Q 38 0 48 16 Q 34 9 28 11 Z" opacity="0.64"/>
-    <path d="M22 12 Q 34 12 44 24 Q 32 17 27 17 Z" opacity="0.48"/>
-  </g></g><g transform="translate(84,0) scale(-1,1)"><g transform="translate(0,98)" fill="#dea584">
-    <path d="M20 0 Q 40 -12 50 2 Q 36 -2 28 4 Z" opacity="0.82"/>
-    <path d="M21 6 Q 38 0 48 16 Q 34 9 28 11 Z" opacity="0.64"/>
-    <path d="M22 12 Q 34 12 44 24 Q 32 17 27 17 Z" opacity="0.48"/>
+      <g class="flourish"><g transform="translate(84,0)"><g transform="translate(0,98)" fill="#dc3d54" opacity="0.82">
+    <path d="M27 16 L41 20 L36 39 L32.5 33 L29 40 Z"/>
+  </g></g><g transform="translate(84,0) scale(-1,1)"><g transform="translate(0,98)" fill="#dc3d54" opacity="0.82">
+    <path d="M27 16 L41 20 L36 39 L32.5 33 L29 40 Z"/>
   </g></g></g>
-      <circle cx="84" cy="98" r="44" fill="#dea584" fill-opacity="0.08" stroke="#dea584" stroke-opacity="0.35" stroke-width="1.5"/>
+      <circle cx="84" cy="98" r="44" fill="#dc3d54" fill-opacity="0.08" stroke="#dc3d54" stroke-opacity="0.35" stroke-width="1.5"/>
       <g class="">
-    <circle cx="84" cy="98" r="38" fill="none" stroke="#dea584" stroke-opacity="0.6" stroke-width="1.4" stroke-dasharray="1.5 7" stroke-linecap="round"/>
-    <circle cx="84" cy="98" r="34" fill="none" stroke="#dea584" stroke-opacity="0.25" stroke-width="0.8"/>
+    <circle cx="84" cy="98" r="38" fill="none" stroke="#dc3d54" stroke-opacity="0.6" stroke-width="1.4" stroke-dasharray="1.5 7" stroke-linecap="round"/>
+    <circle cx="84" cy="98" r="34" fill="none" stroke="#dc3d54" stroke-opacity="0.25" stroke-width="0.8"/>
   </g>
       
-      <g class="" filter="url(#gl-glow)"><svg class="" x="51" y="65" width="66" height="66" viewBox="0 0 48 48" aria-hidden="true"><defs><radialGradient id="rsHalo" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#dea584" stop-opacity="0.42"/><stop offset="1" stop-color="#dea584" stop-opacity="0"/></radialGradient><linearGradient id="rsMetal" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f2dbce"/><stop offset="0.5" stop-color="#dea584"/><stop offset="1" stop-color="#6f5342"/></linearGradient></defs>
-    <circle cx="24" cy="24" r="21" fill="url(#rsHalo)"/>
-    <path d="M24 7 L39 12 V25 Q39 37 24 43 Q9 37 9 25 V12 Z" fill="url(#rsMetal)" stroke="#b8860b" stroke-width="1.2" stroke-linejoin="round"/>
-    <path d="M24 10 L36 14 V25 Q36 35 24 40 Q12 35 12 25 V14 Z" fill="none" stroke="#efd2c2" stroke-width="0.7" stroke-opacity="0.6"/>
-    <circle cx="24" cy="24" r="6.5" fill="none" stroke="#b8860b" stroke-width="1.6"/>
-    <g stroke="#b8860b" stroke-width="1.6" stroke-linecap="round"><path d="M24 20 V28 M24 24 L28.5 24"/></g>
-    <g fill="#b8860b"><circle cx="13.5" cy="14" r="1"/><circle cx="34.5" cy="14" r="1"/><circle cx="24" cy="39.5" r="1"/></g></svg></g>
-      <g transform="translate(69, 42.5) scale(1.5)"><path d="M2 9 L3 2 L7 6 L11 1 L15 6 L19 2 L20 9 Z" fill="#dea584" stroke="#dea584" stroke-width="1" stroke-linejoin="round"/></g>
+      <g class="" filter="url(#gl-glow)"><svg class="" x="51" y="65" width="66" height="66" viewBox="0 0 48 48" aria-hidden="true"><defs><radialGradient id="scHalo" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#dc3d54" stop-opacity="0.42"/><stop offset="1" stop-color="#dc3d54" stop-opacity="0"/></radialGradient><linearGradient id="scRock" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e5a5ae"/><stop offset="0.5" stop-color="#c6374c"/><stop offset="1" stop-color="#6d1e2a"/></linearGradient><linearGradient id="scSnow" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f8fafd"/><stop offset="0.5" stop-color="#f0f4fb"/><stop offset="1" stop-color="#84868a"/></linearGradient></defs>
+    <circle cx="24" cy="24" r="21" fill="url(#scHalo)"/>
+    <path d="M6 38 L18 14 L24 24 L30 10 L42 38 Z" fill="url(#scRock)" stroke="#b8860b" stroke-width="0.8" stroke-linejoin="round"/>
+    <path d="M30 10 L34 18 L27 18 Z" fill="url(#scSnow)"/>
+    <path d="M18 14 L21 20 L15 20 Z" fill="url(#scSnow)" opacity="0.9"/>
+    <path d="M30 10 V4 M30 4 L36 7 L30 10.5 Z" fill="#e6bf55" stroke="#b8860b" stroke-width="0.5"/></svg></g>
+      <g transform="translate(69, 42.5) scale(1.5)"><path d="M2 9 L3 2 L7 6 L11 1 L15 6 L19 2 L20 9 Z" fill="#dc3d54" stroke="#dc3d54" stroke-width="1" stroke-linejoin="round"/></g>
     </g>
     <g><g class="" transform="translate(45.5, 151.5) scale(0.5416666666666666)" fill="#ff5edb" stroke="#ff5edb" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" opacity="1">
     <path d="M12 3 L14.5 8.6 L20.6 9.3 L16 13.5 L17.4 19.6 L12 16.5 L6.6 19.6 L8 13.5 L3.4 9.3 L9.5 8.6 Z"/>
@@ -78,12 +73,12 @@ text { font-family: 'Segoe UI', Ubuntu, 'Helvetica Neue', sans-serif; }
     <text class="gl-rarity" x="84" y="178" text-anchor="middle">MYTHIC</text>
   </g>
 <g class="fade" style="animation-delay:.15s">
-    <text class="gl-name" x="150" y="54">Rust Dev</text>
+    <text class="gl-name" x="150" y="54">Scala Dev</text>
     <text class="gl-lvl glow-pulse" x="474" y="52" text-anchor="end" filter="url(#gl-glow)">LV 56</text>
-    <line x1="150" y1="64" x2="474" y2="64" stroke="#dea584" stroke-opacity="0.22" stroke-width="1"/>
+    <line x1="150" y1="64" x2="474" y2="64" stroke="#dc3d54" stroke-opacity="0.22" stroke-width="1"/>
 
-    <circle cx="154" cy="83" r="4" fill="#dea584"/>
-    <text class="gl-class" x="166" y="88">Rust Undying</text>
+    <circle cx="154" cy="83" r="4" fill="#dc3d54"/>
+    <text class="gl-class" x="166" y="88">Scala Skybreaker</text>
     <text class="gl-sub" x="150" y="107">Subclass · Go Worldwalker</text>
 
     <text class="gl-meta" x="150" y="131">319.6k / 324.9k XP</text>

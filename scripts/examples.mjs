@@ -27,6 +27,7 @@ const lang = (name) => ({ name, color: "#888", size: 1 });
 // A Legendary-band profile so every crest shows its full regalia (emblem +
 // crown + rune ring + 4 of 5 stars) — the best showcase for the art.
 const LEGENDARY = {
+  accountAgeYears: 8,
   commits: 9000, closedIssues: 600, mergedPRs: 1500, reviews: 300, reposCreated: 90,
   stars: 24000, followers: 3400, streak: 200,
 };

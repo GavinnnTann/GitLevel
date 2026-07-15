@@ -23,11 +23,12 @@ const lang = (name) => ({ name, color: "#888", size: 1 });
 // Profiles chosen to land on specific levels/tiers via the real XP curve.
 const MOCK_PROFILES = {
   hero: {
-    name: "Gavin Tan", login: "GavinnnTann",
-    commits: 1300, closedIssues: 40, mergedPRs: 90, reposCreated: 24,
+    name: "Gavin Tan", login: "GavinnnTann", accountAgeYears: 6,
+    commits: 1300, closedIssues: 40, mergedPRs: 90, reposCreated: 24, reviews: 12,
     stars: 480, followers: 210, streak: 37,
     languages: [lang("Python"), lang("C++"), lang("TypeScript")],
   },
+  // No accountAgeYears on purpose — a brand-new account is the point.
   rookie: {
     name: "New Dev", login: "newdev",
     commits: 60, closedIssues: 2, mergedPRs: 1, reposCreated: 3,
@@ -35,28 +36,28 @@ const MOCK_PROFILES = {
     languages: [lang("JavaScript"), lang("HTML")],
   },
   veteran: {
-    name: "Grizzled Maintainer", login: "veteran",
-    commits: 8000, closedIssues: 600, mergedPRs: 1200, reposCreated: 90,
+    name: "Grizzled Maintainer", login: "veteran", accountAgeYears: 10,
+    commits: 8000, closedIssues: 600, mergedPRs: 1200, reposCreated: 90, reviews: 40,
     stars: 24000, followers: 3400, streak: 128,
     languages: [lang("Rust"), lang("Go")],
   },
   soloist: {
-    name: "Ada Solo", login: "adasolo",
+    name: "Ada Solo", login: "adasolo", accountAgeYears: 3,
     commits: 220, closedIssues: 10, mergedPRs: 8, reposCreated: 12,
     stars: 60, followers: 18, streak: 11,
     languages: [lang("Ruby")],
   },
   // Tuned to land ~97% into a level — shows the "near level up" pulse/hint.
   nearlevel: {
-    name: "So Close", login: "soclose",
-    commits: 1330, closedIssues: 40, mergedPRs: 90, reposCreated: 24,
+    name: "So Close", login: "soclose", accountAgeYears: 6,
+    commits: 1330, closedIssues: 40, mergedPRs: 90, reposCreated: 24, reviews: 12,
     stars: 480, followers: 210, streak: 52,
     languages: [lang("Kotlin"), lang("Swift")],
   },
   // Lands ~Lv 35 → Tier 3 → Epic → 3 stars.
   epic: {
-    name: "Mid Boss", login: "midboss",
-    commits: 3000, closedIssues: 200, mergedPRs: 400, reposCreated: 50,
+    name: "Mid Boss", login: "midboss", accountAgeYears: 7,
+    commits: 3000, closedIssues: 200, mergedPRs: 400, reposCreated: 50, reviews: 25,
     stars: 12000, followers: 400, streak: 66,
     languages: [lang("Go"), lang("Rust")],
   },
@@ -65,7 +66,8 @@ const MOCK_PROFILES = {
 // A Legendary-scale profile (Lv 51+) so every class shows full regalia
 // (crown + flourish + rune ring + 4 stars).
 const LEGENDARY = {
-  commits: 9000, closedIssues: 600, mergedPRs: 1200, reposCreated: 90,
+  accountAgeYears: 9,
+  commits: 9000, closedIssues: 600, mergedPRs: 1200, reposCreated: 90, reviews: 30,
   stars: 24000, followers: 3400, streak: 200,
 };
 
@@ -86,20 +88,21 @@ for (const [name, profile] of RARITY_SHOWCASE) {
 // Creator's edition — the login-gated bespoke crest (engine overrides the class
 // for creator logins). Uses the real creator handle so the override fires.
 files.push(["creator.svg", renderGitLevelCard(computeCharacter({
-  name: "Gavin Tan", login: "GavinnnTann",
-  commits: 1300, closedIssues: 40, mergedPRs: 90, reposCreated: 24,
+  name: "Gavin Tan", login: "GavinnnTann", accountAgeYears: 6,
+  commits: 1300, closedIssues: 40, mergedPRs: 90, reposCreated: 24, reviews: 12,
   stars: 480, followers: 210, streak: 37,
   languages: [lang("Python"), lang("Rust")],
 }), { colors: themes.volt })]);
 
 // Python portrait across all four tiers (Adept → Oracle → Seer → Archoracle):
-// symbol-free crest, evolving rune ring → wings → crown.
+// symbol-free crest, evolving rune ring → wings → crown. No accountAgeYears on
+// the Adept mock on purpose — it's meant to read as an early-days profile.
 const PY = (extra) => ({ name: "Oracle Dev", login: "oracle", closedIssues: 0, mergedPRs: 0, reposCreated: 1, stars: 0, followers: 0, streak: 20, languages: [lang("Python"), lang("C++")], ...extra });
 const PORTRAIT_TIERS = [
   ["portrait-python-1-adept", PY({ commits: 600, mergedPRs: 8 })],
-  ["portrait-python-2-oracle", PY({ commits: 1300, mergedPRs: 90, closedIssues: 40, reposCreated: 24, stars: 2000, followers: 200 })],
-  ["portrait-python-3-seer", PY({ commits: 3000, closedIssues: 200, mergedPRs: 400, reposCreated: 50, stars: 12000, followers: 400 })],
-  ["portrait-python-4-archoracle", PY({ commits: 9000, closedIssues: 600, mergedPRs: 1200, reposCreated: 90, stars: 24000, followers: 3400 })],
+  ["portrait-python-2-oracle", PY({ accountAgeYears: 4, commits: 1300, mergedPRs: 90, closedIssues: 40, reposCreated: 24, stars: 2000, followers: 200 })],
+  ["portrait-python-3-seer", PY({ accountAgeYears: 7, commits: 3000, closedIssues: 200, mergedPRs: 400, reposCreated: 50, stars: 12000, followers: 400 })],
+  ["portrait-python-4-archoracle", PY({ accountAgeYears: 10, commits: 9000, closedIssues: 600, mergedPRs: 1200, reposCreated: 90, stars: 24000, followers: 3400 })],
 ];
 for (const [name, profile] of PORTRAIT_TIERS) {
   files.push([`${name}.svg`, renderGitLevelCard(computeCharacter(profile), { colors: themes.midnight })]);

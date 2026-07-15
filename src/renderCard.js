@@ -16,11 +16,11 @@
 
 import { buildCard } from "./card.js";
 import { renderIcon } from "./icons.js";
-import { renderClassIcon, runeRing, crown, renderFlourish, solidStar, solidDiamond } from "./classIcons.js";
+import { renderClassIcon, runeRing, crown, renderFlourish, solidStar, solidDiamond, emberSparks, renderBadge } from "./classIcons.js";
 import { renderPortrait, hasPortrait } from "./portraits.js";
 import { encodeHTML, kFormatter, clampValue } from "./utils.js";
 
-const HEIGHT = 210;
+const HEIGHT = 230; // +20 over the original 210 for the achievement-badge row
 const CREST = { cx: 84, cy: 98, r: 44 };
 const COL_X = 150; // right column left edge
 
@@ -96,6 +96,9 @@ ${nearLevel ? ".near-pulse { animation: glNear 1.3s ease-in-out infinite 1.6s; }
   const flourish = (cls.tier ?? 0) >= 2 ? renderFlourish(cls.flourish, CREST.cx, CREST.cy, classAccent) : "";
   const rune = (cls.tier ?? 0) >= 1 ? runeRing(CREST.cx, CREST.cy, CREST.r - 6, classAccent, animation ? "rune-spin" : "") : "";
   const theCrown = (cls.tier ?? 0) >= 3 ? crown(CREST.cx, CREST.cy - CREST.r + 2, classAccent) : "";
+  // Common/Rare don't have a rune ring/flourish/crown yet — a few loose
+  // sparkles keep the earliest cards from reading as bare while you climb.
+  const sparks = (cls.tier ?? 0) <= 1 ? emberSparks(CREST.cx, CREST.cy, CREST.r - 2, classAccent, animation ? "twinkle" : "") : "";
   // A full character portrait fills the crest when one exists; otherwise the
   // single-accent symbol glyph. Portraits carry their own palette.
   const crestArt = hasPortrait(cls.language)
@@ -107,6 +110,7 @@ ${nearLevel ? ".near-pulse { animation: glNear 1.3s ease-in-out infinite 1.6s; }
       ${flourish}
       <circle cx="${CREST.cx}" cy="${CREST.cy}" r="${CREST.r}" fill="${classAccent}" fill-opacity="0.08" stroke="${classAccent}" stroke-opacity="0.35" stroke-width="1.5"/>
       ${rune}
+      ${sparks}
       <g class="${animation ? "crest-pop" : ""}" filter="url(#gl-glow)">${crestArt}</g>
       ${theCrown}
     </g>
@@ -154,9 +158,18 @@ ${nearLevel ? ".near-pulse { animation: glNear 1.3s ease-in-out infinite 1.6s; }
     </g>
   </g>`;
 
+  // ---- Badge row: earned pins, independent of level/tier (src/achievements.js) ----
+  // Wrap in one outer .fade group (rather than putting .fade on the text/badge
+  // elements themselves) so it doesn't fight .gl-hint's own opacity rule.
+  const badges = character.badges ?? [];
+  const badgeRow = `<g class="fade" style="animation-delay:.2s">${badges.length
+    ? `<g transform="translate(${COL_X + 9}, 215)">${badges.map((b, i) => renderBadge(b, { x: i * 26, y: 0, r: 9 })).join("")}</g>`
+    : `<text class="gl-hint" x="${COL_X}" y="219">No badges yet — a streak or a merged review earns the first one</text>`}</g>`;
+
   const a11yTitle = `${character.name} — Level ${character.level} ${cls.name} (${rarity.name})`;
+  const badgeDesc = badges.length ? ` Badges: ${badges.map((b) => b.label).join(", ")}.` : "";
   const a11yDesc = `${rarity.name} ${cls.name}${character.subclass ? `, subclass ${character.subclass.name}` : ""}. `
-    + `Level ${character.level}, ${character.xp} XP (${pct}% to next). Fame +${character.fame}, Combo x${character.combo}.`;
+    + `Level ${character.level}, ${character.xp} XP (${pct}% to next). Fame +${character.fame}, Combo x${character.combo}.${badgeDesc}`;
 
   return buildCard({
     width,
@@ -172,7 +185,7 @@ ${nearLevel ? ".near-pulse { animation: glNear 1.3s ease-in-out infinite 1.6s; }
     frameColor: rarity.color, // the rarity frame — a thin translucent edge…
     frameWidth: 1.4,
     frameOpacity: 0.6,        // …softened, with the blurred glow above doing the work
-    body: `${rarityGlow}\n${crest}\n${right}`,
+    body: `${rarityGlow}\n${crest}\n${right}\n${badgeRow}`,
     a11yTitle,
     a11yDesc,
   });

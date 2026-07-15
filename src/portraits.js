@@ -239,6 +239,151 @@ function creatorSigil() {
     <path d="M24 6 l1.6 3 l3 1.6 l-3 1.6 l-1.6 3 l-1.6 -3 l-3 -1.6 l3 -1.6 Z" fill="${G_L}"/>`;
 }
 
+// C Kernel Lord — a machined chip with a glowing core, pin traces radiating out.
+function cKernel() {
+  const C = "#659ad2";
+  return `<defs>${haloGrad("cHalo", C)}${mGrad("cChip", C)}
+      <radialGradient id="cCore" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="${shade(C, 0.7)}"/><stop offset="1" stop-color="${shade(C, -0.4)}"/></radialGradient>
+    </defs>
+    ${halo("cHalo")}
+    <g stroke="${GOLD}" stroke-width="1.4" stroke-linecap="round"><path d="M17 10 V6 M24 10 V6 M31 10 V6 M17 38 V42 M24 38 V42 M31 38 V42 M10 17 H6 M10 24 H6 M10 31 H6 M38 17 H42 M38 24 H42 M38 31 H42"/></g>
+    <rect x="10" y="10" width="28" height="28" rx="3" fill="url(#cChip)" stroke="${GOLD_D}" stroke-width="1"/>
+    <rect x="14" y="14" width="20" height="20" rx="1.5" fill="none" stroke="${shade(C, 0.5)}" stroke-width="0.7" stroke-opacity="0.6"/>
+    <circle cx="24" cy="24" r="6" fill="url(#cCore)" stroke="${GOLD}" stroke-width="1"/>
+    <circle cx="24" cy="24" r="2.2" fill="${GOLD_L}"/>`;
+}
+
+// Zig Stormlord — a jagged bolt tearing through a storm halo.
+function zigStorm() {
+  const C = "#ec915c";
+  return `<defs>${haloGrad("zHalo", C)}${vGrad("zBolt", shade(C, 0.2))}</defs>
+    ${halo("zHalo")}
+    <path d="M10 20 Q24 8 30 8 L22 21 L32 21 Q20 40 14 40 L20 26 L10 26 Z" fill="url(#zBolt)" stroke="${GOLD_D}" stroke-width="0.8" stroke-linejoin="round"/>
+    <g stroke="${GOLD}" stroke-width="1" stroke-opacity="0.6" stroke-linecap="round"><path d="M8 12 L11 15 M40 12 L37 15 M8 36 L11 33 M40 36 L37 33"/></g>
+    ${spark(34, 12, 3, GOLD_L)}`;
+}
+
+// Lua Selenarch — a gradient crescent moon adrift in a small starfield.
+function luaSelenarch() {
+  const C = "#6b7bd6";
+  return `<defs>${haloGrad("luHalo", C)}
+      <linearGradient id="luMoon" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${shade(C, 0.6)}"/><stop offset="0.5" stop-color="${C}"/><stop offset="1" stop-color="${shade(C, -0.4)}"/></linearGradient>
+    </defs>
+    ${halo("luHalo")}
+    <path d="M27 6 A18 18 0 1 0 27 42 A13 16 0 1 1 27 6 Z" fill="url(#luMoon)" stroke="${GOLD}" stroke-width="1" stroke-linejoin="round"/>
+    <circle cx="14" cy="14" r="1.3" fill="${GOLD_L}"/><circle cx="10" cy="24" r="1" fill="${GOLD_L}" opacity="0.8"/><circle cx="16" cy="34" r="1.1" fill="${GOLD_L}" opacity="0.7"/>
+    ${spark(33, 14, 3.4, GOLD)}`;
+}
+
+// Verilog Chip Lord — a hexagonal PCB rune with radiating gilded traces.
+function verilogChiplord() {
+  const C = "#b2b7f8";
+  return `<defs>${haloGrad("vgHalo", C)}${mGrad("vgMetal", C)}</defs>
+    ${halo("vgHalo")}
+    <path d="M24 6 L38 14 V34 L24 42 L10 34 V14 Z" fill="none" stroke="url(#vgMetal)" stroke-width="1.6" stroke-linejoin="round"/>
+    <g stroke="${GOLD}" stroke-width="1.2" stroke-linecap="round"><path d="M24 6 V14 M38 14 L31 18 M38 34 L31 30 M24 42 V34 M10 34 L17 30 M10 14 L17 18"/></g>
+    <circle cx="24" cy="24" r="7" fill="none" stroke="${GOLD_D}" stroke-width="1.6"/>
+    <circle cx="24" cy="24" r="2.6" fill="${GOLD}"/>
+    <g fill="${GOLD_D}"><circle cx="24" cy="14" r="1"/><circle cx="31" cy="18" r="1"/><circle cx="31" cy="30" r="1"/><circle cx="24" cy="34" r="1"/><circle cx="17" cy="30" r="1"/><circle cx="17" cy="18" r="1"/></g>`;
+}
+
+// VHDL Silicon Sovereign — a diamond-cut wafer, distinct from Verilog's hex PCB.
+function vhdlSovereign() {
+  const C = "#adb2cb";
+  return `<defs>${haloGrad("vhHalo", C)}${vGrad("vhWafer", C)}</defs>
+    ${halo("vhHalo")}
+    <rect x="11" y="11" width="26" height="26" rx="2" fill="url(#vhWafer)" stroke="${GOLD_D}" stroke-width="1" transform="rotate(45 24 24)"/>
+    <rect x="16" y="16" width="16" height="16" rx="1" fill="none" stroke="${GOLD}" stroke-width="0.8" stroke-opacity="0.7" transform="rotate(45 24 24)"/>
+    <g stroke="${GOLD}" stroke-width="1.1" stroke-linecap="round"><path d="M24 4 V10 M24 38 V44 M4 24 H10 M38 24 H44"/></g>
+    <circle cx="24" cy="24" r="4.2" fill="${GOLD_L}" stroke="${GOLD_D}" stroke-width="0.8"/>`;
+}
+
+// Elixir Grand Alchemist — a bubbling potion flask.
+function elixirAlchemist() {
+  const C = "#a06fb5";
+  return `<defs>${haloGrad("elHalo", C)}
+      <linearGradient id="elGlass" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${shade(C, 0.5)}" stop-opacity="0.35"/><stop offset="1" stop-color="${shade(C, -0.3)}" stop-opacity="0.5"/></linearGradient>
+      <radialGradient id="elBrew" cx="0.5" cy="0.6" r="0.6"><stop offset="0" stop-color="${shade(C, 0.6)}"/><stop offset="1" stop-color="${shade(C, -0.4)}"/></radialGradient>
+    </defs>
+    ${halo("elHalo")}
+    <path d="M20 6 H28 M21 7 V17 L11 35 A3 3 0 0 0 13.6 39.5 H34.4 A3 3 0 0 0 37 35 L27 17 V7" fill="url(#elGlass)" stroke="${GOLD}" stroke-width="1.3" stroke-linejoin="round"/>
+    <path d="M15.5 30 A9 7 0 0 0 32.5 30 Z" fill="url(#elBrew)"/>
+    <circle cx="22" cy="26" r="1.3" fill="${shade(C, 0.7)}" opacity="0.8"/><circle cx="27" cy="23" r="1" fill="${shade(C, 0.7)}" opacity="0.7"/>
+    ${spark(30, 12, 3, GOLD_L)}`;
+}
+
+// Haskell Category Archon — a lambda held inside a dotted mandala ring.
+function haskellArchon() {
+  const C = "#8f7fd8";
+  return `<defs>${haloGrad("hkHalo", C)}${vGrad("hkLambda", shade(C, 0.15))}</defs>
+    ${halo("hkHalo")}
+    <circle cx="24" cy="24" r="16" fill="none" stroke="${GOLD}" stroke-width="1" stroke-opacity="0.6"/>
+    <circle cx="24" cy="24" r="16" fill="none" stroke="${GOLD_D}" stroke-width="0.5" stroke-dasharray="1 4" opacity="0.5"/>
+    <path d="M15 33 L22 20 L18 12 L21 12 L30 33 L27 33 L23 24 L18.4 33 Z" fill="url(#hkLambda)" stroke="${GOLD_D}" stroke-width="0.6" stroke-linejoin="round"/>
+    ${spark(24, 8, 2.6, GOLD_L)}`;
+}
+
+// Shell Terminal Lord — a dark terminal pane with a glowing prompt.
+function shellTerminal() {
+  const C = "#89e051";
+  return `<defs>${haloGrad("shHalo", C)}${mGrad("shFrame", shade(C, -0.2))}</defs>
+    ${halo("shHalo")}
+    <rect x="8" y="12" width="32" height="24" rx="2.5" fill="#0b1710" stroke="url(#shFrame)" stroke-width="1.6"/>
+    <path d="M8 18 H40" stroke="url(#shFrame)" stroke-width="1"/>
+    <g fill="${GOLD}"><circle cx="12" cy="15" r="1"/><circle cx="16" cy="15" r="1"/><circle cx="20" cy="15" r="1"/></g>
+    <path d="M13 24 L19 28 L13 32" fill="none" stroke="${C}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M22 32 H33" stroke="${C}" stroke-width="2" stroke-linecap="round"/>`;
+}
+
+// Dart Deadeye — a bullseye struck true, gilded fletching mid-flight.
+function dartDeadeye() {
+  const C = "#4bc0b8";
+  return `<defs>${haloGrad("drHalo", C)}${vGrad("drRing", C)}</defs>
+    ${halo("drHalo")}
+    <circle cx="24" cy="24" r="16" fill="none" stroke="url(#drRing)" stroke-width="3"/>
+    <circle cx="24" cy="24" r="10" fill="none" stroke="url(#drRing)" stroke-width="2.4"/>
+    <circle cx="24" cy="24" r="4" fill="${GOLD}" stroke="${GOLD_D}" stroke-width="0.8"/>
+    <path d="M8 8 L22 22" stroke="${shade(C, -0.3)}" stroke-width="2.6" stroke-linecap="round"/>
+    <path d="M6 6 L12 7 L9 12 Z" fill="${GOLD}"/>
+    <path d="M20 20 L26 26" stroke="${GOLD}" stroke-width="1.4" stroke-opacity="0.6"/>`;
+}
+
+// Scala Peak Lord — a snow-capped summit with a planted banner.
+function scalaPeak() {
+  const C = "#dc3d54";
+  return `<defs>${haloGrad("scHalo", C)}${vGrad("scRock", shade(C, -0.1))}${vGrad("scSnow", "#f0f4fb")}</defs>
+    ${halo("scHalo")}
+    <path d="M6 38 L18 14 L24 24 L30 10 L42 38 Z" fill="url(#scRock)" stroke="${GOLD_D}" stroke-width="0.8" stroke-linejoin="round"/>
+    <path d="M30 10 L34 18 L27 18 Z" fill="url(#scSnow)"/>
+    <path d="M18 14 L21 20 L15 20 Z" fill="url(#scSnow)" opacity="0.9"/>
+    <path d="M30 10 V4 M30 4 L36 7 L30 10.5 Z" fill="${GOLD}" stroke="${GOLD_D}" stroke-width="0.5"/>`;
+}
+
+// R Grand Statistician — ascending bars under a rising trend line.
+function rStatistician() {
+  const C = "#2f9ff0";
+  return `<defs>${haloGrad("rHalo", C)}${vGrad("rBar1", shade(C, -0.1))}${vGrad("rBar2", C)}${vGrad("rBar3", shade(C, 0.2))}</defs>
+    ${halo("rHalo")}
+    <path d="M9 38 H39" stroke="${GOLD_D}" stroke-width="1.4"/>
+    <rect x="12" y="26" width="6" height="12" fill="url(#rBar1)" stroke="${GOLD_D}" stroke-width="0.5"/>
+    <rect x="21" y="18" width="6" height="20" fill="url(#rBar2)" stroke="${GOLD_D}" stroke-width="0.5"/>
+    <rect x="30" y="10" width="6" height="28" fill="url(#rBar3)" stroke="${GOLD_D}" stroke-width="0.5"/>
+    <path d="M11 30 L21 20 L30 13 L38 8" fill="none" stroke="${GOLD}" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+    ${spark(38, 8, 2.8, GOLD_L)}`;
+}
+
+// SQL Grand Archivist — a layered vault cylinder with a gilded rim.
+function sqlArchivist() {
+  const C = "#e0a13b";
+  return `<defs>${haloGrad("sqHalo", C)}${mGrad("sqMetal", C)}</defs>
+    ${halo("sqHalo")}
+    <ellipse cx="24" cy="13" rx="13" ry="4.4" fill="url(#sqMetal)" stroke="${GOLD_D}" stroke-width="0.8"/>
+    <path d="M11 13 V35 A13 4.4 0 0 0 37 35 V13" fill="url(#sqMetal)" stroke="${GOLD_D}" stroke-width="0.8"/>
+    <path d="M11 22 A13 4.4 0 0 0 37 22" fill="none" stroke="${GOLD_D}" stroke-width="0.7" opacity="0.7"/>
+    <path d="M11 29 A13 4.4 0 0 0 37 29" fill="none" stroke="${GOLD_D}" stroke-width="0.7" opacity="0.7"/>
+    <ellipse cx="24" cy="13" rx="13" ry="4.4" fill="none" stroke="${GOLD_L}" stroke-width="0.6" opacity="0.6"/>`;
+}
+
 const PORTRAITS = {
   Creator: creatorSigil,
   Python: pythonOracle,
@@ -253,6 +398,18 @@ const PORTRAITS = {
   PHP: phpArtificer,
   Kotlin: kotlinAscendant,
   Swift: swiftDuelist,
+  C: cKernel,
+  Zig: zigStorm,
+  Lua: luaSelenarch,
+  Verilog: verilogChiplord,
+  VHDL: vhdlSovereign,
+  Elixir: elixirAlchemist,
+  Haskell: haskellArchon,
+  Shell: shellTerminal,
+  Dart: dartDeadeye,
+  Scala: scalaPeak,
+  R: rStatistician,
+  SQL: sqlArchivist,
 };
 
 export function hasPortrait(language) {

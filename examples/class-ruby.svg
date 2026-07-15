@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="500" height="210" viewBox="0 0 500 210" role="img" aria-labelledby="card-title-a11y card-desc-a11y">
-<title id="card-title-a11y">Ruby Dev — Level 47 Ruby Grand Maestro (Legendary)</title>
-<desc id="card-desc-a11y">Legendary Ruby Grand Maestro, subclass Go Wayfinder. Level 47, 228300 XP (78% to next). Fame +5800, Combo x200.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" width="500" height="230" viewBox="0 0 500 230" role="img" aria-labelledby="card-title-a11y card-desc-a11y">
+<title id="card-title-a11y">Ruby Dev — Level 56 Ruby Luminary (Mythic)</title>
+<desc id="card-desc-a11y">Mythic Ruby Luminary, subclass Go Worldwalker. Level 56, 319620 XP (53% to next). Fame +5800, Combo x200. Badges: On a Roll, Collaborator, Founder.</desc>
 <style>
 text { font-family: 'Segoe UI', Ubuntu, 'Helvetica Neue', sans-serif; }
 .title { font-size: 18px; font-weight: 600; fill: #58a6ff; }
@@ -17,7 +17,7 @@ text { font-family: 'Segoe UI', Ubuntu, 'Helvetica Neue', sans-serif; }
 .gl-chip-label { font-size: 12px; font-weight: 600; fill: #c9d1d9; }
 .gl-chip-value { font-size: 12px; font-weight: 800; fill: #cc342d; }
 .gl-hint { font-size: 10px; fill: #c9d1d9; opacity: 0.62; }
-.gl-rarity { font-size: 9px; font-weight: 700; letter-spacing: 2.5px; fill: #3fb950; }
+.gl-rarity { font-size: 9px; font-weight: 700; letter-spacing: 2.5px; fill: #ff5edb; }
 
 </style>
 <defs><linearGradient id="card-bg" x1="0" y1="0" x2="1" y2="1" gradientTransform="rotate(90, 0.5, 0.5)"><stop offset="0.0%" stop-color="#0d1117"/><stop offset="100.0%" stop-color="#101d33"/></linearGradient><filter id="card-glow" x="-50%" y="-50%" width="200%" height="200%">
@@ -34,10 +34,10 @@ text { font-family: 'Segoe UI', Ubuntu, 'Helvetica Neue', sans-serif; }
   <filter id="gl-rarity" x="-20%" y="-20%" width="140%" height="140%">
     <feGaussianBlur stdDeviation="2.4"/>
   </filter></defs>
-<rect x="0.5" y="0.5" width="499" height="209" rx="14" fill="url(#card-bg)" stroke="#3fb950" stroke-width="1.4" stroke-opacity="0.6"/>
-<rect x="3.5" y="3.5" width="493" height="203" rx="11" fill="none" stroke="#30363d" stroke-opacity="0.4"/>
+<rect x="0.5" y="0.5" width="499" height="229" rx="14" fill="url(#card-bg)" stroke="#ff5edb" stroke-width="1.4" stroke-opacity="0.6"/>
+<rect x="3.5" y="3.5" width="493" height="223" rx="11" fill="none" stroke="#30363d" stroke-opacity="0.4"/>
 
-<rect x="2" y="2" width="496" height="206" rx="13" fill="none" stroke="#3fb950" stroke-width="3.5" stroke-opacity="0.4" filter="url(#gl-rarity)"/>
+<rect x="2" y="2" width="496" height="226" rx="13" fill="none" stroke="#ff5edb" stroke-width="3.5" stroke-opacity="0.4" filter="url(#gl-rarity)"/>
 <g class="fade">
     <g class="">
       <g class="flourish"><g transform="translate(84,0)"><g transform="translate(0,98)">
@@ -62,6 +62,7 @@ text { font-family: 'Segoe UI', Ubuntu, 'Helvetica Neue', sans-serif; }
     <circle cx="84" cy="98" r="38" fill="none" stroke="#cc342d" stroke-opacity="0.6" stroke-width="1.4" stroke-dasharray="1.5 7" stroke-linecap="round"/>
     <circle cx="84" cy="98" r="34" fill="none" stroke="#cc342d" stroke-opacity="0.25" stroke-width="0.8"/>
   </g>
+      
       <g class="" filter="url(#gl-glow)"><svg class="" x="51" y="65" width="66" height="66" viewBox="0 0 48 48" aria-hidden="true"><defs><radialGradient id="rbHalo" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#cc342d" stop-opacity="0.42"/><stop offset="1" stop-color="#cc342d" stop-opacity="0"/></radialGradient><linearGradient id="rbGold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f6e2b7"/><stop offset="0.5" stop-color="#e8b74a"/><stop offset="1" stop-color="#745c25"/></linearGradient>
       <radialGradient id="rbGem" cx="0.5" cy="0.4" r="0.6"><stop offset="0" stop-color="#ebaeab"/><stop offset="0.6" stop-color="#cc342d"/><stop offset="1" stop-color="#661a17"/></radialGradient>
     </defs>
@@ -73,33 +74,33 @@ text { font-family: 'Segoe UI', Ubuntu, 'Helvetica Neue', sans-serif; }
     <path d="M24 30 l4 5 l-4 5 l-4 -5 Z" fill="url(#rbGem)" stroke="#e6bf55" stroke-width="0.6"/></svg></g>
       <g transform="translate(69, 42.5) scale(1.5)"><path d="M2 9 L3 2 L7 6 L11 1 L15 6 L19 2 L20 9 Z" fill="#cc342d" stroke="#cc342d" stroke-width="1" stroke-linejoin="round"/></g>
     </g>
-    <g><g class="" transform="translate(45.5, 151.5) scale(0.5416666666666666)" fill="#3fb950" stroke="#3fb950" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" opacity="1">
+    <g><g class="" transform="translate(45.5, 151.5) scale(0.5416666666666666)" fill="#ff5edb" stroke="#ff5edb" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" opacity="1">
     <path d="M12 3 L14.5 8.6 L20.6 9.3 L16 13.5 L17.4 19.6 L12 16.5 L6.6 19.6 L8 13.5 L3.4 9.3 L9.5 8.6 Z"/>
-  </g><g class="" transform="translate(61.5, 151.5) scale(0.5416666666666666)" fill="#3fb950" stroke="#3fb950" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" opacity="1">
+  </g><g class="" transform="translate(61.5, 151.5) scale(0.5416666666666666)" fill="#ff5edb" stroke="#ff5edb" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" opacity="1">
     <path d="M12 3 L14.5 8.6 L20.6 9.3 L16 13.5 L17.4 19.6 L12 16.5 L6.6 19.6 L8 13.5 L3.4 9.3 L9.5 8.6 Z"/>
-  </g><g class="" transform="translate(77.5, 151.5) scale(0.5416666666666666)" fill="#3fb950" stroke="#3fb950" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" opacity="1">
+  </g><g class="" transform="translate(77.5, 151.5) scale(0.5416666666666666)" fill="#ff5edb" stroke="#ff5edb" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" opacity="1">
     <path d="M12 3 L14.5 8.6 L20.6 9.3 L16 13.5 L17.4 19.6 L12 16.5 L6.6 19.6 L8 13.5 L3.4 9.3 L9.5 8.6 Z"/>
-  </g><g class="" transform="translate(93.5, 151.5) scale(0.5416666666666666)" fill="#3fb950" stroke="#3fb950" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" opacity="1">
+  </g><g class="" transform="translate(93.5, 151.5) scale(0.5416666666666666)" fill="#ff5edb" stroke="#ff5edb" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" opacity="1">
     <path d="M12 3 L14.5 8.6 L20.6 9.3 L16 13.5 L17.4 19.6 L12 16.5 L6.6 19.6 L8 13.5 L3.4 9.3 L9.5 8.6 Z"/>
-  </g><g class="" transform="translate(109.5, 151.5) scale(0.5416666666666666)" fill="#c9d1d9" stroke="#c9d1d9" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" opacity="0.22">
+  </g><g class="" transform="translate(109.5, 151.5) scale(0.5416666666666666)" fill="#ff5edb" stroke="#ff5edb" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" opacity="1">
     <path d="M12 3 L14.5 8.6 L20.6 9.3 L16 13.5 L17.4 19.6 L12 16.5 L6.6 19.6 L8 13.5 L3.4 9.3 L9.5 8.6 Z"/>
   </g></g>
-    <text class="gl-rarity" x="84" y="178" text-anchor="middle">LEGENDARY</text>
+    <text class="gl-rarity" x="84" y="178" text-anchor="middle">MYTHIC</text>
   </g>
 <g class="fade" style="animation-delay:.15s">
     <text class="gl-name" x="150" y="54">Ruby Dev</text>
-    <text class="gl-lvl glow-pulse" x="474" y="52" text-anchor="end" filter="url(#gl-glow)">LV 47</text>
+    <text class="gl-lvl glow-pulse" x="474" y="52" text-anchor="end" filter="url(#gl-glow)">LV 56</text>
     <line x1="150" y1="64" x2="474" y2="64" stroke="#cc342d" stroke-opacity="0.22" stroke-width="1"/>
 
     <circle cx="154" cy="83" r="4" fill="#cc342d"/>
-    <text class="gl-class" x="166" y="88">Ruby Grand Maestro</text>
-    <text class="gl-sub" x="150" y="107">Subclass · Go Wayfinder</text>
+    <text class="gl-class" x="166" y="88">Ruby Luminary</text>
+    <text class="gl-sub" x="150" y="107">Subclass · Go Worldwalker</text>
 
-    <text class="gl-meta" x="150" y="131">228.3k / 230.4k XP</text>
-    <text class="gl-pct " x="474" y="132" text-anchor="end">78%</text>
+    <text class="gl-meta" x="150" y="131">319.6k / 324.9k XP</text>
+    <text class="gl-pct " x="474" y="132" text-anchor="end">53%</text>
     <rect x="150" y="139" width="324" height="10" rx="5" fill="#c9d1d9" fill-opacity="0.14"/>
-    <rect class="xp-fill " x="150" y="139" width="252.37894736842105" height="10" rx="5" fill="#58a6ff" filter="url(#gl-glow)"/>
-    <text class="gl-hint" x="150" y="164">2.1k XP to Lv 48</text>
+    <rect class="xp-fill " x="150" y="139" width="172.60884955752212" height="10" rx="5" fill="#58a6ff" filter="url(#gl-glow)"/>
+    <text class="gl-hint" x="150" y="164">5.3k XP to Lv 57</text>
 
     <g transform="translate(150, 190)">
       <svg class="icon" x="0" y="-11" width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path fill-rule="evenodd" d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25zm0 2.445L6.615 5.5a.75.75 0 0 1-.564.41l-3.097.45 2.24 2.184a.75.75 0 0 1 .216.664l-.528 3.084 2.769-1.456a.75.75 0 0 1 .698 0l2.77 1.456-.53-3.084a.75.75 0 0 1 .216-.664l2.24-2.183-3.096-.45a.75.75 0 0 1-.564-.41L8 2.694v.001z"/></svg>
@@ -112,4 +113,23 @@ text { font-family: 'Segoe UI', Ubuntu, 'Helvetica Neue', sans-serif; }
       <text class="gl-chip-value" x="80" y="0">x200</text>
     </g>
   </g>
+<g class="fade" style="animation-delay:.2s"><g transform="translate(159, 215)"><g transform="translate(0, 0)">
+    <title>On a Roll — 7+ day contribution streak</title>
+    <circle r="9" fill="#ff7b54" fill-opacity="0.14" stroke="#ff7b54" stroke-opacity="0.55" stroke-width="1.2"/>
+    <g transform="translate(-5.58, -5.58) scale(0.465)"><path d="M12 2c2.5 3.4 6.2 6 6.2 10.6a6.2 6.2 0 0 1-12.4 0c0-1.6.6-3 1.6-4.1-.1 1.5.8 2.6 2 2.8-.1-2.8.9-5.4 2.6-7.5.2 1.5.9 2.4 2.1 2.8-.2-2-.8-4-2.1-5.6Z" fill="#ff7b54"/></g>
+  </g><g transform="translate(26, 0)">
+    <title>Collaborator — 10+ pull-request reviews</title>
+    <circle r="9" fill="#3fb0ff" fill-opacity="0.14" stroke="#3fb0ff" stroke-opacity="0.55" stroke-width="1.2"/>
+    <g transform="translate(-5.58, -5.58) scale(0.465)">
+    <circle cx="8" cy="7.5" r="3.2" fill="none" stroke="#3fb0ff" stroke-width="1.7"/>
+    <path d="M2.5 20a5.5 5.5 0 0 1 11 0" fill="none" stroke="#3fb0ff" stroke-width="1.7" stroke-linecap="round"/>
+    <circle cx="16.5" cy="8.5" r="2.6" fill="none" stroke="#3fb0ff" stroke-width="1.6"/>
+    <path d="M14.8 20a4.6 4.6 0 0 1 7.7-3.4" fill="none" stroke="#3fb0ff" stroke-width="1.6" stroke-linecap="round"/></g>
+  </g><g transform="translate(52, 0)">
+    <title>Founder — 5+ repos created</title>
+    <circle r="9" fill="#4ade80" fill-opacity="0.14" stroke="#4ade80" stroke-opacity="0.55" stroke-width="1.2"/>
+    <g transform="translate(-5.58, -5.58) scale(0.465)">
+    <rect x="4" y="4" width="16" height="16" rx="2.4" fill="none" stroke="#4ade80" stroke-width="1.7"/>
+    <path d="M8 4v16 M4 9.5h4" fill="none" stroke="#4ade80" stroke-width="1.5" opacity="0.85"/></g>
+  </g></g></g>
 </svg>

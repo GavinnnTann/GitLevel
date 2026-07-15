@@ -7,6 +7,7 @@
  */
 
 import { resolveClass, rarityForTier, creatorClassFor, UNIQUE_RARITY } from "./classes.js";
+import { computeAchievements } from "./achievements.js";
 
 /**
  * XP awarded per contribution — the single source of truth for the curve
@@ -126,5 +127,6 @@ export function computeCharacter(profile, cfg = DEFAULT_CONFIG, { creator = true
     rarity: primaryClass?.creator ? UNIQUE_RARITY : rarityForTier(primaryClass?.tier ?? 0),
     fame: computeFame(profile),
     combo: profile.streak ?? 0,
+    badges: computeAchievements(profile),   // earned independent of level/tier
   };
 }

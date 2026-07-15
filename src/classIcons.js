@@ -6,7 +6,7 @@
  * be reused with different accents inside one card.
  */
 
-import { shade } from "./utils.js";
+import { shade, encodeHTML } from "./utils.js";
 
 const strokeAttrs = (c, w = 2) =>
   `fill="none" stroke="${c}" stroke-width="${w}" stroke-linejoin="round" stroke-linecap="round"`;
@@ -164,6 +164,21 @@ export function runeRing(cx, cy, r, color, className = "") {
   </g>`;
 }
 
+/** A loose scatter of three small twinkling sparkles around the crest — the
+ *  Common/Rare-tier accent (Tier 0–1), used so the earliest cards read as
+ *  "just getting started, and already a little magical" instead of bare.
+ *  Deliberately smaller and less structured than runeRing/flourish, which are
+ *  earned at Tier 1+ / Tier 3+ — this fades out once those take over. */
+export function emberSparks(cx, cy, r, color, className = "") {
+  const pts = [{ a: -50, d: r + 2, s: 3.2 }, { a: 72, d: r + 6, s: 2.6 }, { a: 205, d: r + 3, s: 2.9 }];
+  return `<g>${pts.map(({ a, d, s }) => {
+    const rad = (a * Math.PI) / 180;
+    const x = cx + Math.cos(rad) * d, y = cy + Math.sin(rad) * d;
+    return `<path class="${className}" transform="translate(${x} ${y})" opacity="0.8" fill="${color}"
+      d="M0 ${-s} L${s * 0.32} ${-s * 0.32} L${s} 0 L${s * 0.32} ${s * 0.32} L0 ${s} L${-s * 0.32} ${s * 0.32} L${-s} 0 L${-s * 0.32} ${-s * 0.32} Z"/>`;
+  }).join("")}</g>`;
+}
+
 /** A crown centered horizontally on cx with its base at `baseY` — Tier 4. */
 export function crown(cx, baseY, color, scale = 1.5) {
   return `<g transform="translate(${cx - 10 * scale}, ${baseY - 9 * scale}) scale(${scale})">${crownPath(color)}</g>`;
@@ -242,6 +257,44 @@ export function solidDiamond(cx, cy, size, color, { opacity = 1, className = "" 
     <path d="M22 9.5 L12 23 L12 9.5 Z" fill="${dark}" opacity="0.5"/>
     <path d="M12 1 V23 M2 9.5 H22" stroke="${light}" stroke-width="0.5" stroke-opacity="0.5"/>
     <path d="M9 4.5 l1 2 l2 1 l-2 1 l-1 2 l-1 -2 l-2 -1 l2 -1 Z" fill="#fff7dd" opacity="0.85"/>
+  </g>`;
+}
+
+// ---------------------------------------------------------------------------
+// Achievement badges — small earned pins (see src/achievements.js). Simple
+// stroke-built glyphs (lines/circles) rather than filled illustration, since
+// they render at ~20px and need to read cleanly at that size.
+// ---------------------------------------------------------------------------
+
+const BADGE_GLYPHS = {
+  trend: (c) => `
+    <path d="M3 17 L9 9 L13 12 L20 4" ${strokeAttrs(c, 2.1)}/>
+    <path d="M14 4 H20 V10" ${strokeAttrs(c, 2.1)}/>`,
+  flame: (c) => `<path d="M12 2c2.5 3.4 6.2 6 6.2 10.6a6.2 6.2 0 0 1-12.4 0c0-1.6.6-3 1.6-4.1-.1 1.5.8 2.6 2 2.8-.1-2.8.9-5.4 2.6-7.5.2 1.5.9 2.4 2.1 2.8-.2-2-.8-4-2.1-5.6Z" fill="${c}"/>`,
+  polyglot: (c) => `
+    <circle cx="9" cy="9" r="6.4" fill="none" stroke="${c}" stroke-width="1.7" opacity="0.9"/>
+    <circle cx="15.5" cy="9" r="6.4" fill="none" stroke="${c}" stroke-width="1.7" opacity="0.9"/>
+    <circle cx="12.25" cy="15" r="6.4" fill="none" stroke="${c}" stroke-width="1.7" opacity="0.9"/>`,
+  people: (c) => `
+    <circle cx="8" cy="7.5" r="3.2" fill="none" stroke="${c}" stroke-width="1.7"/>
+    <path d="M2.5 20a5.5 5.5 0 0 1 11 0" fill="none" stroke="${c}" stroke-width="1.7" stroke-linecap="round"/>
+    <circle cx="16.5" cy="8.5" r="2.6" fill="none" stroke="${c}" stroke-width="1.6"/>
+    <path d="M14.8 20a4.6 4.6 0 0 1 7.7-3.4" fill="none" stroke="${c}" stroke-width="1.6" stroke-linecap="round"/>`,
+  repo: (c) => `
+    <rect x="4" y="4" width="16" height="16" rx="2.4" fill="none" stroke="${c}" stroke-width="1.7"/>
+    <path d="M8 4v16 M4 9.5h4" fill="none" stroke="${c}" stroke-width="1.5" opacity="0.85"/>`,
+};
+
+/** A small earned-achievement pin: a tinted circular chip + glyph, with an
+ *  SVG <title> carrying the name/hint so it stays accessible even though the
+ *  row itself is icon-only (no room for labels at card scale). */
+export function renderBadge(badge, { x = 0, y = 0, r = 10 } = {}) {
+  const draw = BADGE_GLYPHS[badge.icon];
+  const glyph = draw ? draw(badge.color) : "";
+  return `<g transform="translate(${x}, ${y})">
+    <title>${encodeHTML(`${badge.label} — ${badge.hint}`)}</title>
+    <circle r="${r}" fill="${badge.color}" fill-opacity="0.14" stroke="${badge.color}" stroke-opacity="0.55" stroke-width="1.2"/>
+    <g transform="translate(${(-r * 1.24) / 2}, ${(-r * 1.24) / 2}) scale(${(r * 1.24) / 24})">${glyph}</g>
   </g>`;
 }
 
