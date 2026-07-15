@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" width="160" height="160" role="img" aria-label="Kotlin crest">
+  <circle cx="80" cy="80" r="70" fill="#b57bff" fill-opacity="0.08"/>
+  <circle cx="80" cy="80" r="70" fill="none" stroke="#b57bff" stroke-opacity="0.35" stroke-width="2"/>
+  <circle cx="80" cy="80" r="61" fill="none" stroke="#b57bff" stroke-opacity="0.5" stroke-width="1.3" stroke-dasharray="2 10" stroke-linecap="round"/>
+  <svg class="" x="30" y="30" width="100" height="100" viewBox="0 0 48 48" aria-hidden="true"><defs><radialGradient id="klHalo" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#8ec6ff" stop-opacity="0.42"/><stop offset="1" stop-color="#8ec6ff" stop-opacity="0"/></radialGradient>
+      <linearGradient id="klPetal" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d8efff"/><stop offset="0.45" stop-color="#4a90d9"/><stop offset="1" stop-color="#123a72"/></linearGradient>
+      <linearGradient id="klLeaf" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6aa8e0"/><stop offset="1" stop-color="#0d2a52"/></linearGradient>
+      <radialGradient id="klCore" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#ffffff"/><stop offset="0.5" stop-color="#ffd873"/><stop offset="1" stop-color="#ffd873" stop-opacity="0"/></radialGradient>
+    </defs>
+    <circle cx="24" cy="26" r="22" fill="url(#klHalo)"/>
+    <g transform="translate(24 27) rotate(-80)">
+      <path d="M0 -15 C7 -5 6 6 0 11 C-6 6 -7 -5 0 -15 Z" fill="url(#klLeaf)" stroke="#8ec6ff" stroke-width="0.4" stroke-opacity="0.4"/>
+    </g><g transform="translate(24 27) rotate(80)">
+      <path d="M0 -15 C7 -5 6 6 0 11 C-6 6 -7 -5 0 -15 Z" fill="url(#klLeaf)" stroke="#8ec6ff" stroke-width="0.4" stroke-opacity="0.4"/>
+    </g>
+    <g transform="translate(24 27) rotate(-56)">
+      <path d="M0 -17 C6 -7 5 6 0 12 C-5 6 -6 -7 0 -17 Z" fill="url(#klPetal)" stroke="#8ec6ff" stroke-width="0.5" stroke-opacity="0.55"/>
+      <path d="M0 -14 C1.6 -6 1.6 5 0 10" fill="none" stroke="#d8efff" stroke-width="0.7" stroke-opacity="0.55"/>
+    </g><g transform="translate(24 27) rotate(56)">
+      <path d="M0 -17 C6 -7 5 6 0 12 C-5 6 -6 -7 0 -17 Z" fill="url(#klPetal)" stroke="#8ec6ff" stroke-width="0.5" stroke-opacity="0.55"/>
+      <path d="M0 -14 C1.6 -6 1.6 5 0 10" fill="none" stroke="#d8efff" stroke-width="0.7" stroke-opacity="0.55"/>
+    </g>
+    <g transform="translate(24 27) rotate(-28)">
+      <path d="M0 -17 C6 -7 5 6 0 12 C-5 6 -6 -7 0 -17 Z" fill="url(#klPetal)" stroke="#8ec6ff" stroke-width="0.5" stroke-opacity="0.55"/>
+      <path d="M0 -14 C1.6 -6 1.6 5 0 10" fill="none" stroke="#d8efff" stroke-width="0.7" stroke-opacity="0.55"/>
+    </g><g transform="translate(24 27) rotate(28)">
+      <path d="M0 -17 C6 -7 5 6 0 12 C-5 6 -6 -7 0 -17 Z" fill="url(#klPetal)" stroke="#8ec6ff" stroke-width="0.5" stroke-opacity="0.55"/>
+      <path d="M0 -14 C1.6 -6 1.6 5 0 10" fill="none" stroke="#d8efff" stroke-width="0.7" stroke-opacity="0.55"/>
+    </g>
+    <g transform="translate(24 27) rotate(0)">
+      <path d="M0 -17 C6 -7 5 6 0 12 C-5 6 -6 -7 0 -17 Z" fill="url(#klPetal)" stroke="#8ec6ff" stroke-width="0.5" stroke-opacity="0.55"/>
+      <path d="M0 -14 C1.6 -6 1.6 5 0 10" fill="none" stroke="#d8efff" stroke-width="0.7" stroke-opacity="0.55"/>
+    </g>
+    <circle cx="24" cy="27" r="3.6" fill="url(#klCore)"/>
+    <path d="M24 20 l1.5 1.9 l-1.5 1.9 l-1.5 -1.9 Z" fill="#fff7dd"/></svg>
+</svg>

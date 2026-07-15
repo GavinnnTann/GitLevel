@@ -91,7 +91,7 @@ const SYMBOLS = {
   bolt: (c) => `<path d="M13 3 L6 13 H11 L9 21 L18 10 H13 Z" fill="${c}" stroke="${c}" stroke-width="1" stroke-linejoin="round"/>`,
 
   // Lua — crescent moon
-  moon: (c) => `<path d="M15.5 3 A9 9 0 1 0 15.5 21 A7 7 0 1 1 15.5 3 Z" fill="${c}"/>`,
+  moon: (c) => `<path d="M13 3 A9 9 0 1 0 13 21 A5.5 9 0 1 1 13 3 Z" fill="${c}"/><circle cx="17.5" cy="8" r="1" fill="${c}"/>`,
 
   // Verilog / VHDL — circuit
   circuit: (c) => `

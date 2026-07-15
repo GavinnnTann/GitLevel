@@ -28,6 +28,7 @@
   html { scroll-behavior:smooth; }
   body {
     margin:0; color:var(--ink-2); font-family:var(--sans); line-height:1.65;
+    overflow-x:hidden;
     background:var(--bg-0);
     background-image:
       radial-gradient(1100px 640px at 50% -8%, #182a55 0%, transparent 55%),
@@ -67,7 +68,7 @@
   .brand { display:inline-flex; align-items:center; gap:12px; margin-bottom:30px; }
   .brand img { width:46px; height:46px; border-radius:11px; box-shadow:0 6px 22px #0009; }
   .brand span { font-family:var(--serif); font-size:20px; color:var(--ink); letter-spacing:.5px; }
-  .hero h1 { font-size:clamp(38px,6.4vw,68px); line-height:1.04; letter-spacing:-.5px; }
+  .hero h1 { font-size:clamp(26px,6.6vw,68px); line-height:1.06; letter-spacing:-.4px; overflow-wrap:break-word; }
   .hero h1 .shine { background:linear-gradient(180deg,var(--gold-lt),var(--gold) 60%,#b98a2e); -webkit-background-clip:text; background-clip:text; color:transparent; }
   .hero p.sub { max-width:660px; margin:22px auto 0; font-size:19px; color:var(--ink-2); }
   .cta-row { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; margin-top:34px; }
@@ -160,9 +161,27 @@
   .snip pre { background:#0c0f18; border:1px solid var(--line); border-radius:11px; padding:15px 16px; overflow-x:auto; font-family:var(--mono); font-size:13px; color:#d7e2fb; margin:0; }
   .snip .copy { position:absolute; top:9px; right:9px; background:#1a2136; border:1px solid var(--line-2); color:var(--ink-2); border-radius:7px; padding:5px 11px; font-size:12px; cursor:pointer; }
   .snip .copy:hover { color:#fff; border-color:var(--gold-dim); }
-  .themechips { display:flex; gap:8px; justify-content:center; flex-wrap:wrap; margin-top:30px; }
-  .themechips a { font-family:var(--mono); font-size:12.5px; color:var(--ink-2); background:#0d1119; border:1px solid var(--line); border-radius:999px; padding:6px 14px; }
-  .themechips a:hover { border-color:var(--gold-dim); color:var(--gold-lt); }
+  .theme-select { display:flex; gap:8px; justify-content:center; flex-wrap:wrap; margin:16px auto 0; }
+  .tchip { font-family:var(--mono); font-size:12.5px; color:var(--ink-2); background:#0d1119; border:1px solid var(--line); border-radius:999px; padding:7px 15px; cursor:pointer; transition:.2s; }
+  .tchip:hover { border-color:var(--line-2); color:var(--ink); }
+  .tchip.active { color:#2a1e05; background:linear-gradient(180deg,var(--gold-lt),var(--gold)); border-color:transparent; font-weight:600; }
+
+  /* ---------- class explorer ---------- */
+  .class-tabs { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; max-width:900px; margin:0 auto 30px; }
+  .ctab { --dot:var(--gold); font-family:var(--mono); font-size:12.5px; color:var(--ink-2); background:#0d1119; border:1px solid var(--line); border-radius:9px; padding:8px 12px; cursor:pointer; display:inline-flex; align-items:center; gap:7px; transition:border-color .2s,color .2s,background .2s; }
+  .ctab i { width:8px; height:8px; border-radius:50%; background:var(--dot); box-shadow:0 0 7px var(--dot); flex:none; }
+  .ctab:hover { border-color:var(--line-2); color:var(--ink); }
+  .ctab.active { color:var(--ink); border-color:var(--dot); box-shadow:0 0 0 1px var(--dot), 0 0 16px -5px var(--dot); background:#111725; }
+  .explorer { display:grid; grid-template-columns:264px 1fr; gap:34px; align-items:center; background:linear-gradient(180deg,#0e121c,#0a0d15); border:1px solid var(--line); border-radius:18px; padding:32px; }
+  .crest-stage { text-align:center; }
+  .crest-stage img { width:190px; height:190px; filter:drop-shadow(0 10px 26px #0008); }
+  .crest-stage h3 { margin-top:14px; font-size:25px; }
+  .crest-stage .sub { font-family:var(--mono); font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); margin-top:7px; }
+  .ex-ladder { display:flex; flex-direction:column; gap:3px; }
+  .ex-step { display:grid; grid-template-columns:92px 1fr auto; align-items:center; gap:14px; padding:11px 15px; border-radius:11px; border:1px solid transparent; }
+  .ex-step .band { font-family:var(--mono); font-size:10px; letter-spacing:.13em; text-transform:uppercase; font-weight:600; }
+  .ex-step .ttl { font-family:var(--serif); font-size:18px; color:var(--ink); }
+  .ex-step .rng { font-family:var(--mono); font-size:11px; color:var(--muted); }
 
   footer { border-top:1px solid var(--line); padding:34px 0 46px; text-align:center; color:var(--muted); font-size:13.5px; }
   footer a { color:var(--rare); }
@@ -172,9 +191,17 @@
   [data-reveal].in { opacity:1; transform:none; }
 
   @media (max-width:820px){
-    .split,.prog,.cards3,.concepts { grid-template-columns:1fr; }
+    .split,.prog,.cards3,.concepts,.explorer { grid-template-columns:1fr; }
     .rarity-row { grid-template-columns:repeat(3,1fr); row-gap:22px; }
+    .crest-stage img { width:150px; height:150px; }
+    .ex-step { grid-template-columns:78px 1fr auto; gap:10px; padding:10px 12px; }
+    .ex-step .ttl { font-size:16px; }
+    .inputrow { flex-direction:column; }
     section { padding:66px 0; }
+  }
+  @media (max-width:420px){
+    .rarity-row { grid-template-columns:repeat(2,1fr); }
+    .ex-step .rng { display:none; }
   }
   @media (prefers-reduced-motion:reduce){
     html{ scroll-behavior:auto; }
@@ -195,7 +222,7 @@
     <a class="btn btn-primary" href="#forge">Forge your card</a>
     <a class="btn btn-ghost" href="#classes">Explore the classes</a>
   </div>
-  <figure class="hero-card floaty" data-reveal>
+  <figure class="hero-card floaty">
     <span class="badge">MYTHIC</span>
     <img src="/api/card?username=GavinnnTann" onerror="this.onerror=null;this.src='/cards/hero.svg'" alt="A GitLevel character card" width="500" />
   </figure>
@@ -246,33 +273,28 @@
     <h2>Craft is the only currency.</h2>
     <p>XP comes from what you build — commits, PRs, reviews, issues, repos — amplified by your years on GitHub. Popularity is a separate axis. No shortcuts to prestige.</p>
   </div>
-  <div class="prog">
-    <div class="panel" data-reveal>
-      <div class="xp-row"><span>Rust · Guardian → <b style="color:var(--ink-2)">Eternal Guardian</b></span><span class="lv">LV 31</span></div>
-      <div class="xp-track"><div class="xp-fill" data-reveal style="--pct:78%"></div></div>
-      <div class="ladder" style="margin-top:20px">
-        <div class="step"><span class="dot" style="background:var(--common)"></span><span class="t">Watchman</span><span class="band" style="color:var(--common)">Common</span></div>
-        <div class="step" style="margin-left:5px"><span class="conn"></span></div>
-        <div class="step"><span class="dot" style="background:var(--rare)"></span><span class="t">Sentinel</span><span class="band" style="color:var(--rare)">Rare</span></div>
-        <div class="step" style="margin-left:5px"><span class="conn"></span></div>
-        <div class="step"><span class="dot" style="background:var(--epic)"></span><span class="t">Guardian</span><span class="band" style="color:var(--epic)">Epic</span></div>
-        <div class="step" style="margin-left:5px"><span class="conn"></span></div>
-        <div class="step"><span class="dot" style="background:var(--legend)"></span><span class="t" style="color:var(--gold-lt)">Eternal Guardian</span><span class="band" style="color:var(--legend)">Legendary</span></div>
-        <div class="step" style="margin-left:5px"><span class="conn"></span></div>
-        <div class="step"><span class="dot" style="background:var(--mythic)"></span><span class="t" style="color:#ffb0ec">Undying</span><span class="band" style="color:var(--mythic)">Mythic</span></div>
-      </div>
+  <div class="rarity-row" data-reveal style="max-width:780px;margin:0 auto">
+    <div class="medal" style="--c:var(--common)"><div class="disc"><b>★</b></div><div class="nm">Common</div><div class="st">Lv 1–5</div></div>
+    <div class="medal" style="--c:var(--rare)"><div class="disc"><b>★</b></div><div class="nm">Rare</div><div class="st">Lv 6–14</div></div>
+    <div class="medal" style="--c:var(--epic)"><div class="disc"><b>★</b></div><div class="nm">Epic</div><div class="st">Lv 15–28</div></div>
+    <div class="medal" style="--c:var(--legend)"><div class="disc"><b>★</b></div><div class="nm">Legendary</div><div class="st">Lv 29–54</div></div>
+    <div class="medal myth" style="--c:var(--mythic)"><div class="disc"><b>★</b></div><div class="nm">Mythic</div><div class="st">Lv 55+ · the few</div></div>
+  </div>
+  <p class="muted" style="text-align:center;margin:24px auto 0;font-size:14.5px;max-width:640px">A quiet, high-level artisan and a famous newcomer read as genuinely different characters — because <em>fame</em> lives on its own axis, apart from XP.</p>
+
+  <div class="shead" data-reveal style="margin:74px auto 26px">
+    <p class="eyebrow">Choose your calling</p>
+    <h2 style="font-size:clamp(24px,3.4vw,34px)">Every class has a path.</h2>
+    <p>All 24 classes carry their own five-tier ascent. Pick one to trace its titles — and meet its crest.</p>
+  </div>
+  <div class="class-tabs" id="classTabs" data-reveal></div>
+  <div class="explorer" data-reveal>
+    <div class="crest-stage">
+      <img id="exCrest" width="190" height="190" alt="Class crest" />
+      <h3 id="exName">Rust</h3>
+      <div class="sub" id="exSub"></div>
     </div>
-    <div data-reveal style="transition-delay:.1s">
-      <p class="eyebrow" style="text-align:center">Five bands of prestige</p>
-      <div class="rarity-row">
-        <div class="medal" style="--c:var(--common)"><div class="disc"><b>★</b></div><div class="nm">Common</div><div class="st">Lv 1–5</div></div>
-        <div class="medal" style="--c:var(--rare)"><div class="disc"><b>★</b></div><div class="nm">Rare</div><div class="st">Lv 6–14</div></div>
-        <div class="medal" style="--c:var(--epic)"><div class="disc"><b>★</b></div><div class="nm">Epic</div><div class="st">Lv 15–28</div></div>
-        <div class="medal" style="--c:var(--legend)"><div class="disc"><b>★</b></div><div class="nm">Legendary</div><div class="st">Lv 29–54</div></div>
-        <div class="medal myth" style="--c:var(--mythic)"><div class="disc"><b>★</b></div><div class="nm">Mythic</div><div class="st">Lv 55+ · the few</div></div>
-      </div>
-      <p class="muted" style="text-align:center;margin-top:26px;font-size:14.5px">A quiet, high-level artisan and a famous newcomer read as genuinely different characters — because <em>fame</em> lives on its own axis, apart from XP.</p>
-    </div>
+    <div class="ex-ladder" id="exLadder"></div>
   </div>
 </section>
 
@@ -310,6 +332,14 @@
       <input id="uname" type="text" inputmode="text" spellcheck="false" placeholder="your-github-username" aria-label="GitHub username" />
       <button class="btn btn-primary" onclick="forge()">Generate</button>
     </div>
+    <div class="theme-select" id="themeSelect" data-reveal aria-label="Card theme">
+      <button class="tchip active" data-theme="volt">volt</button>
+      <button class="tchip" data-theme="midnight">midnight</button>
+      <button class="tchip" data-theme="sunset">sunset</button>
+      <button class="tchip" data-theme="ice">ice</button>
+      <button class="tchip" data-theme="matrix">matrix</button>
+      <button class="tchip" data-theme="transparent">transparent</button>
+    </div>
     <div class="genout" id="genout">
       <img id="cardPreview" alt="Your GitLevel card preview" />
       <div class="snip">
@@ -318,14 +348,6 @@
       </div>
       <p class="muted" style="font-size:13px;margin-top:12px">Paste that into your profile README. Cards are cached, so repeat views stay fast.</p>
     </div>
-    <div class="themechips" data-reveal>
-      <a href="/api/card?username=GavinnnTann&amp;theme=volt">volt</a>
-      <a href="/api/card?username=GavinnnTann&amp;theme=midnight">midnight</a>
-      <a href="/api/card?username=GavinnnTann&amp;theme=sunset">sunset</a>
-      <a href="/api/card?username=GavinnnTann&amp;theme=ice">ice</a>
-      <a href="/api/card?username=GavinnnTann&amp;theme=matrix">matrix</a>
-      <a href="/api/card?username=GavinnnTann&amp;theme=transparent">transparent</a>
-    </div>
   </div>
 </section>
 
@@ -333,23 +355,67 @@
   Crafted by <a href="https://github.com/GavinnnTann">Gavin</a> · open-source &amp; self-hosted on Vercel · <a href="https://github.com/GavinnnTann/GitLevel">source</a>
 </footer>
 
+<script src="/classes-data.js"></script>
 <script>
   // Scroll-reveal
   const io = new IntersectionObserver((entries) => {
     entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
-  }, { threshold:0.15, rootMargin:'0px 0px -8% 0px' });
+  }, { threshold:0.14, rootMargin:'0px 0px -6% 0px' });
   document.querySelectorAll('[data-reveal]').forEach((el) => io.observe(el));
 
-  // Forge
+  // ---- Class explorer ----
+  (function(){
+    const CLASSES = window.GITLEVEL_CLASSES || [];
+    const tabs = document.getElementById('classTabs');
+    if (!CLASSES.length || !tabs) return;
+    const BANDS = [
+      { n:'Common', c:'#9aa4af', lv:'1–5' }, { n:'Rare', c:'#58a6ff', lv:'6–14' },
+      { n:'Epic', c:'#a371f7', lv:'15–28' }, { n:'Legendary', c:'#e3b341', lv:'29–54' },
+      { n:'Mythic', c:'#ff5edb', lv:'55+' },
+    ];
+    const crest = document.getElementById('exCrest'), nm = document.getElementById('exName'),
+          sub = document.getElementById('exSub'), ladder = document.getElementById('exLadder');
+    function select(i){
+      const cl = CLASSES[i];
+      crest.src = '/crests/' + cl.safe + '.svg'; crest.alt = cl.lang + ' crest';
+      nm.textContent = cl.lang; nm.style.color = cl.color;
+      sub.textContent = cl.tiers[0] + ' → ' + cl.tiers[4];
+      ladder.innerHTML = cl.tiers.map((t, ti) => {
+        const b = BANDS[ti];
+        return '<div class="ex-step" style="background:' + b.c + '14;border-color:' + b.c + '22">' +
+          '<span class="band" style="color:' + b.c + '">' + b.n + '</span>' +
+          '<span class="ttl">' + cl.lang + ' ' + t + '</span>' +
+          '<span class="rng">Lv ' + b.lv + '</span></div>';
+      }).join('');
+      Array.prototype.forEach.call(tabs.children, (el, ei) => el.classList.toggle('active', ei === i));
+    }
+    CLASSES.forEach((cl, i) => {
+      const b = document.createElement('button');
+      b.className = 'ctab'; b.type = 'button'; b.style.setProperty('--dot', cl.color);
+      b.innerHTML = '<i></i>' + cl.lang;
+      b.addEventListener('click', () => select(i));
+      tabs.appendChild(b);
+    });
+    const start = Math.max(0, CLASSES.findIndex((c) => c.lang === 'Rust'));
+    select(start);
+  })();
+
+  // ---- Forge (with theme) ----
+  let currentTheme = 'volt';
   function forge(){
-    const raw = document.getElementById('uname').value.trim();
-    const u = raw.replace(/[^a-zA-Z0-9-]/g,'');
+    const u = document.getElementById('uname').value.trim().replace(/[^a-zA-Z0-9-]/g,'');
     if(!u) { document.getElementById('uname').focus(); return; }
-    document.getElementById('cardPreview').src = '/api/card?username=' + encodeURIComponent(u);
-    document.getElementById('snippet').textContent = '![GitLevel](https://gitlevel.vercel.app/api/card?username=' + u + ')';
+    const tq = currentTheme === 'volt' ? '' : '&theme=' + currentTheme;
+    document.getElementById('cardPreview').src = '/api/card?username=' + encodeURIComponent(u) + tq;
+    document.getElementById('snippet').textContent = '![GitLevel](https://gitlevel.vercel.app/api/card?username=' + u + tq + ')';
     document.getElementById('genout').classList.add('show');
   }
   document.getElementById('uname').addEventListener('keydown', (e)=>{ if(e.key==='Enter') forge(); });
+  document.querySelectorAll('.tchip').forEach((b) => b.addEventListener('click', () => {
+    currentTheme = b.dataset.theme;
+    document.querySelectorAll('.tchip').forEach((x) => x.classList.toggle('active', x === b));
+    if (document.getElementById('genout').classList.contains('show')) forge();
+  }));
   function copySnippet(btn){
     const t = document.getElementById('snippet').textContent;
     navigator.clipboard.writeText(t).then(()=>{ const o=btn.textContent; btn.textContent='Copied!'; setTimeout(()=>btn.textContent=o,1400); });

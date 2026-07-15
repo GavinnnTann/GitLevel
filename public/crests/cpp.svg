@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" width="160" height="160" role="img" aria-label="C++ crest">
+  <circle cx="80" cy="80" r="70" fill="#f34b7d" fill-opacity="0.08"/>
+  <circle cx="80" cy="80" r="70" fill="none" stroke="#f34b7d" stroke-opacity="0.35" stroke-width="2"/>
+  <circle cx="80" cy="80" r="61" fill="none" stroke="#f34b7d" stroke-opacity="0.5" stroke-width="1.3" stroke-dasharray="2 10" stroke-linecap="round"/>
+  <svg class="" x="30" y="30" width="100" height="100" viewBox="0 0 48 48" aria-hidden="true"><defs><radialGradient id="cpHalo" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#f34b7d" stop-opacity="0.42"/><stop offset="1" stop-color="#f34b7d" stop-opacity="0"/></radialGradient><linearGradient id="cpBlade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f4f7fb"/><stop offset="0.5" stop-color="#e7edf5"/><stop offset="1" stop-color="#7f8287"/></linearGradient></defs>
+    <circle cx="24" cy="24" r="21" fill="url(#cpHalo)"/>
+    <g stroke="#f34b7d" stroke-width="0.9" stroke-opacity="0.45" stroke-linecap="round"><path d="M24 3 V8 M13 6 L15 10 M35 6 L33 10"/></g>
+    <path d="M24 5 L27 29 L24 34 L21 29 Z" fill="url(#cpBlade)" stroke="#c23c64" stroke-width="0.5" stroke-linejoin="round"/>
+    <path d="M24 7 V31" stroke="#db4471" stroke-width="0.7" stroke-opacity="0.45"/>
+    <path d="M12 31 Q24 28 36 31 L34 34 Q24 31.5 14 34 Z" fill="url(#cpBlade)" stroke="#aa3558" stroke-width="0.5" stroke-linejoin="round"/>
+    <rect x="22.6" y="33" width="2.8" height="8" rx="0.8" fill="#922d4b"/>
+    <path d="M24 41 l2.4 2.4 l-2.4 2.4 l-2.4 -2.4 Z" fill="#f34b7d" stroke="#e6bf55" stroke-width="0.5"/></svg>
+</svg>

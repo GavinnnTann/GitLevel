@@ -10,7 +10,7 @@
   "scripts": {
     "preview": "node scripts/preview.mjs",
     "examples": "node scripts/examples.mjs",
-    "landing": "node scripts/landing-cards.mjs"
+    "landing": "node scripts/landing-cards.mjs && node scripts/landing-crests.mjs"
   },
   "repository": {
     "type": "git",

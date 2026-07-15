@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" width="160" height="160" role="img" aria-label="C# crest">
+  <circle cx="80" cy="80" r="70" fill="#a371f7" fill-opacity="0.08"/>
+  <circle cx="80" cy="80" r="70" fill="none" stroke="#a371f7" stroke-opacity="0.35" stroke-width="2"/>
+  <circle cx="80" cy="80" r="61" fill="none" stroke="#a371f7" stroke-opacity="0.5" stroke-width="1.3" stroke-dasharray="2 10" stroke-linecap="round"/>
+  <svg class="" x="30" y="30" width="100" height="100" viewBox="0 0 48 48" aria-hidden="true"><defs><radialGradient id="csHalo" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#a371f7" stop-opacity="0.42"/><stop offset="1" stop-color="#a371f7" stop-opacity="0"/></radialGradient><linearGradient id="csSteel" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#dfe2e7"/><stop offset="0.5" stop-color="#aeb7c4"/><stop offset="1" stop-color="#575c62"/></linearGradient><linearGradient id="csWood" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c3b5a2"/><stop offset="0.5" stop-color="#7a5a30"/><stop offset="1" stop-color="#43321a"/></linearGradient></defs>
+    <circle cx="24" cy="24" r="21" fill="url(#csHalo)"/>
+    <rect x="22.6" y="20" width="2.8" height="22" rx="1" fill="url(#csWood)"/>
+    <path d="M13 12 H35 L37 16 L35 20 H13 L11 16 Z" fill="url(#csSteel)" stroke="#825ac6" stroke-width="0.6" stroke-linejoin="round"/>
+    <g stroke="#a371f7" stroke-width="1.4" stroke-linecap="round"><path d="M24 13 V19 M20 14.5 H28 M20 17.5 H28"/></g>
+    <path d="M24 40 l1.8 1.9 l-1.8 1.9 l-1.8 -1.9 Z" fill="#c8aafa"/>
+    <path d="M33 9 l0.96 2.04 l2.04 0.96 l-2.04 0.96 l-0.96 2.04 l-0.96 -2.04 l-2.04 -0.96 l2.04 -0.96 Z" fill="#a371f7"/></svg>
+</svg>

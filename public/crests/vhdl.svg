@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" width="160" height="160" role="img" aria-label="VHDL crest">
+  <circle cx="80" cy="80" r="70" fill="#adb2cb" fill-opacity="0.08"/>
+  <circle cx="80" cy="80" r="70" fill="none" stroke="#adb2cb" stroke-opacity="0.35" stroke-width="2"/>
+  <circle cx="80" cy="80" r="61" fill="none" stroke="#adb2cb" stroke-opacity="0.5" stroke-width="1.3" stroke-dasharray="2 10" stroke-linecap="round"/>
+  <svg class="crest-icon" x="42" y="42" width="76" height="76" viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M4 8 H9 M15 8 H20 M12 4 V9 M12 15 V20 M4 16 H9 M15 16 H20" fill="none" stroke="#adb2cb" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="12" cy="12" r="3.2" fill="none" stroke="#adb2cb" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="9" cy="8" r="1.3" fill="#adb2cb"/><circle cx="15" cy="16" r="1.3" fill="#adb2cb"/>
+    <path d="M9.6 8.6 L10.5 10 M14.4 15.4 L13.5 14" fill="none" stroke="#adb2cb" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/></svg>
+</svg>

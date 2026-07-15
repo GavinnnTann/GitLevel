@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" width="160" height="160" role="img" aria-label="Python crest">
+  <circle cx="80" cy="80" r="70" fill="#4b8bbe" fill-opacity="0.08"/>
+  <circle cx="80" cy="80" r="70" fill="none" stroke="#4b8bbe" stroke-opacity="0.35" stroke-width="2"/>
+  <circle cx="80" cy="80" r="61" fill="none" stroke="#4b8bbe" stroke-opacity="0.5" stroke-width="1.3" stroke-dasharray="2 10" stroke-linecap="round"/>
+  <svg class="" x="30" y="30" width="100" height="100" viewBox="0 0 48 48" aria-hidden="true"><defs><radialGradient id="pyHalo" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#4b8bbe" stop-opacity="0.42"/><stop offset="1" stop-color="#4b8bbe" stop-opacity="0"/></radialGradient>
+      <radialGradient id="pyIris" cx="0.5" cy="0.45" r="0.55"><stop offset="0" stop-color="#c9dcec"/><stop offset="0.6" stop-color="#4b8bbe"/><stop offset="1" stop-color="#223f55"/></radialGradient>
+    </defs>
+    <circle cx="24" cy="24" r="21" fill="url(#pyHalo)"/>
+    <path d="M24 7 L40 36 L8 36 Z" fill="none" stroke="#e6bf55" stroke-width="1.6" stroke-linejoin="round"/>
+    <path d="M24 10 L36.5 33 L11.5 33 Z" fill="none" stroke="#e6bf55" stroke-width="0.6" stroke-opacity="0.5"/>
+    <path d="M9 27 Q24 17 39 27 Q24 36 9 27 Z" fill="#1e384c" stroke="#e6bf55" stroke-width="1"/>
+    <circle cx="24" cy="27" r="6.4" fill="url(#pyIris)"/>
+    <circle cx="24" cy="27" r="2.8" fill="#0b1524"/>
+    <circle cx="22.4" cy="25.4" r="1.1" fill="#eaffff"/>
+    <g stroke="#e6bf55" stroke-width="1" stroke-linecap="round" stroke-opacity="0.85"><path d="M24 15 V11 M18 16 L16 13 M30 16 L32 13"/></g></svg>
+</svg>

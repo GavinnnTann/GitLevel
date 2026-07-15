@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" width="160" height="160" role="img" aria-label="Go crest">
+  <circle cx="80" cy="80" r="70" fill="#00add8" fill-opacity="0.08"/>
+  <circle cx="80" cy="80" r="70" fill="none" stroke="#00add8" stroke-opacity="0.35" stroke-width="2"/>
+  <circle cx="80" cy="80" r="61" fill="none" stroke="#00add8" stroke-opacity="0.5" stroke-width="1.3" stroke-dasharray="2 10" stroke-linecap="round"/>
+  <svg class="" x="30" y="30" width="100" height="100" viewBox="0 0 48 48" aria-hidden="true"><defs><radialGradient id="goHalo" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#00add8" stop-opacity="0.42"/><stop offset="1" stop-color="#00add8" stop-opacity="0"/></radialGradient><linearGradient id="goStarA" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9de0f0"/><stop offset="0.5" stop-color="#26b9de"/><stop offset="1" stop-color="#15667a"/></linearGradient><linearGradient id="goStarB" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8ccada"/><stop offset="0.5" stop-color="#008aad"/><stop offset="1" stop-color="#004c5f"/></linearGradient></defs>
+    <circle cx="24" cy="24" r="21" fill="url(#goHalo)"/>
+    <circle cx="24" cy="24" r="18" fill="none" stroke="#e6bf55" stroke-width="1.4"/>
+    <circle cx="24" cy="24" r="18" fill="none" stroke="#b8860b" stroke-width="0.5" stroke-dasharray="1 5" opacity="0.6"/>
+    <path d="M6 24 L24 20 L42 24 L24 28 Z" fill="url(#goStarB)"/>
+    <path d="M24 6 L28 24 L24 42 L20 24 Z" fill="url(#goStarA)"/>
+    <path d="M24 6 L26 22 L24 24 L22 22 Z" fill="#fff3c4"/>
+    <circle cx="24" cy="24" r="2.4" fill="#e6bf55" stroke="#b8860b" stroke-width="0.6"/></svg>
+</svg>

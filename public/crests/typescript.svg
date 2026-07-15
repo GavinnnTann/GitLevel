@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" width="160" height="160" role="img" aria-label="TypeScript crest">
+  <circle cx="80" cy="80" r="70" fill="#3178c6" fill-opacity="0.08"/>
+  <circle cx="80" cy="80" r="70" fill="none" stroke="#3178c6" stroke-opacity="0.35" stroke-width="2"/>
+  <circle cx="80" cy="80" r="61" fill="none" stroke="#3178c6" stroke-opacity="0.5" stroke-width="1.3" stroke-dasharray="2 10" stroke-linecap="round"/>
+  <svg class="" x="30" y="30" width="100" height="100" viewBox="0 0 48 48" aria-hidden="true"><defs><radialGradient id="tsHalo" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#3178c6" stop-opacity="0.42"/><stop offset="1" stop-color="#3178c6" stop-opacity="0"/></radialGradient><linearGradient id="tsMetal" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f5e5bb"/><stop offset="0.5" stop-color="#e6bf55"/><stop offset="1" stop-color="#73602b"/></linearGradient></defs>
+    <circle cx="24" cy="24" r="21" fill="url(#tsHalo)"/>
+    <path d="M24 11 l2 2 l-2 2 l-2 -2 Z" fill="#fff3c4"/>
+    <rect x="23.1" y="14" width="1.8" height="21" rx="0.6" fill="url(#tsMetal)"/>
+    <rect x="18" y="33" width="12" height="2.4" rx="0.8" fill="url(#tsMetal)"/>
+    <path d="M9 17 H39" stroke="url(#tsMetal)" stroke-width="2.2" stroke-linecap="round"/>
+    <g stroke="#e6bf55" stroke-width="0.8" stroke-opacity="0.8"><path d="M11 17 L7 24 M11 17 L15 24 M37 17 L33 24 M37 17 L41 24"/></g>
+    <g transform="translate(5 24)"><path d="M0 0 Q6 8 12 0 Z" fill="url(#tsMetal)" stroke="#b8860b" stroke-width="0.5"/></g>
+    <g transform="translate(31 24)"><path d="M0 0 Q6 8 12 0 Z" fill="url(#tsMetal)" stroke="#b8860b" stroke-width="0.5"/></g></svg>
+</svg>
