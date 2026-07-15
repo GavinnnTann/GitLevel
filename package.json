@@ -9,7 +9,8 @@
   },
   "scripts": {
     "preview": "node scripts/preview.mjs",
-    "examples": "node scripts/examples.mjs"
+    "examples": "node scripts/examples.mjs",
+    "landing": "node scripts/landing-cards.mjs"
   },
   "repository": {
     "type": "git",

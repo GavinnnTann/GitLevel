@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400" width="300" height="400" role="img" aria-label="Concept art — Python Godseer, a cosmic hooded archmage">
+<defs>
+  <radialGradient id="pbg" cx="0.5" cy="0.3" r="0.9">
+    <stop offset="0" stop-color="#20336040"/><stop offset="0" stop-color="#213561"/><stop offset="0.55" stop-color="#0e1730"/><stop offset="1" stop-color="#060a16"/>
+  </radialGradient>
+  <linearGradient id="probe" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#33507f"/><stop offset="0.5" stop-color="#182a4d"/><stop offset="1" stop-color="#0a1226"/>
+  </linearGradient>
+  <radialGradient id="phalo" cx="0.5" cy="0.5" r="0.5">
+    <stop offset="0" stop-color="#8fe3ff" stop-opacity="0.55"/><stop offset="1" stop-color="#8fe3ff" stop-opacity="0"/>
+  </radialGradient>
+  <radialGradient id="porb" cx="0.5" cy="0.42" r="0.6">
+    <stop offset="0" stop-color="#f4ffff"/><stop offset="0.45" stop-color="#c4f0ff"/><stop offset="1" stop-color="#3f95d6"/>
+  </radialGradient>
+  <linearGradient id="pframe" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd873"/><stop offset="0.5" stop-color="#c69a3f"/><stop offset="1" stop-color="#7c5c22"/></linearGradient>
+  <filter id="psoft" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="5"/></filter>
+</defs>
+<rect x="2" y="2" width="296" height="396" rx="16" fill="url(#pbg)"/>
+<g fill="#d6ecff">
+  <circle cx="46" cy="60" r="1.4" opacity="0.9"/><circle cx="70" cy="120" r="1" opacity="0.6"/><circle cx="250" cy="80" r="1.5" opacity="0.9"/>
+  <circle cx="228" cy="150" r="1" opacity="0.5"/><circle cx="40" cy="200" r="1.1" opacity="0.7"/><circle cx="264" cy="220" r="1.2" opacity="0.7"/>
+  <circle cx="90" cy="52" r="0.9" opacity="0.5"/><circle cx="205" cy="42" r="1.1" opacity="0.7"/><circle cx="150" cy="30" r="1.3" opacity="0.8"/>
+</g>
+<circle cx="150" cy="150" r="96" fill="url(#phalo)"/>
+<path d="M150 30 L154 44 L150 40 L146 44 Z" fill="#ffd873"/>
+<path d="M206 400 L188 116" stroke="#6b4f2a" stroke-width="6" stroke-linecap="round"/>
+<path d="M206 400 L188 116" stroke="#8a6a3a" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+<circle cx="187" cy="108" r="19" fill="url(#porb)" filter="url(#psoft)"/>
+<circle cx="187" cy="108" r="16" fill="url(#porb)"/>
+<circle cx="187" cy="108" r="16" fill="none" stroke="#ffd873" stroke-width="1.6" opacity="0.85"/>
+<circle cx="182" cy="103" r="4" fill="#ffffff" opacity="0.8"/>
+<path d="M150 56 L104 150 L86 262 L66 400 L234 400 L214 262 L196 150 Z" fill="url(#probe)"/>
+<path d="M150 56 L196 150 L214 262 L206 340 L172 300 L172 170 Z" fill="#0a1226" opacity="0.45"/>
+<path d="M150 60 L106 150 M150 60 L194 150" stroke="#8fe3ff" stroke-width="3" stroke-linecap="round" opacity="0.85"/>
+<path d="M120 150 L180 150 L170 214 L130 214 Z" fill="#050912"/>
+<circle cx="136" cy="180" r="7" fill="#bdefff" filter="url(#psoft)"/><circle cx="136" cy="180" r="4.5" fill="#eaffff"/>
+<circle cx="164" cy="180" r="7" fill="#bdefff" filter="url(#psoft)"/><circle cx="164" cy="180" r="4.5" fill="#eaffff"/>
+<path d="M150 126 l8 9 l-8 9 l-8 -9 Z" fill="#ffd873" filter="url(#psoft)"/>
+<path d="M150 128 l6 7 l-6 7 l-6 -7 Z" fill="#fff3c4"/>
+<path d="M104 150 L86 262 M196 150 L214 262" stroke="#4f80c4" stroke-width="2" opacity="0.5"/>
+<g fill="#bdefff"><circle cx="112" cy="300" r="1.6" opacity="0.8"/><circle cx="196" cy="330" r="1.4" opacity="0.7"/><circle cx="150" cy="356" r="1.5" opacity="0.6"/><circle cx="126" cy="250" r="1.2" opacity="0.6"/><circle cx="176" cy="238" r="1.2" opacity="0.6"/></g>
+<rect x="5" y="5" width="290" height="390" rx="14" fill="none" stroke="url(#pframe)" stroke-width="2"/>
+<g fill="#ffd873"><path d="M14 14 h20 M14 14 v20" stroke="#ffd873" stroke-width="2" fill="none"/><path d="M286 14 h-20 M286 14 v20" stroke="#ffd873" stroke-width="2" fill="none"/><path d="M14 386 h20 M14 386 v-20" stroke="#ffd873" stroke-width="2" fill="none"/><path d="M286 386 h-20 M286 386 v-20" stroke="#ffd873" stroke-width="2" fill="none"/></g>
+<text x="150" y="366" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="20" font-style="italic" fill="#ece7d8">Python · Godseer</text>
+<text x="150" y="384" text-anchor="middle" font-family="ui-monospace, Consolas, monospace" font-size="9" letter-spacing="4" fill="#8fe3ff">MYTHIC CONCEPT</text>
+</svg>
