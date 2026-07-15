@@ -79,16 +79,19 @@ export function computeFame(profile) {
 /**
  * Turn a profile into a full character card model. Everything the renderer
  * needs; no rendering concerns here.
+ *
+ * `creator` (default true) applies the bespoke Creator class for creator logins;
+ * pass false (e.g. from `?creator=false`) to see the real language-based class.
  */
-export function computeCharacter(profile, cfg = DEFAULT_CONFIG) {
+export function computeCharacter(profile, cfg = DEFAULT_CONFIG, { creator = true } = {}) {
   const xp = computeXP(profile, cfg);
   const { level, nextXP, progress } = levelFromXP(xp, cfg.baseXP);
 
   const primaryLang = profile.languages?.[0]?.name ?? null;
   const secondaryLang = profile.languages?.[1]?.name ?? null;
-  // Creators get a bespoke class that overrides their language; everyone else
-  // is classed by their primary language.
-  const primaryClass = creatorClassFor(profile.login)
+  // Creators get a bespoke class that overrides their language (unless opted
+  // out); everyone else is classed by their primary language.
+  const primaryClass = (creator ? creatorClassFor(profile.login) : null)
     ?? resolveClass(primaryLang, level); // may be null (no repos)
 
   return {

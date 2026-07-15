@@ -43,7 +43,9 @@ export default async function handler(req, res) {
 
   try {
     const profile = await fetchProfile({ username });
-    const character = computeCharacter(profile);
+    // ?creator=false lets a creator view their real language-based class.
+    const showCreator = parseBoolean(pickFirst(q.creator), true);
+    const character = computeCharacter(profile, undefined, { creator: showCreator });
     const svg = renderGitLevelCard(character, {
       colors: resolveColors(q, theme),
       hideBorder: parseBoolean(pickFirst(q.hide_border), false),

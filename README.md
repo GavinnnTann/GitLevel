@@ -163,6 +163,7 @@ proportionally less raw craft.
 | `card_width`    | int    | `500`   | clamped 440–800                                         |
 | `cache_seconds` | int    | `86400` | clamped 3600–86400 (24h default)                        |
 | `animation`     | bool   | `true`  | `false` renders a static card                           |
+| `creator`       | bool   | `true`  | `false` shows a creator's real class instead of the sigil |
 
 The card accent is tinted by your **class color** automatically; theme params
 still control the surrounding chrome.
