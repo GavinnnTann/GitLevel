@@ -9,6 +9,7 @@
  */
 
 import { githubGraphQL, pickToken, StatsError } from "./github.js";
+import { kvGet, kvSetEx } from "./kv.js";
 
 const FALLBACK_COLOR = "#8b949e";
 
@@ -21,6 +22,12 @@ const FALLBACK_COLOR = "#8b949e";
  * the renderer *after* this layer, so they never multiply API calls.
  *
  * TTL is short by default (freshness > savings); tune via PROFILE_CACHE_TTL_MS.
+ *
+ * This in-memory layer resets on every cold start and isn't shared across
+ * instances/regions, so its real hit rate is well below what the TTL implies
+ * under real traffic. If UPSTASH_REDIS_REST_URL/TOKEN are set (src/kv.js), a
+ * durable KV layer sits beneath it with the same TTL, surviving cold starts;
+ * without them, behavior is unchanged from before this layer existed.
  */
 const PROFILE_TTL_MS = Number(process.env.PROFILE_CACHE_TTL_MS) || 10 * 60 * 1000;
 const PROFILE_CACHE_MAX = 500; // bound memory on long-lived warm instances
@@ -109,6 +116,17 @@ export async function fetchProfile({ username }) {
   const cached = cacheGet(key);
   if (cached) return cached;
 
+  const kvHit = await kvGet(`profile:${key}`);
+  if (kvHit) {
+    try {
+      const profile = JSON.parse(kvHit);
+      cacheSet(key, profile); // warm this instance's in-memory layer too
+      return profile;
+    } catch {
+      // corrupt/legacy cached value — fall through to a live fetch
+    }
+  }
+
   const token = pickToken();
   const data = await githubGraphQL(PROFILE_QUERY, { login: username }, token);
 
@@ -145,5 +163,6 @@ export async function fetchProfile({ username }) {
     languages: aggregateLanguages(repos),
   };
   cacheSet(key, profile);
+  await kvSetEx(`profile:${key}`, JSON.stringify(profile), Math.round(PROFILE_TTL_MS / 1000));
   return profile;
 }

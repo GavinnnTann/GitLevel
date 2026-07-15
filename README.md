@@ -169,6 +169,15 @@ proportionally less raw craft.
 The card accent is tinted by your **class color** automatically; theme params
 still control the surrounding chrome.
 
+## `GET /api/stats` — deployment usage
+
+Returns `{ enabled, uniqueUsers, cardsServed }` as JSON — how many distinct
+usernames have generated a card on this deployment, and how many cards have
+been served in total. Requires the optional Upstash env vars (see
+[Deploy your own](#deploy-your-own-5-minutes)); without them it returns
+`{ enabled: false, message: "..." }` rather than an error, so it's always
+safe to check.
+
 ## Classes
 
 Your primary language → class, promoted through five tiers by level (see
@@ -259,11 +268,19 @@ The token stays server-side and serves every viewer of your deployment.
 
 **Optional env vars**
 
-| Env var                 | Default  | Notes                                                        |
-| ----------------------- | -------- | ------------------------------------------------------------ |
-| `GITHUB_TOKEN`          | —        | required; public read is enough                              |
-| `PAT_1`, `PAT_2`, …     | —        | extra tokens; one is picked at random per request            |
-| `PROFILE_CACHE_TTL_MS`  | `600000` | in-memory per-user cache TTL (10 min) — see How it works     |
+| Env var                       | Default  | Notes                                                              |
+| ------------------------------ | -------- | ------------------------------------------------------------------ |
+| `GITHUB_TOKEN`                | —        | required; public read is enough                                    |
+| `PAT_1`, `PAT_2`, …           | —        | extra tokens; one is picked at random per request                  |
+| `PROFILE_CACHE_TTL_MS`        | `600000` | in-memory (and, if set below, durable) per-user cache TTL — see How it works |
+| `UPSTASH_REDIS_REST_URL`      | —        | a free [Upstash](https://upstash.com) Redis DB — enables a durable cache, rate limiting, and `/api/stats` |
+| `UPSTASH_REDIS_REST_TOKEN`    | —        | paired with the URL above; skip both and nothing changes           |
+
+Setting the two Upstash vars turns on three things at once, for free, with no code changes needed:
+
+- **A durable profile cache** that survives cold starts and is shared across regions/instances, instead of resetting every time a fresh serverless instance spins up.
+- **Per-IP rate limiting** on `/api/card` (60 requests/minute per IP) — without it, the endpoint is unlimited, which is fine for a personal deployment but a real risk on a shared public one.
+- **`GET /api/stats`** — a small JSON endpoint (`{ enabled, uniqueUsers, cardsServed }`) reporting how many distinct usernames have generated a card and how many cards have been served, so you can actually tell whether anyone's using your deployment.
 
 ## Local preview (no token needed)
 
@@ -291,13 +308,18 @@ README <img> → GitHub Camo → /api/card (Vercel serverless, holds the token)
              → Cache-Control headers so Camo/CDN absorb repeat views
 ```
 
-- **Zero runtime dependencies** — `fetch` + template strings, nothing else.
-- **Two caching layers.** The CDN (`Cache-Control`) caches each *rendered URL*.
-  Behind it, a per-warm-instance cache keyed on **username alone** holds the raw
-  GraphQL payload, so the same user in six themes is six CDN keys but **one** API
-  call. Rendering params are applied after the cache, never multiplying requests.
+- **Zero runtime dependencies** — `fetch` + template strings, nothing else,
+  including for the optional Upstash integration below (plain REST calls).
+- **Two or three caching layers.** The CDN (`Cache-Control`) caches each
+  *rendered URL*. Behind it, a per-warm-instance cache keyed on **username
+  alone** holds the raw GraphQL payload, so the same user in six themes is six
+  CDN keys but **one** API call. If `UPSTASH_REDIS_REST_URL`/`TOKEN` are set, a
+  third, durable layer sits beneath that one and survives cold starts. Rendering
+  params are applied after all of this, never multiplying requests.
 - **Rate-limit budget** (`rateLimit { remaining resetAt }`) is logged on every
-  live fetch, so quota pressure is diagnosable in the deployment logs.
+  live fetch, so GitHub-side quota pressure is diagnosable in the deployment
+  logs. Separately, if Upstash is configured, `/api/card` also enforces its
+  *own* per-IP limit (60/min) so one client can't burn the whole token pool.
 - Errors never break the image slot: unknown user, rate limits, and bad tokens
   all render a small error SVG with HTTP 200.
 - All query params are validated/escaped before touching SVG markup.

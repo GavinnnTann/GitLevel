@@ -12,6 +12,7 @@ import { computeCharacter, scopeProfileLanguages } from "../src/engine.js";
 import { renderGitLevelCard } from "../src/renderCard.js";
 import { renderErrorCard } from "../src/renderError.js";
 import { getTheme } from "../src/themes.js";
+import { kvRateLimit, kvSAdd, kvIncr } from "../src/kv.js";
 import {
   clampValue,
   parseBoolean,
@@ -21,6 +22,20 @@ import {
 } from "../src/utils.js";
 
 const USERNAME_RE = /^[a-zA-Z0-9-]{1,39}$/;
+
+// Per-IP request budget. A no-op unless UPSTASH_REDIS_REST_URL/TOKEN are set
+// (see src/kv.js) — generous enough for normal multi-theme browsing, tight
+// enough to blunt a script hammering distinct usernames against the shared
+// token pool. Deliberately not env-tunable: a fixed, documented default beats
+// another knob nobody sets.
+const RATE_LIMIT_MAX = 60;
+const RATE_LIMIT_WINDOW_S = 60;
+
+function clientIp(req) {
+  const fwd = req.headers?.["x-forwarded-for"];
+  const first = String(pickFirst(fwd) ?? "").split(",")[0].trim();
+  return first || req.socket?.remoteAddress || "unknown";
+}
 
 export default async function handler(req, res) {
   const q = req.query ?? {};
@@ -41,6 +56,17 @@ export default async function handler(req, res) {
   const theme = getTheme(themeName);
   const cacheSeconds = clampValue(parseIntParam(pickFirst(q.cache_seconds), 86400), 3600, 86400);
 
+  const rl = await kvRateLimit(clientIp(req), RATE_LIMIT_MAX, RATE_LIMIT_WINDOW_S);
+  if (!rl.allowed) {
+    res.setHeader("Cache-Control", "no-store");
+    res.status(200).send(renderErrorCard(
+      "Rate limited",
+      "Too many requests from your network — please slow down",
+      themeName,
+    ));
+    return;
+  }
+
   try {
     const profile = await fetchProfile({ username });
     // ?exclude_langs=HTML,CSS drops noisy languages before the class is chosen.
@@ -59,6 +85,10 @@ export default async function handler(req, res) {
       "Cache-Control",
       `max-age=0, s-maxage=${cacheSeconds}, stale-while-revalidate=${cacheSeconds}`,
     );
+    // Usage tracking — "how many users have generated a card" (a no-op
+    // without Upstash configured). Counted on real success only, not on
+    // invalid/unknown usernames.
+    await Promise.all([kvSAdd("usage:usernames", username.toLowerCase()), kvIncr("usage:hits")]);
     res.status(200).send(svg);
   } catch (err) {
     console.error(err);
