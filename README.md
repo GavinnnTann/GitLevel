@@ -136,7 +136,7 @@ and **Mythic** stays a rare summit:
 | ⚪ Common      | 1 – 5   | 0                  | ★     |
 | 🔵 Rare        | 6 – 14  | 3,600              | ★★    |
 | 🟣 Epic        | 15 – 28 | 22,500             | ★★★   |
-| 🟡 Legendary   | 29 – 54 | 84,100             | ★★★★  |
+| 🟢 Legendary   | 29 – 54 | 84,100             | ★★★★  |
 | 🔴 Mythic      | 55 +    | 302,500            | ★★★★★ |
 
 ¹ Before the tenure multiplier — a long-tenured dev reaches each tier with

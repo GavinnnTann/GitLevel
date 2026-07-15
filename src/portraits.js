@@ -12,17 +12,11 @@
  * the coat-of-arms. The crest's gl-glow filter blooms the bright accents.
  */
 
+import { shade } from "./utils.js";
+
 const GOLD = "#e6bf55", GOLD_L = "#fff3c4", GOLD_D = "#b8860b";
 
 // --- shading helpers -------------------------------------------------------
-const _hx = (n) => Math.max(0, Math.min(255, Math.round(n))).toString(16).padStart(2, "0");
-/** Lighten (amt>0, toward white) or darken (amt<0, toward black) a hex color. */
-function shade(hex, amt) {
-  const m = hex.replace("#", "");
-  const r = parseInt(m.slice(0, 2), 16), g = parseInt(m.slice(2, 4), 16), b = parseInt(m.slice(4, 6), 16);
-  const t = amt < 0 ? 0 : 255, p = Math.abs(amt);
-  return `#${_hx(r + (t - r) * p)}${_hx(g + (t - g) * p)}${_hx(b + (t - b) * p)}`;
-}
 /** Vertical light→base→dark gradient (volume). */
 const vGrad = (id, base) =>
   `<linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${shade(base, 0.55)}"/><stop offset="0.5" stop-color="${base}"/><stop offset="1" stop-color="${shade(base, -0.45)}"/></linearGradient>`;

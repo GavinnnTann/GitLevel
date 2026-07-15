@@ -18,7 +18,7 @@
     --line:#232a3d; --line-2:#2e374d;
     --ink:#efe9da; --ink-2:#c2c9d8; --muted:#828da5; --muted-2:#5d6a86;
     --gold:#e3b341; --gold-lt:#ffd873; --gold-dim:#8a6a24;
-    --common:#9aa4af; --rare:#58a6ff; --epic:#a371f7; --legend:#e3b341; --mythic:#ff5edb;
+    --common:#9aa4af; --rare:#58a6ff; --epic:#a371f7; --legend:#3fb950; --mythic:#ff5edb;
     --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,"Times New Roman",serif;
     --sans:"Inter","Segoe UI",Ubuntu,system-ui,-apple-system,"Helvetica Neue",sans-serif;
     --mono:"SFMono-Regular",ui-monospace,"Cascadia Code",Consolas,"Liberation Mono",monospace;
@@ -79,7 +79,7 @@
   .btn-ghost:hover { background:#ffffff12; border-color:var(--gold-dim); }
   .hero-card { margin:52px auto 0; max-width:540px; position:relative; }
   .hero-card img { width:100%; height:auto; border-radius:16px; filter:drop-shadow(0 24px 60px #000a) drop-shadow(0 0 40px #e3b34118); }
-  .hero-card .badge { position:absolute; z-index:2; top:-13px; right:18px; font-family:var(--mono); font-size:10px; letter-spacing:.22em; color:var(--mythic); background:#1a0f1e; border:1px solid #ff5edb55; padding:5px 11px; border-radius:999px; box-shadow:0 4px 16px #ff5edb33; }
+  .hero-card .badge { position:absolute; z-index:2; top:-13px; right:18px; font-family:var(--mono); font-size:10px; letter-spacing:.22em; color:var(--gold-lt); background:#1e1608; border:1px solid #ffd87355; padding:5px 11px; border-radius:999px; box-shadow:0 4px 16px #ffd87333; }
   .floaty { animation:floaty 7s ease-in-out infinite; }
   @keyframes floaty { 0%,100%{ transform:translateY(0);} 50%{ transform:translateY(-9px);} }
 
@@ -226,7 +226,7 @@
     <a class="btn btn-ghost" href="#classes">Explore the classes</a>
   </div>
   <figure class="hero-card floaty">
-    <span class="badge">MYTHIC</span>
+    <span class="badge">UNIQUE</span>
     <img src="/api/card?username=GavinnnTann" onerror="this.onerror=null;this.src='/cards/hero.svg'" alt="A GitLevel character card" width="500" />
   </figure>
 </header>
@@ -376,7 +376,7 @@
     if (!CLASSES.length || !tabs) return;
     const BANDS = [
       { n:'Common', c:'#9aa4af', lv:'1–5' }, { n:'Rare', c:'#58a6ff', lv:'6–14' },
-      { n:'Epic', c:'#a371f7', lv:'15–28' }, { n:'Legendary', c:'#e3b341', lv:'29–54' },
+      { n:'Epic', c:'#a371f7', lv:'15–28' }, { n:'Legendary', c:'#3fb950', lv:'29–54' },
       { n:'Mythic', c:'#ff5edb', lv:'55+' },
     ];
     const crest = document.getElementById('exCrest'), nm = document.getElementById('exName'),

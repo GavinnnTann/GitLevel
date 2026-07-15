@@ -97,3 +97,13 @@ export function kFormatter(num) {
   if (Math.abs(n) < 1000) return String(n);
   return `${parseFloat((n / 1000).toFixed(1))}k`;
 }
+
+const _hx = (n) => Math.max(0, Math.min(255, Math.round(n))).toString(16).padStart(2, "0");
+
+/** Lighten (amt>0, toward white) or darken (amt<0, toward black) a hex color. */
+export function shade(hex, amt) {
+  const m = hex.replace("#", "");
+  const r = parseInt(m.slice(0, 2), 16), g = parseInt(m.slice(2, 4), 16), b = parseInt(m.slice(4, 6), 16);
+  const t = amt < 0 ? 0 : 255, p = Math.abs(amt);
+  return `#${_hx(r + (t - r) * p)}${_hx(g + (t - g) * p)}${_hx(b + (t - b) * p)}`;
+}

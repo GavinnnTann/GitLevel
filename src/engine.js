@@ -6,7 +6,7 @@
  * §XP System). A memorable interpretation beats a mathematically perfect one.
  */
 
-import { resolveClass, rarityForTier, creatorClassFor } from "./classes.js";
+import { resolveClass, rarityForTier, creatorClassFor, UNIQUE_RARITY } from "./classes.js";
 
 /**
  * XP awarded per contribution — the single source of truth for the curve
@@ -121,7 +121,9 @@ export function computeCharacter(profile, cfg = DEFAULT_CONFIG, { creator = true
     xpToNext: Math.max(0, nextXP - xp),
     primaryClass,
     subclass: resolveClass(secondaryLang, level),      // may be null
-    rarity: rarityForTier(primaryClass?.tier ?? 0),    // prestige frame
+    // Creators get the bespoke Unique rarity (gold, outside the community
+    // ladder) instead of whatever tier their level maps to.
+    rarity: primaryClass?.creator ? UNIQUE_RARITY : rarityForTier(primaryClass?.tier ?? 0),
     fame: computeFame(profile),
     combo: profile.streak ?? 0,
   };

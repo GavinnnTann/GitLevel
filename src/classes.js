@@ -77,18 +77,30 @@ export const FALLBACK_PATH = {
 /**
  * Rarity by tier — the prestige frame. Index = tier (0..4). See tierForLevel
  * for the level bands. Mythic (top band) is reserved for the elite few.
+ *
+ * MapleStory-style palette: Legendary is green so it doesn't collide with
+ * `UNIQUE_RARITY`'s gold below, which sits *outside* this ladder entirely.
  */
 export const RARITIES = [
   { name: "Common",    color: "#9aa4af" },
   { name: "Rare",      color: "#58a6ff" },
   { name: "Epic",      color: "#a371f7" },
-  { name: "Legendary", color: "#e3b341" },
+  { name: "Legendary", color: "#3fb950" },
   { name: "Mythic",    color: "#ff5edb" },
 ];
 
 export function rarityForTier(tier) {
   return RARITIES[tier] ?? RARITIES[0];
 }
+
+/**
+ * Unique — a bespoke rarity outside the community's five-tier ladder,
+ * reserved for `creatorClassFor` logins. Golden hue (border/glow/gem), a
+ * single faceted diamond instead of a star count (see solidDiamond in
+ * classIcons.js). Not reachable via level/tier — engine.js assigns it
+ * directly when `primaryClass.creator` is set.
+ */
+export const UNIQUE_RARITY = { name: "Unique", color: "#ffd873" };
 
 /**
  * Level → 0-based tier index. Front-loaded so the early tiers come quickly and

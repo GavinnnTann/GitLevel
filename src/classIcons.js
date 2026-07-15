@@ -6,6 +6,8 @@
  * be reused with different accents inside one card.
  */
 
+import { shade } from "./utils.js";
+
 const strokeAttrs = (c, w = 2) =>
   `fill="none" stroke="${c}" stroke-width="${w}" stroke-linejoin="round" stroke-linecap="round"`;
 
@@ -221,6 +223,25 @@ export function solidStar(cx, cy, size, color, { opacity = 1, className = "" } =
   const s = size / 24;
   return `<g class="${className}" transform="translate(${cx - size / 2}, ${cy - size / 2}) scale(${s})" fill="${color}" stroke="${color}" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" opacity="${opacity}">
     <path d="M12 3 L14.5 8.6 L20.6 9.3 L16 13.5 L17.4 19.6 L12 16.5 L6.6 19.6 L8 13.5 L3.4 9.3 L9.5 8.6 Z"/>
+  </g>`;
+}
+
+/** A faceted diamond gem — replaces the star row for the bespoke "Unique"
+ *  rarity (creator-only, see classes.js → UNIQUE_RARITY). One gem rather than
+ *  a 1-5 count, since Unique sits outside the community's tier ladder. Shaded
+ *  like the class portraits (light facet top, dark facet bottom) plus a small
+ *  sparkle so it reads as a polished stone rather than a flat icon. */
+export function solidDiamond(cx, cy, size, color, { opacity = 1, className = "" } = {}) {
+  const s = size / 24;
+  const light = shade(color, 0.55), dark = shade(color, -0.4);
+  return `<g class="${className}" transform="translate(${cx - size / 2}, ${cy - size / 2}) scale(${s})" opacity="${opacity}">
+    <path d="M12 1 L22 9.5 L12 23 L2 9.5 Z" fill="${color}" stroke="${light}" stroke-width="0.8" stroke-linejoin="round"/>
+    <path d="M12 1 L6 9.5 L12 9.5 Z" fill="${light}" opacity="0.75"/>
+    <path d="M12 1 L18 9.5 L12 9.5 Z" fill="${light}" opacity="0.4"/>
+    <path d="M2 9.5 L12 23 L12 9.5 Z" fill="${dark}" opacity="0.3"/>
+    <path d="M22 9.5 L12 23 L12 9.5 Z" fill="${dark}" opacity="0.5"/>
+    <path d="M12 1 V23 M2 9.5 H22" stroke="${light}" stroke-width="0.5" stroke-opacity="0.5"/>
+    <path d="M9 4.5 l1 2 l2 1 l-2 1 l-1 2 l-1 -2 l-2 -1 l2 -1 Z" fill="#fff7dd" opacity="0.85"/>
   </g>`;
 }
 
