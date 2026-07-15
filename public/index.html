@@ -186,6 +186,13 @@
   .ex-step .ttl { font-family:var(--serif); font-size:18px; color:var(--ink); }
   .ex-step .rng { font-family:var(--mono); font-size:11px; color:var(--muted); }
 
+  /* ---------- host your own ---------- */
+  .host { padding-top:0; }
+  .host-box { text-align:center; max-width:640px; margin:0 auto; border:1px solid var(--line); border-radius:18px; padding:40px 34px; background:linear-gradient(180deg,#0e121c,#0a0d15); }
+  .host-box h2 { font-size:clamp(24px,3.4vw,34px); margin-top:6px; }
+  .host-box .muted { margin:16px auto 0; max-width:520px; font-size:15px; }
+  .host-box .cta-row { margin-top:28px; }
+
   footer { border-top:1px solid var(--line); padding:34px 0 46px; text-align:center; color:var(--muted); font-size:13.5px; }
   footer a { color:var(--rare); }
 
@@ -353,6 +360,19 @@
         <pre><code id="snippet"></code></pre>
       </div>
       <p class="muted" style="font-size:13px;margin-top:12px">Paste that into your profile README. Cards are cached, so repeat views stay fast.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== HOST YOUR OWN ===== -->
+<section class="wrap host">
+  <div class="host-box" data-reveal>
+    <p class="eyebrow">Raise your own banner</p>
+    <h2>Run GitLevel yourself.</h2>
+    <p class="muted">Every card here is served from a deployment holding one GitHub token. Spin up your own in about two minutes — Vercel clones the repo and asks for a single token. Then your README (and anyone else's) can point at your URL.</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FGavinnnTann%2FGitLevel&env=GITHUB_TOKEN&envDescription=A%20GitHub%20token%20with%20public%20read%20access.%20The%20link%20shows%20how%20to%20create%20one.&envLink=https%3A%2F%2Fgithub.com%2FGavinnnTann%2FGitLevel%2Fblob%2Fmain%2F.env.example&project-name=gitlevel&repository-name=gitlevel" target="_blank" rel="noopener">▲ Deploy with Vercel</a>
+      <a class="btn btn-ghost" href="https://github.com/GavinnnTann/GitLevel#deploy-your-own-2-minutes" target="_blank" rel="noopener">Read the guide</a>
     </div>
   </div>
 </section>

@@ -31,7 +31,7 @@ Or with sizing and a theme:
 ```
 
 > Using your own deployment? Swap `gitlevel.vercel.app` for your domain — see
-> [Deploy your own](#deploy-your-own-5-minutes).
+> [Deploy your own](#deploy-your-own-2-minutes).
 
 ## The class gallery
 
@@ -174,7 +174,7 @@ still control the surrounding chrome.
 Returns `{ enabled, uniqueUsers, cardsServed }` as JSON — how many distinct
 usernames have generated a card on this deployment, and how many cards have
 been served in total. Requires the optional Upstash env vars (see
-[Deploy your own](#deploy-your-own-5-minutes)); without them it returns
+[Deploy your own](#deploy-your-own-2-minutes)); without them it returns
 `{ enabled: false, message: "..." }` rather than an error, so it's always
 safe to check.
 
@@ -250,12 +250,28 @@ repos. If a data dump or vendored code skews it (e.g. a repo full of `HTML` or
 All motion runs once on load and settles (plus a soft glow pulse on the level),
 and cards respect `prefers-reduced-motion`.
 
-## Deploy your own (≈5 minutes)
+## Deploy your own (≈2 minutes)
+
+The fastest path — one click, and Vercel handles the fork, import, and env-var
+prompt for you:
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FGavinnnTann%2FGitLevel&env=GITHUB_TOKEN&envDescription=A%20GitHub%20token%20with%20public%20read%20access.%20The%20link%20shows%20how%20to%20create%20one.&envLink=https%3A%2F%2Fgithub.com%2FGavinnnTann%2FGitLevel%2Fblob%2Fmain%2F.env.example&project-name=gitlevel&repository-name=gitlevel)
+
+Vercel will clone the repo to your account and ask for one value — a
+`GITHUB_TOKEN`. Create one at **Settings → Developer settings → Personal access
+tokens → Fine-grained**, with no extra permissions (public read is enough); a
+classic PAT with no scopes also works. Paste it, deploy, and open
+`https://your-deployment.vercel.app/api/card?username=YOUR_LOGIN` to confirm.
+
+That's it — the token stays server-side and serves every viewer of your
+deployment. Add the optional env vars below any time from Project → Settings →
+Environment Variables.
+
+<details>
+<summary>Prefer to do it by hand?</summary>
 
 1. **Fork or clone** this repo and push it (public).
-2. **Create a GitHub token:** Settings → Developer settings → Personal access
-   tokens → **Fine-grained**, no extra permissions (public read is enough). A
-   classic PAT with no scopes also works.
+2. **Create a GitHub token** as described above.
 3. **Import to Vercel:** [vercel.com](https://vercel.com) → Add New Project →
    import your repo. Zero config needed.
 4. **Add the env var:** Project → Settings → Environment Variables →
@@ -264,7 +280,7 @@ and cards respect `prefers-reduced-motion`.
    Redeploy.
 5. **Test:** open `https://your-deployment.vercel.app/api/card?username=YOUR_LOGIN`.
 
-The token stays server-side and serves every viewer of your deployment.
+</details>
 
 **Optional env vars**
 
