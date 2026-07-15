@@ -164,6 +164,7 @@ proportionally less raw craft.
 | `cache_seconds` | int    | `86400` | clamped 3600–86400 (24h default)                        |
 | `animation`     | bool   | `true`  | `false` renders a static card                           |
 | `creator`       | bool   | `true`  | `false` shows a creator's real class instead of the sigil |
+| `exclude_langs` | string | —       | comma-separated languages to ignore when picking your class (e.g. `HTML,CSS`) |
 
 The card accent is tinted by your **class color** automatically; theme params
 still control the surrounding chrome.
@@ -201,6 +202,15 @@ Your primary language → class, promoted through five tiers by level (see
 
 Any other language falls back to a generic path (*Novice → Adept → Expert →
 Master → Grandmaster*) so every developer still gets classed.
+
+Your class comes from the language bytes aggregated across your **own, non-fork**
+repos. If a data dump or vendored code skews it (e.g. a repo full of `HTML` or
+`Jupyter Notebook` outweighing your real Python), drop those languages with
+`exclude_langs`:
+
+```md
+![GitLevel](https://gitlevel.vercel.app/api/card?username=YOU&exclude_langs=HTML,Jupyter%20Notebook,CSS)
+```
 
 ## Themes
 

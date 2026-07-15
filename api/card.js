@@ -8,7 +8,7 @@
 
 import { fetchProfile } from "../src/fetchProfile.js";
 import { StatsError } from "../src/github.js";
-import { computeCharacter } from "../src/engine.js";
+import { computeCharacter, scopeProfileLanguages } from "../src/engine.js";
 import { renderGitLevelCard } from "../src/renderCard.js";
 import { renderErrorCard } from "../src/renderError.js";
 import { getTheme } from "../src/themes.js";
@@ -43,9 +43,11 @@ export default async function handler(req, res) {
 
   try {
     const profile = await fetchProfile({ username });
+    // ?exclude_langs=HTML,CSS drops noisy languages before the class is chosen.
+    const scoped = scopeProfileLanguages(profile, pickFirst(q.exclude_langs));
     // ?creator=false lets a creator view their real language-based class.
     const showCreator = parseBoolean(pickFirst(q.creator), true);
-    const character = computeCharacter(profile, undefined, { creator: showCreator });
+    const character = computeCharacter(scoped, undefined, { creator: showCreator });
     const svg = renderGitLevelCard(character, {
       colors: resolveColors(q, theme),
       hideBorder: parseBoolean(pickFirst(q.hide_border), false),

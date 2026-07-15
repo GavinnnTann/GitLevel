@@ -77,6 +77,23 @@ export function computeFame(profile) {
 }
 
 /**
+ * Drop the named languages (case-insensitive, comma-separated) from a profile so
+ * they can't decide the class — e.g. a data-dump repo full of HTML shouldn't out-
+ * weigh someone's real Python. Returns a *new* profile; never mutates the input,
+ * because the fetch layer caches one profile per user across all requests.
+ */
+export function scopeProfileLanguages(profile, excludeCsv) {
+  const drop = new Set(
+    String(excludeCsv ?? "").split(",").map((s) => s.trim().toLowerCase()).filter(Boolean),
+  );
+  if (drop.size === 0) return profile;
+  return {
+    ...profile,
+    languages: (profile.languages ?? []).filter((l) => !drop.has(String(l.name).toLowerCase())),
+  };
+}
+
+/**
  * Turn a profile into a full character card model. Everything the renderer
  * needs; no rendering concerns here.
  *

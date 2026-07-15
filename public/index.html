@@ -165,6 +165,9 @@
   .tchip { font-family:var(--mono); font-size:12.5px; color:var(--ink-2); background:#0d1119; border:1px solid var(--line); border-radius:999px; padding:7px 15px; cursor:pointer; transition:.2s; }
   .tchip:hover { border-color:var(--line-2); color:var(--ink); }
   .tchip.active { color:#2a1e05; background:linear-gradient(180deg,var(--gold-lt),var(--gold)); border-color:transparent; font-weight:600; }
+  .ex-input { display:block; width:100%; max-width:520px; margin:14px auto 0; background:#0c0f18; border:1px solid var(--line); color:var(--ink-2); border-radius:11px; padding:11px 15px; font-family:var(--mono); font-size:13px; outline:none; text-align:center; }
+  .ex-input:focus { border-color:var(--gold-dim); box-shadow:0 0 0 3px #e3b34114; }
+  .ex-input::placeholder { color:var(--muted-2); }
 
   /* ---------- class explorer ---------- */
   .class-tabs { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; max-width:900px; margin:0 auto 30px; }
@@ -340,6 +343,9 @@
       <button class="tchip" data-theme="matrix">matrix</button>
       <button class="tchip" data-theme="transparent">transparent</button>
     </div>
+    <input id="exclude" class="ex-input" type="text" spellcheck="false" data-reveal
+           placeholder="exclude languages — optional, e.g. HTML, CSS, Jupyter Notebook"
+           aria-label="Languages to exclude from class detection" />
     <div class="genout" id="genout">
       <img id="cardPreview" alt="Your GitLevel card preview" />
       <div class="snip">
@@ -405,12 +411,18 @@
   function forge(){
     const u = document.getElementById('uname').value.trim().replace(/[^a-zA-Z0-9-]/g,'');
     if(!u) { document.getElementById('uname').focus(); return; }
-    const tq = currentTheme === 'volt' ? '' : '&theme=' + currentTheme;
-    document.getElementById('cardPreview').src = '/api/card?username=' + encodeURIComponent(u) + tq;
-    document.getElementById('snippet').textContent = '![GitLevel](https://gitlevel.vercel.app/api/card?username=' + u + tq + ')';
+    let q = 'username=' + encodeURIComponent(u);
+    if (currentTheme !== 'volt') q += '&theme=' + currentTheme;
+    const ex = document.getElementById('exclude').value.split(',').map((s)=>s.trim()).filter(Boolean).join(',');
+    if (ex) q += '&exclude_langs=' + encodeURIComponent(ex).replace(/%2C/g, ',');
+    document.getElementById('cardPreview').src = '/api/card?' + q;
+    document.getElementById('snippet').textContent = '![GitLevel](https://gitlevel.vercel.app/api/card?' + q + ')';
     document.getElementById('genout').classList.add('show');
   }
   document.getElementById('uname').addEventListener('keydown', (e)=>{ if(e.key==='Enter') forge(); });
+  const exEl = document.getElementById('exclude');
+  exEl.addEventListener('keydown', (e)=>{ if(e.key==='Enter') forge(); });
+  exEl.addEventListener('change', ()=>{ if(document.getElementById('genout').classList.contains('show')) forge(); });
   document.querySelectorAll('.tchip').forEach((b) => b.addEventListener('click', () => {
     currentTheme = b.dataset.theme;
     document.querySelectorAll('.tchip').forEach((x) => x.classList.toggle('active', x === b));
