@@ -12,7 +12,7 @@
   <radialGradient id="rglow" cx="0.5" cy="0.5" r="0.5">
     <stop offset="0" stop-color="#ffb066" stop-opacity="0.5"/><stop offset="1" stop-color="#ffb066" stop-opacity="0"/>
   </radialGradient>
-  <linearGradient id="rframe" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd873"/><stop offset="0.5" stop-color="#c69a3f"/><stop offset="1" stop-color="#7c5c22"/></linearGradient>
+  <linearGradient id="rframe" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd6f5"/><stop offset="0.5" stop-color="#ff5edb"/><stop offset="1" stop-color="#992f82"/></linearGradient>
   <filter id="rsoft" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="4.5"/></filter>
 </defs>
 <rect x="2" y="2" width="296" height="396" rx="16" fill="url(#rbg)"/>
@@ -34,7 +34,7 @@
 <path d="M150 214 V320 M116 262 H184" stroke="#fff0d6" stroke-width="2.4" stroke-linecap="round"/>
 <g fill="#7c4e2c"><circle cx="150" cy="196" r="2.4"/><circle cx="104" cy="212" r="2.4"/><circle cx="196" cy="212" r="2.4"/><circle cx="150" cy="352" r="2.4"/></g>
 <rect x="5" y="5" width="290" height="390" rx="14" fill="none" stroke="url(#rframe)" stroke-width="2"/>
-<g stroke="#ffd873" stroke-width="2" fill="none"><path d="M14 14 h20 M14 14 v20"/><path d="M286 14 h-20 M286 14 v20"/><path d="M14 386 h20 M14 386 v-20"/><path d="M286 386 h-20 M286 386 v-20"/></g>
+<g stroke="#ff5edb" stroke-width="2" fill="none"><path d="M14 14 h20 M14 14 v20"/><path d="M286 14 h-20 M286 14 v20"/><path d="M14 386 h20 M14 386 v-20"/><path d="M286 386 h-20 M286 386 v-20"/></g>
 <text x="150" y="366" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="20" font-style="italic" fill="#ece7d8">Rust · Undying</text>
 <text x="150" y="384" text-anchor="middle" font-family="ui-monospace, Consolas, monospace" font-size="9" letter-spacing="4" fill="#ffb87a">MYTHIC CONCEPT</text>
 </svg>

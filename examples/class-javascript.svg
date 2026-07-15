@@ -17,7 +17,7 @@ text { font-family: 'Segoe UI', Ubuntu, 'Helvetica Neue', sans-serif; }
 .gl-chip-label { font-size: 12px; font-weight: 600; fill: #c9d1d9; }
 .gl-chip-value { font-size: 12px; font-weight: 800; fill: #f1e05a; }
 .gl-hint { font-size: 10px; fill: #c9d1d9; opacity: 0.62; }
-.gl-rarity { font-size: 9px; font-weight: 700; letter-spacing: 2.5px; fill: #e3b341; }
+.gl-rarity { font-size: 9px; font-weight: 700; letter-spacing: 2.5px; fill: #3fb950; }
 
 </style>
 <defs><linearGradient id="card-bg" x1="0" y1="0" x2="1" y2="1" gradientTransform="rotate(90, 0.5, 0.5)"><stop offset="0.0%" stop-color="#0d1117"/><stop offset="100.0%" stop-color="#101d33"/></linearGradient><filter id="card-glow" x="-50%" y="-50%" width="200%" height="200%">
@@ -34,10 +34,10 @@ text { font-family: 'Segoe UI', Ubuntu, 'Helvetica Neue', sans-serif; }
   <filter id="gl-rarity" x="-20%" y="-20%" width="140%" height="140%">
     <feGaussianBlur stdDeviation="2.4"/>
   </filter></defs>
-<rect x="0.5" y="0.5" width="499" height="209" rx="14" fill="url(#card-bg)" stroke="#e3b341" stroke-width="1.4" stroke-opacity="0.6"/>
+<rect x="0.5" y="0.5" width="499" height="209" rx="14" fill="url(#card-bg)" stroke="#3fb950" stroke-width="1.4" stroke-opacity="0.6"/>
 <rect x="3.5" y="3.5" width="493" height="203" rx="11" fill="none" stroke="#30363d" stroke-opacity="0.4"/>
 
-<rect x="2" y="2" width="496" height="206" rx="13" fill="none" stroke="#e3b341" stroke-width="3.5" stroke-opacity="0.4" filter="url(#gl-rarity)"/>
+<rect x="2" y="2" width="496" height="206" rx="13" fill="none" stroke="#3fb950" stroke-width="3.5" stroke-opacity="0.4" filter="url(#gl-rarity)"/>
 <g class="fade">
     <g class="">
       <g class="flourish"><g transform="translate(84,0)"><g transform="translate(0,98)" fill="#f1e05a">
@@ -64,13 +64,13 @@ text { font-family: 'Segoe UI', Ubuntu, 'Helvetica Neue', sans-serif; }
     <circle cx="24" cy="41.5" r="2.1" fill="url(#jsBlade)" stroke="#b8860b" stroke-width="0.5"/></svg></g>
       <g transform="translate(69, 42.5) scale(1.5)"><path d="M2 9 L3 2 L7 6 L11 1 L15 6 L19 2 L20 9 Z" fill="#f1e05a" stroke="#f1e05a" stroke-width="1" stroke-linejoin="round"/></g>
     </g>
-    <g><g class="" transform="translate(45.5, 151.5) scale(0.5416666666666666)" fill="#e3b341" stroke="#e3b341" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" opacity="1">
+    <g><g class="" transform="translate(45.5, 151.5) scale(0.5416666666666666)" fill="#3fb950" stroke="#3fb950" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" opacity="1">
     <path d="M12 3 L14.5 8.6 L20.6 9.3 L16 13.5 L17.4 19.6 L12 16.5 L6.6 19.6 L8 13.5 L3.4 9.3 L9.5 8.6 Z"/>
-  </g><g class="" transform="translate(61.5, 151.5) scale(0.5416666666666666)" fill="#e3b341" stroke="#e3b341" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" opacity="1">
+  </g><g class="" transform="translate(61.5, 151.5) scale(0.5416666666666666)" fill="#3fb950" stroke="#3fb950" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" opacity="1">
     <path d="M12 3 L14.5 8.6 L20.6 9.3 L16 13.5 L17.4 19.6 L12 16.5 L6.6 19.6 L8 13.5 L3.4 9.3 L9.5 8.6 Z"/>
-  </g><g class="" transform="translate(77.5, 151.5) scale(0.5416666666666666)" fill="#e3b341" stroke="#e3b341" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" opacity="1">
+  </g><g class="" transform="translate(77.5, 151.5) scale(0.5416666666666666)" fill="#3fb950" stroke="#3fb950" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" opacity="1">
     <path d="M12 3 L14.5 8.6 L20.6 9.3 L16 13.5 L17.4 19.6 L12 16.5 L6.6 19.6 L8 13.5 L3.4 9.3 L9.5 8.6 Z"/>
-  </g><g class="" transform="translate(93.5, 151.5) scale(0.5416666666666666)" fill="#e3b341" stroke="#e3b341" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" opacity="1">
+  </g><g class="" transform="translate(93.5, 151.5) scale(0.5416666666666666)" fill="#3fb950" stroke="#3fb950" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" opacity="1">
     <path d="M12 3 L14.5 8.6 L20.6 9.3 L16 13.5 L17.4 19.6 L12 16.5 L6.6 19.6 L8 13.5 L3.4 9.3 L9.5 8.6 Z"/>
   </g><g class="" transform="translate(109.5, 151.5) scale(0.5416666666666666)" fill="#c9d1d9" stroke="#c9d1d9" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" opacity="0.22">
     <path d="M12 3 L14.5 8.6 L20.6 9.3 L16 13.5 L17.4 19.6 L12 16.5 L6.6 19.6 L8 13.5 L3.4 9.3 L9.5 8.6 Z"/>

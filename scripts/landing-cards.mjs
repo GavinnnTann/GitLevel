@@ -29,20 +29,21 @@ const files = [
     commits: 9000, mergedPRs: 1500, closedIssues: 600, reviews: 300, reposCreated: 90,
     stars: 24000, followers: 3400, streak: 120, languages: [lang("Python"), lang("Rust")],
   })],
-  // Legendary-band class showcase.
+  // Mythic-band class showcase — the "calling" section leads with the summit
+  // tier, not Legendary, so the crest shows full regalia at its rarest.
   ["class-python.svg", card({
     name: "Aria Vaughn", login: "a", accountAgeYears: 6,
-    commits: 3500, mergedPRs: 420, closedIssues: 210, reviews: 160, reposCreated: 52,
+    commits: 11000, mergedPRs: 1500, closedIssues: 550, reviews: 600, reposCreated: 90,
     stars: 6200, followers: 340, streak: 41, languages: [lang("Python"), lang("Go")],
   })],
   ["class-rust.svg", card({
     name: "Kael Rourke", login: "b", accountAgeYears: 7,
-    commits: 4200, mergedPRs: 500, closedIssues: 240, reviews: 190, reposCreated: 44,
+    commits: 11000, mergedPRs: 1500, closedIssues: 550, reviews: 600, reposCreated: 90,
     stars: 8800, followers: 520, streak: 66, languages: [lang("Rust"), lang("TypeScript")],
   })],
   ["class-kotlin.svg", card({
     name: "Sora Lin", login: "c", accountAgeYears: 5,
-    commits: 3100, mergedPRs: 360, closedIssues: 180, reviews: 140, reposCreated: 38,
+    commits: 11000, mergedPRs: 1500, closedIssues: 550, reviews: 600, reposCreated: 90,
     stars: 5400, followers: 300, streak: 28, languages: [lang("Kotlin"), lang("Swift")],
   })],
   // A Mythic exemplar — the summit.

@@ -12,7 +12,7 @@
   <radialGradient id="porb" cx="0.5" cy="0.42" r="0.6">
     <stop offset="0" stop-color="#f4ffff"/><stop offset="0.45" stop-color="#c4f0ff"/><stop offset="1" stop-color="#3f95d6"/>
   </radialGradient>
-  <linearGradient id="pframe" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd873"/><stop offset="0.5" stop-color="#c69a3f"/><stop offset="1" stop-color="#7c5c22"/></linearGradient>
+  <linearGradient id="pframe" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd6f5"/><stop offset="0.5" stop-color="#ff5edb"/><stop offset="1" stop-color="#992f82"/></linearGradient>
   <filter id="psoft" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="5"/></filter>
 </defs>
 <rect x="2" y="2" width="296" height="396" rx="16" fill="url(#pbg)"/>
@@ -40,7 +40,7 @@
 <path d="M104 150 L86 262 M196 150 L214 262" stroke="#4f80c4" stroke-width="2" opacity="0.5"/>
 <g fill="#bdefff"><circle cx="112" cy="300" r="1.6" opacity="0.8"/><circle cx="196" cy="330" r="1.4" opacity="0.7"/><circle cx="150" cy="356" r="1.5" opacity="0.6"/><circle cx="126" cy="250" r="1.2" opacity="0.6"/><circle cx="176" cy="238" r="1.2" opacity="0.6"/></g>
 <rect x="5" y="5" width="290" height="390" rx="14" fill="none" stroke="url(#pframe)" stroke-width="2"/>
-<g fill="#ffd873"><path d="M14 14 h20 M14 14 v20" stroke="#ffd873" stroke-width="2" fill="none"/><path d="M286 14 h-20 M286 14 v20" stroke="#ffd873" stroke-width="2" fill="none"/><path d="M14 386 h20 M14 386 v-20" stroke="#ffd873" stroke-width="2" fill="none"/><path d="M286 386 h-20 M286 386 v-20" stroke="#ffd873" stroke-width="2" fill="none"/></g>
+<g fill="#ff5edb"><path d="M14 14 h20 M14 14 v20" stroke="#ff5edb" stroke-width="2" fill="none"/><path d="M286 14 h-20 M286 14 v20" stroke="#ff5edb" stroke-width="2" fill="none"/><path d="M14 386 h20 M14 386 v-20" stroke="#ff5edb" stroke-width="2" fill="none"/><path d="M286 386 h-20 M286 386 v-20" stroke="#ff5edb" stroke-width="2" fill="none"/></g>
 <text x="150" y="366" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="20" font-style="italic" fill="#ece7d8">Python · Godseer</text>
 <text x="150" y="384" text-anchor="middle" font-family="ui-monospace, Consolas, monospace" font-size="9" letter-spacing="4" fill="#8fe3ff">MYTHIC CONCEPT</text>
 </svg>
