@@ -149,7 +149,7 @@ ${nearLevel ? ".near-pulse { animation: glNear 1.3s ease-in-out infinite 1.6s; }
     <g transform="translate(${COL_X}, 190)">
       ${renderIcon("star", { x: 0, y: -11, size: 14 })}
       <text class="gl-chip-label" x="22" y="0">Fame</text>
-      <text class="gl-chip-value" x="64" y="0">+${character.fame}</text>
+      <text class="gl-chip-value" x="64" y="0">+${kFormatter(character.fame)}</text>
     </g>
     <g transform="translate(${COL_X + 134}, 190)">
       ${renderIcon("flame", { x: 0, y: -11, size: 14 })}

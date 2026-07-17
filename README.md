@@ -80,7 +80,7 @@ crest.
 - **Rarity tiers** — your title and frame evolve through five bands as you level
   (*Common → Rare → Epic → Legendary → **Mythic***), shown by the stars, the frame
   colour, and a crown at Legendary+.
-- **Fame** — a separate axis of *reach*: followers + stars/10. Kept apart from XP
+- **Fame** — a separate axis of *reach*: followers + stars. Kept apart from XP
   on purpose, so a quiet high-level dev and a famous low-level dev read as
   genuinely different characters.
 - **Combo** — your current contribution-streak in days.

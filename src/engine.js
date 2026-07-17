@@ -72,9 +72,9 @@ export function levelFromXP(xp, baseXP = DEFAULT_CONFIG.baseXP) {
   return { level, floorXP, nextXP, progress };
 }
 
-/** Fame — popularity/impact (GitLevel.md §Fame): followers + stars/10. */
+/** Fame — popularity/impact (GitLevel.md §Fame): followers + stars. */
 export function computeFame(profile) {
-  return (profile.followers ?? 0) + Math.floor((profile.stars ?? 0) / 10);
+  return (profile.followers ?? 0) + (profile.stars ?? 0);
 }
 
 /**
