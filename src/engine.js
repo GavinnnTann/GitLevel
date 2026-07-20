@@ -13,11 +13,12 @@ import { computeAchievements } from "./achievements.js";
  * XP awarded per contribution — the single source of truth for the curve
  * (mirrored in README §XP & Levelling; keep them in sync).
  *
- * XP measures *what you built and how consistently you show up* — craft plus
- * the combo (contribution streak). Popularity (stars, followers) is deliberately
- * NOT here; it lives in Fame instead, so a quiet high-level dev and a famous
- * low-level dev still read as distinct characters rather than double-counting
- * reach as level. Consistency, by contrast, IS craft — see COMBO below.
+ * XP blends three things: craft (what you built), consistency (the combo/streak,
+ * see COMBO), and — heavily dampened — reach (Fame, see FAME). Fame's share is
+ * sqrt-scaled and hard-capped so a genuine legend like Linus Torvalds (whose
+ * kernel work GitHub barely counts as craft) is recognized, without one viral
+ * repo's stars vaulting a low-craft account to the summit. Craft still dominates
+ * for high-craft devs, so a quiet builder and a famous name stay distinct.
  */
 export const XP_WEIGHTS = {
   commit: 10,
@@ -52,7 +53,18 @@ export const TENURE = { bonusPerYear: 0.05, maxYears: 15 }; // up to +75%
  */
 export const COMBO = { xpPerDay: 8, maxMultiplier: 0.25, maxDays: 365 }; // long streak: +~2,900 XP & up to +25%
 
-export const DEFAULT_CONFIG = { xp: XP_WEIGHTS, baseXP: BASE_XP, tenure: TENURE, combo: COMBO };
+/**
+ * Fame — reach (followers + stars) feeds XP, but heavily dampened. The
+ * contribution is sqrt-scaled (so 500k fame is worth ~10x a 5k fame, not 100x)
+ * and hard-capped, which means fame *alone* tops out around the Epic band: a
+ * platform legend like Linus — whose kernel work GitHub scarcely sees as craft —
+ * gets recognized, while a single viral repo's stars can't carry a low-craft
+ * account to Legendary+. Added flat (not amplified by tenure/combo), like the
+ * streak reward, since reach isn't craft accrued over time.
+ */
+export const FAME = { xpPerRoot: 48, xpCap: 40000 }; // 48·√fame, capped (√fame alone ⇒ ≤ ~Epic)
+
+export const DEFAULT_CONFIG = { xp: XP_WEIGHTS, baseXP: BASE_XP, tenure: TENURE, combo: COMBO, fame: FAME };
 
 /** Raw craft XP before tenure — commits/issues/PRs/reviews/repos only. */
 export function computeCraftXP(profile, w = XP_WEIGHTS) {
@@ -66,11 +78,12 @@ export function computeCraftXP(profile, w = XP_WEIGHTS) {
 }
 
 /**
- * Total XP: craft amplified by tenure *and* the combo (streak) multiplier, plus
- * a flat per-streak-day consistency reward. The multiplier scales your built
- * work (a longer combo is worth more); the flat reward stands on its own so even
- * a solo dev whose commits don't register still gets credit for showing up.
- * Popularity (Fame) is still never counted — only craft and consistency.
+ * Total XP = craft (amplified by tenure and the combo multiplier) + a flat
+ * per-streak-day consistency reward + a flat, dampened Fame reward. The two
+ * multipliers scale built work; the two flat rewards stand on their own so a
+ * consistent solo dev, or a recognized name whose work GitHub under-counts,
+ * still gets credit. Fame is sqrt-scaled and capped so it lifts without
+ * dominating (see FAME).
  */
 export function computeXP(profile, cfg = DEFAULT_CONFIG) {
   const craft = computeCraftXP(profile, cfg.xp);
@@ -79,7 +92,8 @@ export function computeXP(profile, cfg = DEFAULT_CONFIG) {
   const streak = Math.min(Math.max(profile.streak ?? 0, 0), cfg.combo.maxDays);
   const comboMult = 1 + (streak / cfg.combo.maxDays) * cfg.combo.maxMultiplier;
   const streakXP = streak * cfg.combo.xpPerDay;
-  return Math.round(craft * tenureMult * comboMult + streakXP);
+  const fameXP = Math.min(cfg.fame.xpCap, Math.round(cfg.fame.xpPerRoot * Math.sqrt(Math.max(0, computeFame(profile)))));
+  return Math.round(craft * tenureMult * comboMult + streakXP + fameXP);
 }
 
 /**
