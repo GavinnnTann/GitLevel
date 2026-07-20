@@ -74,15 +74,15 @@ crest.
   (Python → *Oracle*, Rust → *Sentinel*, C++ → *Warlord*, …), with a crest glyph.
 - **Subclass** — your second language (e.g. *Python Oracle · C++ Warlord*).
 - **Level & XP** — earned from **craft** (commits, merged PRs, closed issues, PR
-  reviews, repos) and **consistency** (your combo streak), amplified by how long
-  you've been on GitHub. Popularity is deliberately *not* here. Early levels come
+  reviews, repos), **consistency** (your combo streak), and — heavily dampened —
+  **reach** (Fame), amplified by how long you've been on GitHub. Early levels come
   fast; the top tiers take real work. See [XP & Levelling](#xp--levelling).
 - **Rarity tiers** — your title and frame evolve through five bands as you level
   (*Common → Rare → Epic → Legendary → **Mythic***), shown by the stars, the frame
   colour, and a crown at Legendary+.
-- **Fame** — a separate axis of *reach*: followers + stars. Kept apart from XP
-  on purpose, so a quiet high-level dev and a famous low-level dev read as
-  genuinely different characters.
+- **Fame** — your *reach*: followers + stars. It feeds level too, but sqrt-scaled
+  and hard-capped, so a platform legend (whose work GitHub under-counts) is
+  recognized while fame *alone* can't carry a low-craft account past Epic.
 - **Combo** — your current contribution-streak in days. Unlike Fame, consistency
   *is* craft, so a long streak also lifts your level (see below).
 - **Achievement badges** — labelled pins below Fame/Combo, earned *independent* of
@@ -98,8 +98,9 @@ A GitHub username is the **only** required input; everything else is inferred.
 
 ## XP & Levelling
 
-XP measures **craft and consistency**, not popularity. Stars and followers never
-touch it — they feed [Fame](#whats-on-the-card) instead, kept orthogonal to level.
+XP blends **craft**, **consistency**, and a **heavily dampened** dash of *reach*
+(Fame) — so what you built dominates, showing up daily counts, and a genuine
+legend whose work GitHub under-counts still gets recognized.
 
 **1. Craft XP** — each contribution is worth a fixed number of points:
 
@@ -125,10 +126,18 @@ daily but rarely opens PRs still climbs. Your contribution streak adds a flat
 
 ```
 comboMult = 1 + min(streak, 365) / 365 × 0.25       # up to +25%
-totalXP   = craftXP × tenureMult × comboMult + streak × 8
 ```
 
-**4. Level curve** — quadratic, so early levels come fast and each one costs a
+**4. Fame (reach)** — followers + stars add XP too, but sqrt-scaled and capped so
+they *lift* without dominating. Fame alone tops out around Epic; Legendary+ still
+needs real craft underneath. Added flat (not amplified by tenure/combo):
+
+```
+fameXP  = min(40000, 48 × sqrt(followers + stars))   # √-damped, hard cap
+totalXP = craftXP × tenureMult × comboMult + streak × 8 + fameXP
+```
+
+**5. Level curve** — quadratic, so early levels come fast and each one costs a
 little more than the last:
 
 ```
@@ -137,14 +146,15 @@ XP to reach level L = 100 × L²
 ```
 
 **Worked example** — a 4-year dev with 1,800 commits, 120 merged PRs, 60 closed
-issues, 30 reviews, 15 repos, and a 120-day streak:
+issues, 30 reviews, 15 repos, a 120-day streak, and 3,000 fame:
 
 ```
 craftXP   = 1800×10 + 120×65 + 60×30 + 30×40 + 15×120
           = 18000 + 7800 + 1800 + 1200 + 1800   = 30,600
 comboMult = 1 + min(120,365)/365 × 0.25 = 1.082          (+ 120×8 = 960 flat)
-totalXP   = 30,600 × (1 + 4×0.05) × 1.082 + 960 ≈ 40,700
-level     = floor( sqrt(40,700 / 100) ) = floor(20.17) = 20   →  Epic, 17% to Lv 21
+fameXP    = min(40000, 48 × sqrt(3,000)) = 2,629
+totalXP   = 30,600 × (1 + 4×0.05) × 1.082 + 960 + 2,629 ≈ 43,300
+level     = floor( sqrt(43,300 / 100) ) = floor(20.81) = 20   →  Epic, 81% to Lv 21
 ```
 
 **Rarity tiers** — level bands are front-loaded, so most active devs climb quickly
@@ -158,11 +168,11 @@ and **Mythic** stays a rare summit:
 | 🟢 Legendary   | 29 – 54 | 84,100             | ★★★★  |
 | 🔴 Mythic      | 55 +    | 302,500            | ★★★★★ |
 
-¹ Before the tenure multiplier and combo bonus — a long-tenured or long-streak
-dev reaches each tier with proportionally less raw craft.
+¹ Before the tenure multiplier, combo bonus, and fame — a long-tenured, long-streak,
+or famous dev reaches each tier with proportionally less raw craft.
 
 > The single source of truth for these numbers is `XP_WEIGHTS`, `BASE_XP`,
-> `TENURE`, and `COMBO` in [`src/engine.js`](src/engine.js); this doc mirrors them.
+> `TENURE`, `COMBO`, and `FAME` in [`src/engine.js`](src/engine.js); this doc mirrors them.
 
 ## `GET /api/card` — the character card
 
