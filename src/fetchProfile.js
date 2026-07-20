@@ -47,7 +47,18 @@ function cacheSet(key, profile) {
   profileCache.set(key, { profile, expires: Date.now() + PROFILE_TTL_MS });
 }
 
-const PROFILE_QUERY = `
+/**
+ * The repositories block is the expensive part: GitHub sorts every owned repo by
+ * stars and computes a per-repo language breakdown, all in one query. For a
+ * top-tier account (hundreds/thousands of repos) that blows GitHub's per-query
+ * compute budget and the whole request fails with "Resource limits for this
+ * query exceeded". So the repo/language fan-out is parameterized and we retry
+ * progressively lighter (see PROFILE_QUERY_TIERS): fewer repos and languages
+ * cost less to compute. Repos are sorted by stars DESC, so a smaller sample
+ * still captures nearly all of a user's stars and their dominant languages —
+ * `reposCreated` uses `totalCount`, which is exact regardless of the sample.
+ */
+const buildProfileQuery = ({ repos, langs }) => `
 query gitlevel($login: String!) {
   rateLimit { limit cost remaining resetAt }
   user(login: $login) {
@@ -65,17 +76,32 @@ query gitlevel($login: String!) {
     }
     mergedPRs: pullRequests(states: MERGED) { totalCount }
     closedIssues: issues(states: CLOSED) { totalCount }
-    repositories(first: 100, ownerAffiliations: OWNER, isFork: false, orderBy: {field: STARGAZERS, direction: DESC}) {
+    repositories(first: ${repos}, ownerAffiliations: OWNER, isFork: false, orderBy: {field: STARGAZERS, direction: DESC}) {
       totalCount
       nodes {
         stargazers { totalCount }
-        languages(first: 10, orderBy: {field: SIZE, direction: DESC}) {
+        languages(first: ${langs}, orderBy: {field: SIZE, direction: DESC}) {
           edges { size node { name color } }
         }
       }
     }
   }
 }`;
+
+/**
+ * Full fidelity first, then two lighter fallbacks used only when GitHub rejects
+ * the heavier query for resource limits. Even the lightest tier keeps enough
+ * top-starred repos to resolve class/subclass and the bulk of Fame.
+ */
+const PROFILE_QUERY_TIERS = [
+  { repos: 100, langs: 10 },
+  { repos: 40, langs: 6 },
+  { repos: 15, langs: 4 },
+];
+
+/** GitHub's per-query resource-limit rejection (data-dependent; retry lighter). */
+const isResourceLimitError = (err) =>
+  err instanceof StatsError && err.type === "UNAVAILABLE" && /resource limit/i.test(err.message);
 
 /** Aggregate language sizes across owned repos → sorted [{name,color,size}]. */
 function aggregateLanguages(nodes) {
@@ -111,6 +137,32 @@ function currentStreak(calendar) {
   return streak;
 }
 
+/**
+ * Run the profile query, stepping down through PROFILE_QUERY_TIERS whenever
+ * GitHub rejects the current one for resource limits (only top-tier accounts
+ * ever trip this). Any other error — not-found, rate-limited, HTTP failure —
+ * propagates immediately; retrying lighter wouldn't help those. If even the
+ * lightest tier is refused, the last error surfaces as the usual error card.
+ */
+export async function fetchWithResourceLimitFallback(variables, token, fetcher = githubGraphQL) {
+  let lastErr;
+  for (let i = 0; i < PROFILE_QUERY_TIERS.length; i++) {
+    const tier = PROFILE_QUERY_TIERS[i];
+    try {
+      return await fetcher(buildProfileQuery(tier), variables, token);
+    } catch (err) {
+      lastErr = err;
+      if (!isResourceLimitError(err)) throw err;
+      const next = PROFILE_QUERY_TIERS[i + 1];
+      console.log(
+        `[gitlevel] resource-limit for ${variables.login} at repos:${tier.repos}/langs:${tier.langs}` +
+        (next ? ` — retrying at repos:${next.repos}/langs:${next.langs}` : " — no lighter tier left, giving up"),
+      );
+    }
+  }
+  throw lastErr;
+}
+
 export async function fetchProfile({ username }) {
   const key = username.toLowerCase();
   const cached = cacheGet(key);
@@ -128,7 +180,7 @@ export async function fetchProfile({ username }) {
   }
 
   const token = pickToken();
-  const data = await githubGraphQL(PROFILE_QUERY, { login: username }, token);
+  const data = await fetchWithResourceLimitFallback({ login: username }, token);
 
   // Rate-limit budget is diagnosable in the deployment logs rather than mysterious.
   const rl = data?.rateLimit;
