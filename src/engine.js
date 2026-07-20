@@ -6,7 +6,7 @@
  * §XP System). A memorable interpretation beats a mathematically perfect one.
  */
 
-import { resolveClass, rarityForTier, creatorClassFor, UNIQUE_RARITY } from "./classes.js";
+import { resolveClass, rarityForTier, creatorClassFor, UNIQUE_RARITY, fameTierFloor } from "./classes.js";
 import { computeAchievements } from "./achievements.js";
 
 /**
@@ -145,10 +145,15 @@ export function computeCharacter(profile, cfg = DEFAULT_CONFIG, { creator = true
 
   const primaryLang = profile.languages?.[0]?.name ?? null;
   const secondaryLang = profile.languages?.[1]?.name ?? null;
+  // Legendary reach raises the rarity floor so a titan reads as Mythic even when
+  // GitHub-measured craft would cap them lower (Linus: Linux + Git, but the
+  // kernel isn't developed here). Lifts the class tier/title, not the level.
+  const fame = computeFame(profile);
+  const fameFloor = fameTierFloor(fame);
   // Creators get a bespoke class that overrides their language (unless opted
   // out); everyone else is classed by their primary language.
   const primaryClass = (creator ? creatorClassFor(profile.login) : null)
-    ?? resolveClass(primaryLang, level); // may be null (no repos)
+    ?? resolveClass(primaryLang, level, fameFloor); // may be null (no repos)
 
   return {
     name: profile.name,
@@ -159,11 +164,11 @@ export function computeCharacter(profile, cfg = DEFAULT_CONFIG, { creator = true
     progress,                         // 0..1 toward next level
     xpToNext: Math.max(0, nextXP - xp),
     primaryClass,
-    subclass: resolveClass(secondaryLang, level),      // may be null
+    subclass: resolveClass(secondaryLang, level, fameFloor),   // may be null
     // Creators get the bespoke Unique rarity (gold, outside the community
     // ladder) instead of whatever tier their level maps to.
     rarity: primaryClass?.creator ? UNIQUE_RARITY : rarityForTier(primaryClass?.tier ?? 0),
-    fame: computeFame(profile),
+    fame,
     combo: profile.streak ?? 0,
     badges: computeAchievements(profile),   // earned independent of level/tier
   };

@@ -116,14 +116,37 @@ export function tierForLevel(level) {
 }
 
 /**
+ * Reach confers prestige the level curve never will: a figure like Linus
+ * Torvalds (Linux *and* Git) reads as Mythic even though GitHub-measured craft
+ * alone — the kernel isn't developed here — would never reach LV55. Fame sets a
+ * *floor* on the rarity tier (frame, stars, title, regalia) without touching the
+ * level number, gated at reach a single viral repo can't fake. Fame is
+ * followers + stars; thresholds are deliberately elite so Mythic stays rare.
+ */
+export const FAME_TIER_FLOORS = [
+  { fame: 400000, tier: 4 }, // Mythic — the platform's legends (Linus-tier reach)
+  { fame: 120000, tier: 3 }, // Legendary — a famous, widely-followed dev
+];
+
+/** The minimum rarity tier a profile's Fame earns it (0 if below all thresholds). */
+export function fameTierFloor(fame) {
+  for (const { fame: threshold, tier } of FAME_TIER_FLOORS) {
+    if ((fame ?? 0) >= threshold) return tier;
+  }
+  return 0;
+}
+
+/**
  * Resolve a class for a language at a level.
  * `language` may be null (e.g. no repos / no second language).
+ * `minTier` lets Fame raise the rarity floor (see fameTierFloor); the effective
+ * tier is the higher of the level's tier and this floor.
  * Returns null when there is no language to resolve.
  */
-export function resolveClass(language, level) {
+export function resolveClass(language, level, minTier = 0) {
   if (!language) return null;
   const path = CLASS_PATHS[language] ?? FALLBACK_PATH;
-  const tier = tierForLevel(level);
+  const tier = Math.max(tierForLevel(level), minTier);
   const title = path.tiers[tier];
   return {
     language,
@@ -132,6 +155,6 @@ export function resolveClass(language, level) {
     symbol: path.symbol,
     color: path.color,
     flourish: path.flourish,
-    tier,                         // 0..3
+    tier,                         // 0..4
   };
 }
