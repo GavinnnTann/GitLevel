@@ -80,9 +80,10 @@ crest.
 - **Rarity tiers** — your title and frame evolve through five bands as you level
   (*Common → Rare → Epic → Legendary → **Mythic***), shown by the stars, the frame
   colour, and a crown at Legendary+.
-- **Fame** — your *reach*: followers + stars. It feeds level too, but sqrt-scaled
-  and hard-capped, so a platform legend (whose work GitHub under-counts) is
-  recognized while fame *alone* can't carry a low-craft account past Epic.
+- **Fame** — your *reach*: followers + stars. It feeds level (sqrt-scaled +
+  capped, so it lifts without dominating), and at truly elite reach it also sets a
+  **rarity floor** — a legend like Linus reads as *Mythic* even when GitHub-measured
+  craft alone never would, without inflating the level number.
 - **Combo** — your current contribution-streak in days. Unlike Fame, consistency
   *is* craft, so a long streak also lifts your level (see below).
 - **Achievement badges** — labelled pins below Fame/Combo, earned *independent* of
@@ -171,8 +172,15 @@ and **Mythic** stays a rare summit:
 ¹ Before the tenure multiplier, combo bonus, and fame — a long-tenured, long-streak,
 or famous dev reaches each tier with proportionally less raw craft.
 
+**Reach can also raise your rarity directly.** Beyond what XP alone would give,
+elite Fame sets a tier *floor* — **≥120k → Legendary**, **≥400k → Mythic** — so a
+platform legend (Linus: Linux *and* Git) gets the frame, stars, and title to
+match, while the level number stays craft-honest. Thresholds this high can't be
+faked by a single viral repo (`FAME_TIER_FLOORS` in [`src/classes.js`](src/classes.js)).
+
 > The single source of truth for these numbers is `XP_WEIGHTS`, `BASE_XP`,
-> `TENURE`, `COMBO`, and `FAME` in [`src/engine.js`](src/engine.js); this doc mirrors them.
+> `TENURE`, `COMBO`, and `FAME` in [`src/engine.js`](src/engine.js) (plus
+> `FAME_TIER_FLOORS` in [`src/classes.js`](src/classes.js)); this doc mirrors them.
 
 ## `GET /api/card` — the character card
 
