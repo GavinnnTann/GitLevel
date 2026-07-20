@@ -16,13 +16,22 @@
 
 import { buildCard } from "./card.js";
 import { renderIcon } from "./icons.js";
-import { renderClassIcon, runeRing, crown, renderFlourish, solidStar, solidDiamond, emberSparks, renderBadge } from "./classIcons.js";
+import { renderClassIcon, runeRing, crown, renderFlourish, solidStar, solidDiamond, emberSparks, renderBadgePill } from "./classIcons.js";
 import { renderPortrait, hasPortrait } from "./portraits.js";
 import { encodeHTML, kFormatter, clampValue } from "./utils.js";
 
 const HEIGHT = 230; // +20 over the original 210 for the achievement-badge row
 const CREST = { cx: 84, cy: 98, r: 44 };
 const COL_X = 150; // right column left edge
+
+// Badge pills (below Fame/Combo). Layout is measured, not fixed-slot, because
+// labels vary in length; anything that won't fit collapses into a "+N" chip.
+const BADGE = { y: 205, h: 18, gap: 6, font: 10.5, iconW: 12, overflowW: 30 };
+// Rough advance width for a ~10px semibold sans label — errs a touch wide so
+// pills never clip or overlap. Cheap stand-in for real text metrics (none here).
+const estTextWidth = (text, fontSize) => text.length * fontSize * 0.58;
+// A pill is: left inset (4) + glyph (iconW) + gap (5) + label + right pad (8).
+const badgePillW = (label) => 29 + estTextWidth(label, BADGE.font);
 
 export function renderGitLevelCard(character, {
   colors,
@@ -59,6 +68,7 @@ export function renderGitLevelCard(character, {
 .gl-chip-label { font-size: 12px; font-weight: 600; fill: ${colors.text}; }
 .gl-chip-value { font-size: 12px; font-weight: 800; fill: ${classAccent}; }
 .gl-hint { font-size: 10px; fill: ${colors.text}; opacity: 0.62; }
+.gl-badge-label { font-size: ${BADGE.font}px; font-weight: 600; }
 .gl-rarity { font-size: 9px; font-weight: 700; letter-spacing: 2.5px; fill: ${rarity.color}; }
 ${animation ? `
 .crest-pop { transform-box: fill-box; transform-origin: center; opacity: 0; animation: glPop .6s cubic-bezier(.2,.9,.3,1.2) forwards .2s; }
@@ -159,11 +169,13 @@ ${nearLevel ? ".near-pulse { animation: glNear 1.3s ease-in-out infinite 1.6s; }
   </g>`;
 
   // ---- Badge row: earned pins, independent of level/tier (src/achievements.js) ----
-  // Wrap in one outer .fade group (rather than putting .fade on the text/badge
+  // Labeled pills so each badge names itself on the card — bare-pin <title>
+  // tooltips never surface when the card is embedded as an <img> (README use).
+  // Wrap in one outer .fade group (rather than putting .fade on the pill
   // elements themselves) so it doesn't fight .gl-hint's own opacity rule.
   const badges = character.badges ?? [];
   const badgeRow = `<g class="fade" style="animation-delay:.2s">${badges.length
-    ? `<g transform="translate(${COL_X + 9}, 215)">${badges.map((b, i) => renderBadge(b, { x: i * 26, y: 0, r: 9 })).join("")}</g>`
+    ? renderBadgeRow(badges, rightEdge - COL_X, colors)
     : `<text class="gl-hint" x="${COL_X}" y="219">No badges yet — a streak or a merged review earns the first one</text>`}</g>`;
 
   const a11yTitle = `${character.name} — Level ${character.level} ${cls.name} (${rarity.name})`;
@@ -189,4 +201,47 @@ ${nearLevel ? ".near-pulse { animation: glNear 1.3s ease-in-out infinite 1.6s; }
     a11yTitle,
     a11yDesc,
   });
+}
+
+/**
+ * Lay out the earned badges as labeled pills across a single row of `availW`
+ * px, starting at COL_X. Pills are placed left-to-right until the next won't
+ * fit; the remainder collapse into one neutral "+N" chip (whose <title> still
+ * names them). Single-row on purpose — the card height leaves no second line.
+ */
+function renderBadgeRow(badges, availW, colors) {
+  const widths = badges.map((b) => badgePillW(b.label));
+  const total = widths.reduce((a, w) => a + w, 0) + BADGE.gap * (badges.length - 1);
+
+  // How many labeled pills fit. If they all fit, show them all; otherwise fit
+  // as many as possible while reserving room for the "+N" overflow chip.
+  let shown = badges.length;
+  if (total > availW) {
+    const reserve = BADGE.gap + BADGE.overflowW;
+    let used = 0;
+    shown = 0;
+    for (let i = 0; i < badges.length; i++) {
+      const step = widths[i] + (i > 0 ? BADGE.gap : 0);
+      if (used + step + reserve <= availW) { used += step; shown++; } else break;
+    }
+    shown = Math.max(shown, 1); // always show at least one, even if a hair tight
+  }
+
+  const parts = [];
+  let x = COL_X;
+  for (let i = 0; i < shown; i++) {
+    if (i > 0) x += BADGE.gap;
+    parts.push(renderBadgePill(badges[i], { x, y: BADGE.y, w: widths[i], h: BADGE.h, labelColor: colors.text }));
+    x += widths[i];
+  }
+  if (shown < badges.length) {
+    x += BADGE.gap;
+    const rest = badges.slice(shown);
+    parts.push(`<g>
+      <title>${encodeHTML(rest.map((b) => b.label).join(", "))}</title>
+      <rect x="${x}" y="${BADGE.y}" width="${BADGE.overflowW}" height="${BADGE.h}" rx="${BADGE.h / 2}" fill="${colors.text}" fill-opacity="0.1" stroke="${colors.text}" stroke-opacity="0.3" stroke-width="1"/>
+      <text class="gl-badge-label" x="${x + BADGE.overflowW / 2}" y="${BADGE.y + BADGE.h / 2 + 3.6}" text-anchor="middle" fill="${colors.text}">+${rest.length}</text>
+    </g>`);
+  }
+  return parts.join("");
 }

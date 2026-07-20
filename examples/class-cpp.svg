@@ -17,6 +17,7 @@ text { font-family: 'Segoe UI', Ubuntu, 'Helvetica Neue', sans-serif; }
 .gl-chip-label { font-size: 12px; font-weight: 600; fill: #c9d1d9; }
 .gl-chip-value { font-size: 12px; font-weight: 800; fill: #f34b7d; }
 .gl-hint { font-size: 10px; fill: #c9d1d9; opacity: 0.62; }
+.gl-badge-label { font-size: 10.5px; font-weight: 600; }
 .gl-rarity { font-size: 9px; font-weight: 700; letter-spacing: 2.5px; fill: #ff5edb; }
 
 </style>
@@ -100,23 +101,26 @@ text { font-family: 'Segoe UI', Ubuntu, 'Helvetica Neue', sans-serif; }
       <text class="gl-chip-value" x="80" y="0">x200</text>
     </g>
   </g>
-<g class="fade" style="animation-delay:.2s"><g transform="translate(159, 215)"><g transform="translate(0, 0)">
+<g class="fade" style="animation-delay:.2s"><g>
     <title>On a Roll — 7+ day contribution streak</title>
-    <circle r="9" fill="#ff7b54" fill-opacity="0.14" stroke="#ff7b54" stroke-opacity="0.55" stroke-width="1.2"/>
-    <g transform="translate(-5.58, -5.58) scale(0.465)"><path d="M12 2c2.5 3.4 6.2 6 6.2 10.6a6.2 6.2 0 0 1-12.4 0c0-1.6.6-3 1.6-4.1-.1 1.5.8 2.6 2 2.8-.1-2.8.9-5.4 2.6-7.5.2 1.5.9 2.4 2.1 2.8-.2-2-.8-4-2.1-5.6Z" fill="#ff7b54"/></g>
-  </g><g transform="translate(26, 0)">
+    <rect x="150" y="205" width="83.81" height="18" rx="9" fill="#ff7b54" fill-opacity="0.13" stroke="#ff7b54" stroke-opacity="0.5" stroke-width="1"/>
+    <g transform="translate(154.3, 208.3) scale(0.4749999999999999)"><path d="M12 2c2.5 3.4 6.2 6 6.2 10.6a6.2 6.2 0 0 1-12.4 0c0-1.6.6-3 1.6-4.1-.1 1.5.8 2.6 2 2.8-.1-2.8.9-5.4 2.6-7.5.2 1.5.9 2.4 2.1 2.8-.2-2-.8-4-2.1-5.6Z" fill="#ff7b54"/></g>
+    <text class="gl-badge-label" x="171" y="217.6" fill="#c9d1d9">On a Roll</text>
+  </g><g>
     <title>Collaborator — 10+ pull-request reviews</title>
-    <circle r="9" fill="#3fb0ff" fill-opacity="0.14" stroke="#3fb0ff" stroke-opacity="0.55" stroke-width="1.2"/>
-    <g transform="translate(-5.58, -5.58) scale(0.465)">
+    <rect x="239.81" y="205" width="102.08" height="18" rx="9" fill="#3fb0ff" fill-opacity="0.13" stroke="#3fb0ff" stroke-opacity="0.5" stroke-width="1"/>
+    <g transform="translate(244.11, 208.3) scale(0.4749999999999999)">
     <circle cx="8" cy="7.5" r="3.2" fill="none" stroke="#3fb0ff" stroke-width="1.7"/>
     <path d="M2.5 20a5.5 5.5 0 0 1 11 0" fill="none" stroke="#3fb0ff" stroke-width="1.7" stroke-linecap="round"/>
     <circle cx="16.5" cy="8.5" r="2.6" fill="none" stroke="#3fb0ff" stroke-width="1.6"/>
     <path d="M14.8 20a4.6 4.6 0 0 1 7.7-3.4" fill="none" stroke="#3fb0ff" stroke-width="1.6" stroke-linecap="round"/></g>
-  </g><g transform="translate(52, 0)">
+    <text class="gl-badge-label" x="260.81" y="217.6" fill="#c9d1d9">Collaborator</text>
+  </g><g>
     <title>Founder — 5+ repos created</title>
-    <circle r="9" fill="#4ade80" fill-opacity="0.14" stroke="#4ade80" stroke-opacity="0.55" stroke-width="1.2"/>
-    <g transform="translate(-5.58, -5.58) scale(0.465)">
+    <rect x="347.89" y="205" width="71.63" height="18" rx="9" fill="#4ade80" fill-opacity="0.13" stroke="#4ade80" stroke-opacity="0.5" stroke-width="1"/>
+    <g transform="translate(352.19, 208.3) scale(0.4749999999999999)">
     <rect x="4" y="4" width="16" height="16" rx="2.4" fill="none" stroke="#4ade80" stroke-width="1.7"/>
     <path d="M8 4v16 M4 9.5h4" fill="none" stroke="#4ade80" stroke-width="1.5" opacity="0.85"/></g>
-  </g></g></g>
+    <text class="gl-badge-label" x="368.89" y="217.6" fill="#c9d1d9">Founder</text>
+  </g></g>
 </svg>

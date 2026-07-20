@@ -298,6 +298,29 @@ export function renderBadge(badge, { x = 0, y = 0, r = 10 } = {}) {
   </g>`;
 }
 
+/** A labeled achievement pill: tinted rounded-rect + glyph + text label, so the
+ *  badge names itself right on the card. Needed because the bare-pin <title>
+ *  tooltip never surfaces when the card is embedded as an <img> (the norm on a
+ *  README). `w` is supplied by the caller, which measures the label to lay the
+ *  row out; `labelColor` keeps the text legible across light/dark themes. */
+export function renderBadgePill(badge, { x = 0, y = 0, w = 80, h = 18, labelColor = "#fff" } = {}) {
+  const draw = BADGE_GLYPHS[badge.icon];
+  const iconR = (h - 6) / 2;            // glyph disc radius, inset from the pill edge
+  const cx = x + 4 + iconR;             // glyph center
+  const cy = y + h / 2;
+  const s = (iconR * 1.9) / 24;         // fit the 24-unit glyph into the disc
+  const glyph = draw
+    ? `<g transform="translate(${cx - 12 * s}, ${cy - 12 * s}) scale(${s})">${draw(badge.color)}</g>`
+    : "";
+  const labelX = cx + iconR + 5;
+  return `<g>
+    <title>${encodeHTML(`${badge.label} — ${badge.hint}`)}</title>
+    <rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${h / 2}" fill="${badge.color}" fill-opacity="0.13" stroke="${badge.color}" stroke-opacity="0.5" stroke-width="1"/>
+    ${glyph}
+    <text class="gl-badge-label" x="${labelX}" y="${cy + 3.6}" fill="${labelColor}">${encodeHTML(badge.label)}</text>
+  </g>`;
+}
+
 /**
  * Render a class crest glyph as a nested <svg> at (x, y). `color` tints it.
  * Unknown symbols fall back to the rune.
