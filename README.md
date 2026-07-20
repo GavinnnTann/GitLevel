@@ -1,24 +1,29 @@
+<div align="center">
+
 # ⚔️ GitLevel
 
-**Level up your GitHub profile.** GitLevel turns your GitHub activity into an
-RPG-inspired **character card** — class, level, XP, fame, and combo streak —
-rendered as an animated SVG you can embed in your README `<img>` tag.
+**Turn your GitHub profile into an RPG character card.**
 
-Traditional stats cards answer *"what have you done?"* GitLevel answers a more
-fun question: **"who are you becoming as a developer?"**
+An animated SVG stats card for your GitHub profile README — class, level, XP,
+fame, and combo streak, generated from your public activity. No token, no
+config, nothing to install. Just an `<img>` tag.
 
-Once one person deploys it, **anyone** can use that deployment — just embed an
-`<img>` URL with your username. No token, no config, nothing to install.
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FGavinnnTann%2FGitLevel&env=GITHUB_TOKEN&envDescription=A%20GitHub%20token%20with%20public%20read%20access.%20The%20link%20shows%20how%20to%20create%20one.&envLink=https%3A%2F%2Fgithub.com%2FGavinnnTann%2FGitLevel%2Fblob%2Fmain%2F.env.example&project-name=gitlevel&repository-name=gitlevel)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Zero dependencies](https://img.shields.io/badge/dependencies-0-brightgreen.svg)](package.json)
 
-**https://gitlevel.vercel.app/**
+**[gitlevel.vercel.app](https://gitlevel.vercel.app/)**
 
-## How does it look like
+![GitLevel character card — class, level, XP, fame and combo streak](https://gitlevel.vercel.app/api/card?username=gavinnntann&theme=volt)
 
-![GitLevel](https://gitlevel.vercel.app/api/card?username=gavinnntann&theme=volt)
+</div>
+
+Traditional GitHub stats cards answer *"what have you done?"* GitLevel answers a
+more fun question: **"who are you becoming as a developer?"**
 
 ## Use it in your README
 
-Paste this in and swap in your own GitHub username — that's the only change:
+Paste this in and swap in your GitHub username — that's the only change:
 
 ```md
 ![GitLevel](https://gitlevel.vercel.app/api/card?username=YOUR_GITHUB_LOGIN)
@@ -30,13 +35,34 @@ Or with sizing and a theme:
 <img height="220" src="https://gitlevel.vercel.app/api/card?username=YOUR_GITHUB_LOGIN&theme=volt" alt="GitLevel card" />
 ```
 
-> Using your own deployment? Swap `gitlevel.vercel.app` for your domain — see
-> [Deploy your own](#deploy-your-own-2-minutes).
+> Running your own deployment? Swap `gitlevel.vercel.app` for your domain — see
+> **[SETUP.md](SETUP.md)**.
 
-## The class gallery
+## What's on the card
 
-Your most-used language becomes your **class**, shown here at Legendary rank so
-every crest wears its full regalia (emblem · rune ring · crown · 4 of 5 stars):
+- **Class** — your most-used language becomes an RPG profession
+  (Python → *Oracle*, Rust → *Sentinel*, C++ → *Warlord*, …), with a crest glyph.
+- **Subclass** — your second language (e.g. *Python Oracle · C++ Warlord*).
+- **Level & XP** — earned from craft, consistency, and a dampened dash of reach.
+  Early levels come fast; the top tiers take real work.
+- **Rarity** — five bands (*Common → Rare → Epic → Legendary → **Mythic***),
+  shown by the stars, frame colour, and a crown at Legendary+.
+- **Fame** — followers + stars. Lifts your level without dominating it, and at
+  truly elite reach sets a rarity floor.
+- **Combo** — your contribution streak in days. Consistency *is* craft, so a
+  long streak lifts your level too.
+- **Achievement badges** — earned *independent* of level, so a newer dev still
+  has something to show off: 🌱 **Rising** (new account, 30+ commits) ·
+  🔥 **On a Roll** (7+ day streak) · 🌐 **Polyglot** (3+ languages) ·
+  🤝 **Collaborator** (10+ PR reviews) · 📦 **Founder** (5+ repos).
+
+A GitHub username is the **only** required input; everything else is inferred.
+
+## Classes
+
+Your most-used language becomes your class, promoted through five tiers as you
+level — shown here at Legendary rank, with full regalia (emblem, rune ring,
+crown, 4 of 5 stars):
 
 <table>
 <tr>
@@ -44,314 +70,147 @@ every crest wears its full regalia (emblem · rune ring · crown · 4 of 5 stars
 <td><img src="examples/class-typescript.svg" width="400" alt="TypeScript — High Arbiter" /></td>
 </tr>
 <tr>
-<td><img src="examples/class-javascript.svg" width="400" alt="JavaScript — Legend" /></td>
 <td><img src="examples/class-rust.svg" width="400" alt="Rust — Eternal Guardian" /></td>
-</tr>
-<tr>
 <td><img src="examples/class-go.svg" width="400" alt="Go — Wayfinder" /></td>
-<td><img src="examples/class-java.svg" width="400" alt="Java — Grand Chancellor" /></td>
-</tr>
-<tr>
-<td><img src="examples/class-cpp.svg" width="400" alt="C++ — Overlord" /></td>
-<td><img src="examples/class-csharp.svg" width="400" alt="C# — Archsmith" /></td>
-</tr>
-<tr>
-<td><img src="examples/class-ruby.svg" width="400" alt="Ruby — Grand Maestro" /></td>
-<td><img src="examples/class-php.svg" width="400" alt="PHP — Master Artificer" /></td>
-</tr>
-<tr>
-<td><img src="examples/class-kotlin.svg" width="400" alt="Kotlin — Paragon" /></td>
-<td><img src="examples/class-swift.svg" width="400" alt="Swift — Grand Duelist" /></td>
 </tr>
 </table>
 
-Any other language falls back to a generic path so every developer still gets a
-crest.
+<details>
+<summary><b>All 23 classes and their five tiers</b></summary>
 
-## What's on the card
+| Language       | Common      | Rare          | Epic            | Legendary          | Mythic            |
+| -------------- | ----------- | ------------- | --------------- | ------------------ | ----------------- |
+| Python         | Adept       | Oracle        | Seer            | Archoracle         | Godseer           |
+| TypeScript     | Scribe      | Arbiter       | Justicar        | High Arbiter       | Lawgiver          |
+| JavaScript     | Wanderer    | Maverick      | Outrider        | Legend             | Mythmaker         |
+| Rust           | Watchman    | Sentinel      | Guardian        | Eternal Guardian   | Undying           |
+| Go             | Explorer    | Pathfinder    | Trailblazer     | Wayfinder          | Worldwalker       |
+| Java           | Steward     | Chancellor    | Magistrate      | Grand Chancellor   | Sovereign         |
+| C++            | Soldier     | Warlord       | Conqueror       | Overlord           | Warbringer        |
+| C#             | Enchanter   | Spellsmith    | Spellmaster     | Archsmith          | Runelord          |
+| Ruby           | Performer   | Virtuoso      | Maestro         | Grand Maestro      | Luminary          |
+| PHP            | Tinkerer    | Artificer     | Inventor        | Master Artificer   | Demiurge          |
+| Kotlin         | Disciple    | Ascendant     | Exemplar        | Paragon            | Ascended          |
+| Swift          | Fencer      | Duelist       | Champion        | Grand Duelist      | Blademaster       |
+| C              | Operator    | Machinist     | Systemwright    | Kernel Lord        | Machine God       |
+| Zig            | Kindler     | Voltmage      | Tempest         | Stormlord          | Thunderking       |
+| Lua            | Moonling    | Lunar Adept   | Moon Sage       | Selenarch          | Moonlord          |
+| Verilog / VHDL | Drafter     | Circuitwright | Logic Architect | Chip Lord          | Silicon Sovereign |
+| Elixir         | Brewer      | Alchemist     | Potion Sage     | Grand Alchemist    | Philosopher       |
+| Haskell        | Scholar     | Lambda Adept  | Monadic Sage    | Category Archon    | The Pure          |
+| Shell          | Scripter    | Shellbinder   | Daemoncaller    | Terminal Lord      | Root Sovereign    |
+| Dart           | Thrower     | Marksman      | Sharpshooter    | Deadeye            | Truesight         |
+| Scala          | Climber     | Ridgewright   | Summit Sage     | Peak Lord          | Skybreaker        |
+| R              | Analyst     | Statmage      | Data Augur      | Grand Statistician | Numbermancer      |
+| SQL            | Clerk       | Archivist     | Query Weaver    | Grand Archivist    | Data Warden       |
 
-- **Class** — your most-used language becomes an RPG profession
-  (Python → *Oracle*, Rust → *Sentinel*, C++ → *Warlord*, …), with a crest glyph.
-- **Subclass** — your second language (e.g. *Python Oracle · C++ Warlord*).
-- **Level & XP** — earned from **craft** (commits, merged PRs, closed issues, PR
-  reviews, repos), **consistency** (your combo streak), and — heavily dampened —
-  **reach** (Fame), amplified by how long you've been on GitHub. Early levels come
-  fast; the top tiers take real work. See [XP & Levelling](#xp--levelling).
-- **Rarity tiers** — your title and frame evolve through five bands as you level
-  (*Common → Rare → Epic → Legendary → **Mythic***), shown by the stars, the frame
-  colour, and a crown at Legendary+.
-- **Fame** — your *reach*: followers + stars. It feeds level (sqrt-scaled +
-  capped, so it lifts without dominating), and at truly elite reach it also sets a
-  **rarity floor** — a legend like Linus reads as *Mythic* even when GitHub-measured
-  craft alone never would, without inflating the level number.
-- **Combo** — your current contribution-streak in days. Unlike Fame, consistency
-  *is* craft, so a long streak also lifts your level (see below).
-- **Achievement badges** — labelled pins below Fame/Combo, earned *independent* of
-  level, so even a newer or lower-tier dev has something to show off. Each names
-  itself on the card:
-  - 🌱 **Rising** — new account (< 1 yr) already shipping (30+ commits)
-  - 🔥 **On a Roll** — a 7+ day contribution streak
-  - 🌐 **Polyglot** — ships in 3+ languages
-  - 🤝 **Collaborator** — 10+ pull-request reviews
-  - 📦 **Founder** — created 5+ repositories
-
-A GitHub username is the **only** required input; everything else is inferred.
-
-## XP & Levelling
-
-XP blends **craft**, **consistency**, and a **heavily dampened** dash of *reach*
-(Fame) — so what you built dominates, showing up daily counts, and a genuine
-legend whose work GitHub under-counts still gets recognized.
-
-**1. Craft XP** — each contribution is worth a fixed number of points:
-
-| Contribution        | XP  |
-| ------------------- | --- |
-| Repo created        | 120 |
-| Merged pull request | 65  |
-| Pull-request review | 40  |
-| Closed issue        | 30  |
-| Commit              | 10  |
-
-**2. Tenure multiplier** — years on GitHub *amplify* craft rather than adding flat
-XP, so a long-standing, genuinely productive dev is rewarded for the long haul
-while an old but empty account still scores ≈ 0:
-
-```
-tenureMult = 1 + min(yearsOnGitHub, 15) × 0.05      # up to +75%
-```
-
-**3. Combo (streak)** — consistency counts as craft, so a solo dev who ships
-daily but rarely opens PRs still climbs. Your contribution streak adds a flat
-**8 XP/day** *and* multiplies craft by up to **+25%** at a year-long run:
-
-```
-comboMult = 1 + min(streak, 365) / 365 × 0.25       # up to +25%
-```
-
-**4. Fame (reach)** — followers + stars add XP too, but sqrt-scaled and capped so
-they *lift* without dominating. Fame alone tops out around Epic; Legendary+ still
-needs real craft underneath. Added flat (not amplified by tenure/combo):
-
-```
-fameXP  = min(40000, 48 × sqrt(followers + stars))   # √-damped, hard cap
-totalXP = craftXP × tenureMult × comboMult + streak × 8 + fameXP
-```
-
-**5. Level curve** — quadratic, so early levels come fast and each one costs a
-little more than the last:
-
-```
-level      = floor( sqrt( totalXP / 100 ) )
-XP to reach level L = 100 × L²
-```
-
-**Worked example** — a 4-year dev with 1,800 commits, 120 merged PRs, 60 closed
-issues, 30 reviews, 15 repos, a 120-day streak, and 3,000 fame:
-
-```
-craftXP   = 1800×10 + 120×65 + 60×30 + 30×40 + 15×120
-          = 18000 + 7800 + 1800 + 1200 + 1800   = 30,600
-comboMult = 1 + min(120,365)/365 × 0.25 = 1.082          (+ 120×8 = 960 flat)
-fameXP    = min(40000, 48 × sqrt(3,000)) = 2,629
-totalXP   = 30,600 × (1 + 4×0.05) × 1.082 + 960 + 2,629 ≈ 43,300
-level     = floor( sqrt(43,300 / 100) ) = floor(20.81) = 20   →  Epic, 81% to Lv 21
-```
-
-**Rarity tiers** — level bands are front-loaded, so most active devs climb quickly
-and **Mythic** stays a rare summit:
-
-| Tier          | Levels  | Craft XP to reach¹ | Stars |
-| ------------- | ------- | ------------------ | ----- |
-| ⚪ Common      | 1 – 5   | 0                  | ★     |
-| 🔵 Rare        | 6 – 14  | 3,600              | ★★    |
-| 🟣 Epic        | 15 – 28 | 22,500             | ★★★   |
-| 🟢 Legendary   | 29 – 54 | 84,100             | ★★★★  |
-| 🔴 Mythic      | 55 +    | 302,500            | ★★★★★ |
-
-¹ Before the tenure multiplier, combo bonus, and fame — a long-tenured, long-streak,
-or famous dev reaches each tier with proportionally less raw craft.
-
-**Reach can also raise your rarity directly.** Beyond what XP alone would give,
-elite Fame sets a tier *floor* — **≥120k → Legendary**, **≥400k → Mythic** — so a
-platform legend (Linus: Linux *and* Git) gets the frame, stars, and title to
-match, while the level number stays craft-honest. Thresholds this high can't be
-faked by a single viral repo (`FAME_TIER_FLOORS` in [`src/classes.js`](src/classes.js)).
-
-> The single source of truth for these numbers is `XP_WEIGHTS`, `BASE_XP`,
-> `TENURE`, `COMBO`, and `FAME` in [`src/engine.js`](src/engine.js) (plus
-> `FAME_TIER_FLOORS` in [`src/classes.js`](src/classes.js)); this doc mirrors them.
-
-## `GET /api/card` — the character card
-
-`/api` is an alias for `/api/card`, so both URLs work.
-
-| Param           | Type   | Default | Notes                                                   |
-| --------------- | ------ | ------- | ------------------------------------------------------- |
-| `username`      | string | —       | **required**                                            |
-| `theme`         | enum   | `volt`  | see Themes below                                        |
-| `hide_border`   | bool   | `false` |                                                         |
-| `title_color`   | color  | theme   | hex without `#` (3/4/6/8) or CSS name                   |
-| `text_color`    | color  | theme   |                                                         |
-| `bg_color`      | color  | theme   | `00000000` = transparent, or a gradient `deg,c1,c2`     |
-| `border_color`  | color  | theme   |                                                         |
-| `glow_color`    | color  | theme   | drives the neon glow filter                             |
-| `border_radius` | number | `14`    | clamped 0–60                                            |
-| `card_width`    | int    | `500`   | clamped 440–800                                         |
-| `cache_seconds` | int    | `86400` | clamped 3600–86400 (24h default)                        |
-| `animation`     | bool   | `true`  | `false` renders a static card                           |
-| `creator`       | bool   | `true`  | `false` shows a creator's real class instead of the sigil |
-| `exclude_langs` | string | —       | comma-separated languages to ignore when picking your class (e.g. `HTML,CSS`) |
-
-The card accent is tinted by your **class color** automatically; theme params
-still control the surrounding chrome.
-
-## `GET /api/stats` — deployment usage
-
-Returns `{ enabled, uniqueUsers, cardsServed }` as JSON — how many distinct
-usernames have generated a card on this deployment, and how many cards have
-been served in total. Requires the optional Upstash env vars (see
-[Deploy your own](#deploy-your-own-2-minutes)); without them it returns
-`{ enabled: false, message: "..." }` rather than an error, so it's always
-safe to check.
-
-## Classes
-
-Your primary language → class, promoted through five tiers by level (see
-[XP & Levelling](#xp--levelling) for the level bands):
-
-| Language   | Common     | Rare       | Epic        | Legendary        | Mythic      |
-| ---------- | ---------- | ---------- | ----------- | ---------------- | ----------- |
-| Python     | Adept      | Oracle     | Seer        | Archoracle       | Godseer     |
-| TypeScript | Scribe     | Arbiter    | Justicar    | High Arbiter     | Lawgiver    |
-| JavaScript | Wanderer   | Maverick   | Outrider    | Legend           | Mythmaker   |
-| Rust       | Watchman   | Sentinel   | Guardian    | Eternal Guardian | Undying     |
-| Go         | Explorer   | Pathfinder | Trailblazer | Wayfinder        | Worldwalker |
-| Java       | Steward    | Chancellor | Magistrate  | Grand Chancellor | Sovereign   |
-| C++        | Soldier    | Warlord    | Conqueror   | Overlord         | Warbringer  |
-| C#         | Enchanter  | Spellsmith | Spellmaster | Archsmith        | Runelord    |
-| Ruby       | Performer  | Virtuoso   | Maestro     | Grand Maestro    | Luminary    |
-| PHP        | Tinkerer   | Artificer  | Inventor    | Master Artificer | Demiurge    |
-| Kotlin     | Disciple   | Ascendant  | Exemplar    | Paragon          | Ascended    |
-| Swift      | Fencer     | Duelist    | Champion    | Grand Duelist    | Blademaster |
-| C          | Operator   | Machinist  | Systemwright| Kernel Lord      | Machine God |
-| Zig        | Kindler    | Voltmage   | Tempest     | Stormlord        | Thunderking |
-| Lua        | Moonling   | Lunar Adept| Moon Sage   | Selenarch        | Moonlord    |
-| Verilog / VHDL | Drafter | Circuitwright | Logic Architect | Chip Lord   | Silicon Sovereign |
-| Elixir     | Brewer     | Alchemist  | Potion Sage | Grand Alchemist  | Philosopher |
-| Haskell    | Scholar    | Lambda Adept| Monadic Sage| Category Archon | The Pure    |
-| Shell      | Scripter   | Shellbinder| Daemoncaller| Terminal Lord    | Root Sovereign |
-| Dart       | Thrower    | Marksman   | Sharpshooter| Deadeye          | Truesight   |
-| Scala      | Climber    | Ridgewright| Summit Sage | Peak Lord        | Skybreaker  |
-| R          | Analyst    | Statmage   | Data Augur  | Grand Statistician | Numbermancer |
-| SQL        | Clerk      | Archivist  | Query Weaver| Grand Archivist  | Data Warden |
+</details>
 
 Any other language falls back to a generic path (*Novice → Adept → Expert →
 Master → Grandmaster*) so every developer still gets classed.
 
-Your class comes from the language bytes aggregated across your **own, non-fork**
-repos. If a data dump or vendored code skews it (e.g. a repo full of `HTML` or
-`Jupyter Notebook` outweighing your real Python), drop those languages with
-`exclude_langs`:
+Your class comes from language bytes across your **own, non-fork** repos. If a
+data dump or vendored code skews it, drop those languages with `exclude_langs`:
 
 ```md
 ![GitLevel](https://gitlevel.vercel.app/api/card?username=YOU&exclude_langs=HTML,Jupyter%20Notebook,CSS)
 ```
 
-## Themes
+## XP & levelling
 
-| name          | vibe                                                  |
-| ------------- | ----------------------------------------------------- |
-| `volt`        | electric GitHub-blue `#58a6ff` on deep navy (default) |
-| `midnight`    | violet `#a371f7`                                      |
-| `sunset`      | orange/red `#ff8f5a`                                  |
-| `matrix`      | green `#39d353`                                       |
-| `ice`         | cyan `#56d4dd`                                        |
-| `transparent` | no background — blends into any README                |
+XP blends **craft**, **consistency**, and a heavily dampened dash of **reach** —
+so what you built dominates, showing up daily counts, and a genuine legend whose
+work GitHub under-counts still gets recognized.
+
+| Contribution        | XP  |     | Multiplier                         | Cap  |
+| ------------------- | --- | --- | ---------------------------------- | ---- |
+| Repo created        | 120 |     | Tenure — per year on GitHub        | +75% |
+| Merged pull request | 65  |     | Combo — per day of current streak  | +25% |
+| Pull-request review | 40  |     |                                    |      |
+| Closed issue        | 30  |     |                                    |      |
+| Commit              | 10  |     |                                    |      |
+
+```
+tenureMult = 1 + min(years, 15) × 0.05
+comboMult  = 1 + min(streak, 365) / 365 × 0.25
+fameXP     = min(40000, 48 × sqrt(followers + stars))   # √-damped, hard cap
+totalXP    = craftXP × tenureMult × comboMult + streak × 8 + fameXP
+level      = floor( sqrt( totalXP / 100 ) )             # XP for level L = 100 × L²
+```
+
+Tenure and combo *amplify* craft rather than adding flat XP, so an old but empty
+account still scores ≈ 0. Fame is added flat and sqrt-scaled: it tops out around
+Epic on its own, and Legendary+ still needs real craft underneath.
+
+Level bands are front-loaded, so most active devs climb quickly and **Mythic**
+stays a rare summit:
+
+| Tier         | Levels  | Craft XP to reach¹ | Stars |
+| ------------ | ------- | ------------------ | ----- |
+| ⚪ Common     | 1 – 5   | 0                  | ★     |
+| 🔵 Rare       | 6 – 14  | 3,600              | ★★    |
+| 🟣 Epic       | 15 – 28 | 22,500             | ★★★   |
+| 🟢 Legendary  | 29 – 54 | 84,100             | ★★★★  |
+| 🔴 Mythic     | 55 +    | 302,500            | ★★★★★ |
+
+¹ Before tenure, combo, and fame — a long-tenured or famous dev reaches each
+tier with proportionally less raw craft.
+
+**Reach can also raise rarity directly.** Elite Fame sets a tier *floor* —
+**≥120k → Legendary**, **≥400k → Mythic** — so a platform legend (Linus: Linux
+*and* Git) gets the frame, stars, and title to match, while the level number
+stays craft-honest. Thresholds this high can't be faked by one viral repo.
+
+> Single source of truth for these numbers: `XP_WEIGHTS`, `BASE_XP`, `TENURE`,
+> `COMBO`, `FAME` in [`src/engine.js`](src/engine.js), and `FAME_TIER_FLOORS` in
+> [`src/classes.js`](src/classes.js). This doc mirrors them.
+
+## API
+
+`GET /api/card` — the character card. `/api` is an alias, so both URLs work.
+
+| Param           | Type   | Default | Notes                                                                         |
+| --------------- | ------ | ------- | ----------------------------------------------------------------------------- |
+| `username`      | string | —       | **required**                                                                  |
+| `theme`         | enum   | `volt`  | `volt` · `midnight` · `sunset` · `matrix` · `ice` · `transparent`             |
+| `exclude_langs` | string | —       | comma-separated languages to ignore when picking your class (e.g. `HTML,CSS`) |
+| `hide_border`   | bool   | `false` |                                                                               |
+| `title_color`   | color  | theme   | hex without `#` (3/4/6/8) or CSS name                                         |
+| `text_color`    | color  | theme   |                                                                               |
+| `bg_color`      | color  | theme   | `00000000` = transparent, or a gradient `deg,c1,c2`                           |
+| `border_color`  | color  | theme   |                                                                               |
+| `glow_color`    | color  | theme   | drives the neon glow filter                                                   |
+| `border_radius` | number | `14`    | clamped 0–60                                                                  |
+| `card_width`    | int    | `500`   | clamped 440–800                                                               |
+| `cache_seconds` | int    | `86400` | clamped 3600–86400 (24h default)                                              |
+| `animation`     | bool   | `true`  | `false` renders a static card                                                 |
+| `creator`       | bool   | `true`  | `false` shows a creator's real class instead of the sigil                     |
+
+The card accent is tinted by your class colour automatically; theme params
+control the surrounding chrome.
+
+`GET /api/stats` — returns `{ enabled, uniqueUsers, cardsServed }` for a
+deployment. Requires the optional Upstash env vars ([SETUP.md](SETUP.md)).
+
+## Themes
 
 <table>
 <tr>
-<td align="center"><code>volt</code><br/><img src="examples/theme-volt.svg" width="360" alt="volt theme" /></td>
-<td align="center"><code>midnight</code><br/><img src="examples/theme-midnight.svg" width="360" alt="midnight theme" /></td>
+<td align="center"><code>volt</code><br/><img src="examples/theme-volt.svg" width="360" alt="volt theme — electric blue" /></td>
+<td align="center"><code>midnight</code><br/><img src="examples/theme-midnight.svg" width="360" alt="midnight theme — violet" /></td>
 </tr>
 <tr>
-<td align="center"><code>sunset</code><br/><img src="examples/theme-sunset.svg" width="360" alt="sunset theme" /></td>
-<td align="center"><code>matrix</code><br/><img src="examples/theme-matrix.svg" width="360" alt="matrix theme" /></td>
+<td align="center"><code>sunset</code><br/><img src="examples/theme-sunset.svg" width="360" alt="sunset theme — orange/red" /></td>
+<td align="center"><code>matrix</code><br/><img src="examples/theme-matrix.svg" width="360" alt="matrix theme — green" /></td>
 </tr>
 <tr>
-<td align="center"><code>ice</code><br/><img src="examples/theme-ice.svg" width="360" alt="ice theme" /></td>
+<td align="center"><code>ice</code><br/><img src="examples/theme-ice.svg" width="360" alt="ice theme — cyan" /></td>
 <td align="center"><code>transparent</code><br/><em>no background — blends into any README</em></td>
 </tr>
 </table>
 
 All motion runs once on load and settles (plus a soft glow pulse on the level),
 and cards respect `prefers-reduced-motion`.
-
-## Deploy your own (≈2 minutes)
-
-The fastest path — one click, and Vercel handles the fork, import, and env-var
-prompt for you:
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FGavinnnTann%2FGitLevel&env=GITHUB_TOKEN&envDescription=A%20GitHub%20token%20with%20public%20read%20access.%20The%20link%20shows%20how%20to%20create%20one.&envLink=https%3A%2F%2Fgithub.com%2FGavinnnTann%2FGitLevel%2Fblob%2Fmain%2F.env.example&project-name=gitlevel&repository-name=gitlevel)
-
-Vercel will clone the repo to your account and ask for one value — a
-`GITHUB_TOKEN`. Create one at **Settings → Developer settings → Personal access
-tokens → Fine-grained**, with no extra permissions (public read is enough); a
-classic PAT with no scopes also works. Paste it, deploy, and open
-`https://your-deployment.vercel.app/api/card?username=YOUR_LOGIN` to confirm.
-
-That's it — the token stays server-side and serves every viewer of your
-deployment. Add the optional env vars below any time from Project → Settings →
-Environment Variables.
-
-<details>
-<summary>Prefer to do it by hand?</summary>
-
-1. **Fork or clone** this repo and push it (public).
-2. **Create a GitHub token** as described above.
-3. **Import to Vercel:** [vercel.com](https://vercel.com) → Add New Project →
-   import your repo. Zero config needed.
-4. **Add the env var:** Project → Settings → Environment Variables →
-   `GITHUB_TOKEN = <your token>`. Optionally add `PAT_1`, `PAT_2`, … for token
-   rotation (a random one is used per request, spreading the rate-limit budget).
-   Redeploy.
-5. **Test:** open `https://your-deployment.vercel.app/api/card?username=YOUR_LOGIN`.
-
-</details>
-
-**Optional env vars**
-
-| Env var                       | Default  | Notes                                                              |
-| ------------------------------ | -------- | ------------------------------------------------------------------ |
-| `GITHUB_TOKEN`                | —        | required; public read is enough                                    |
-| `PAT_1`, `PAT_2`, …           | —        | extra tokens; one is picked at random per request                  |
-| `PROFILE_CACHE_TTL_MS`        | `600000` | in-memory (and, if set below, durable) per-user cache TTL — see How it works |
-| `UPSTASH_REDIS_REST_URL`      | —        | a free [Upstash](https://upstash.com) Redis DB — enables a durable cache, rate limiting, and `/api/stats` |
-| `UPSTASH_REDIS_REST_TOKEN`    | —        | paired with the URL above; skip both and nothing changes           |
-
-Setting the two Upstash vars turns on three things at once, for free, with no code changes needed:
-
-- **A durable profile cache** that survives cold starts and is shared across regions/instances, instead of resetting every time a fresh serverless instance spins up.
-- **Per-IP rate limiting** on `/api/card` (60 requests/minute per IP) — without it, the endpoint is unlimited, which is fine for a personal deployment but a real risk on a shared public one.
-- **`GET /api/stats`** — a small JSON endpoint (`{ enabled, uniqueUsers, cardsServed }`) reporting how many distinct usernames have generated a card and how many cards have been served, so you can actually tell whether anyone's using your deployment.
-
-## Local preview (no token needed)
-
-```bash
-npm run preview
-```
-
-Renders GitLevel cards from mock profiles — every theme, class, and tier — into
-`preview/*.svg` and a `preview/index.html` gallery. Open it in a browser to see
-the animations. Live API calls need a token; use `vercel dev` with a `.env`
-(see `.env.example`) to test the real endpoint.
-
-The curated cards embedded in this README live in `examples/` (committed, unlike
-`preview/`). Regenerate them after changing the crest art or themes:
-
-```bash
-npm run examples
-```
 
 ## How it works
 
@@ -361,21 +220,22 @@ README <img> → GitHub Camo → /api/card (Vercel serverless, holds the token)
              → Cache-Control headers so Camo/CDN absorb repeat views
 ```
 
-- **Zero runtime dependencies** — `fetch` + template strings, nothing else,
-  including for the optional Upstash integration below (plain REST calls).
-- **Two or three caching layers.** The CDN (`Cache-Control`) caches each
-  *rendered URL*. Behind it, a per-warm-instance cache keyed on **username
-  alone** holds the raw GraphQL payload, so the same user in six themes is six
-  CDN keys but **one** API call. If `UPSTASH_REDIS_REST_URL`/`TOKEN` are set, a
-  third, durable layer sits beneath that one and survives cold starts. Rendering
-  params are applied after all of this, never multiplying requests.
-- **Rate-limit budget** (`rateLimit { remaining resetAt }`) is logged on every
-  live fetch, so GitHub-side quota pressure is diagnosable in the deployment
-  logs. Separately, if Upstash is configured, `/api/card` also enforces its
-  *own* per-IP limit (60/min) so one client can't burn the whole token pool.
-- Errors never break the image slot: unknown user, rate limits, and bad tokens
-  all render a small error SVG with HTTP 200.
-- All query params are validated/escaped before touching SVG markup.
+- **Zero runtime dependencies** — `fetch` and template strings, nothing else.
+- **Layered caching.** The CDN caches each *rendered URL*; beneath it a
+  per-instance cache keyed on **username alone** holds the raw GraphQL payload,
+  so one user in six themes is six CDN keys but **one** API call. With Upstash
+  configured, a durable third layer survives cold starts.
+- **Errors never break the image slot** — unknown user, rate limits, and bad
+  tokens all render a small error SVG with HTTP 200.
+- All query params are validated and escaped before touching SVG markup.
+
+## Deploy your own
+
+You don't need to — anyone can use the public deployment above. But it's ~2
+minutes if you want your own domain and rate-limit budget:
+
+**→ [SETUP.md](SETUP.md)** — one-click deploy, environment variables, and local
+development.
 
 ## Credits
 
