@@ -73,24 +73,33 @@ crest.
 - **Class** — your most-used language becomes an RPG profession
   (Python → *Oracle*, Rust → *Sentinel*, C++ → *Warlord*, …), with a crest glyph.
 - **Subclass** — your second language (e.g. *Python Oracle · C++ Warlord*).
-- **Level & XP** — earned from **craft**: commits, merged PRs, closed issues, PR
-  reviews, and repos, amplified by how long you've been on GitHub. Popularity is
-  deliberately *not* here. Early levels come fast; the top tiers take real work.
-  See [XP & Levelling](#xp--levelling).
+- **Level & XP** — earned from **craft** (commits, merged PRs, closed issues, PR
+  reviews, repos) and **consistency** (your combo streak), amplified by how long
+  you've been on GitHub. Popularity is deliberately *not* here. Early levels come
+  fast; the top tiers take real work. See [XP & Levelling](#xp--levelling).
 - **Rarity tiers** — your title and frame evolve through five bands as you level
   (*Common → Rare → Epic → Legendary → **Mythic***), shown by the stars, the frame
   colour, and a crown at Legendary+.
 - **Fame** — a separate axis of *reach*: followers + stars. Kept apart from XP
   on purpose, so a quiet high-level dev and a famous low-level dev read as
   genuinely different characters.
-- **Combo** — your current contribution-streak in days.
+- **Combo** — your current contribution-streak in days. Unlike Fame, consistency
+  *is* craft, so a long streak also lifts your level (see below).
+- **Achievement badges** — labelled pins below Fame/Combo, earned *independent* of
+  level, so even a newer or lower-tier dev has something to show off. Each names
+  itself on the card:
+  - 🌱 **Rising** — new account (< 1 yr) already shipping (30+ commits)
+  - 🔥 **On a Roll** — a 7+ day contribution streak
+  - 🌐 **Polyglot** — ships in 3+ languages
+  - 🤝 **Collaborator** — 10+ pull-request reviews
+  - 📦 **Founder** — created 5+ repositories
 
 A GitHub username is the **only** required input; everything else is inferred.
 
 ## XP & Levelling
 
-XP measures **craft**, not popularity. Stars and followers never touch it — they
-feed [Fame](#whats-on-the-card) instead, so the two stats stay orthogonal.
+XP measures **craft and consistency**, not popularity. Stars and followers never
+touch it — they feed [Fame](#whats-on-the-card) instead, kept orthogonal to level.
 
 **1. Craft XP** — each contribution is worth a fixed number of points:
 
@@ -107,10 +116,19 @@ XP, so a long-standing, genuinely productive dev is rewarded for the long haul
 while an old but empty account still scores ≈ 0:
 
 ```
-totalXP = craftXP × (1 + min(yearsOnGitHub, 15) × 0.05)      # up to +75%
+tenureMult = 1 + min(yearsOnGitHub, 15) × 0.05      # up to +75%
 ```
 
-**3. Level curve** — quadratic, so early levels come fast and each one costs a
+**3. Combo (streak)** — consistency counts as craft, so a solo dev who ships
+daily but rarely opens PRs still climbs. Your contribution streak adds a flat
+**8 XP/day** *and* multiplies craft by up to **+25%** at a year-long run:
+
+```
+comboMult = 1 + min(streak, 365) / 365 × 0.25       # up to +25%
+totalXP   = craftXP × tenureMult × comboMult + streak × 8
+```
+
+**4. Level curve** — quadratic, so early levels come fast and each one costs a
 little more than the last:
 
 ```
@@ -119,13 +137,14 @@ XP to reach level L = 100 × L²
 ```
 
 **Worked example** — a 4-year dev with 1,800 commits, 120 merged PRs, 60 closed
-issues, 30 reviews, and 15 repos:
+issues, 30 reviews, 15 repos, and a 120-day streak:
 
 ```
-craftXP = 1800×10 + 120×65 + 30×40 + 60×30 + 15×120
-        = 18000 + 7800 + 1200 + 1800 + 1800  = 30,600
-totalXP = 30,600 × (1 + 4×0.05)  = 30,600 × 1.20 = 36,720
-level   = floor( sqrt(36,720 / 100) ) = floor(19.16) = 19   →  Epic, 16% to Lv 20
+craftXP   = 1800×10 + 120×65 + 60×30 + 30×40 + 15×120
+          = 18000 + 7800 + 1800 + 1200 + 1800   = 30,600
+comboMult = 1 + min(120,365)/365 × 0.25 = 1.082          (+ 120×8 = 960 flat)
+totalXP   = 30,600 × (1 + 4×0.05) × 1.082 + 960 ≈ 40,700
+level     = floor( sqrt(40,700 / 100) ) = floor(20.17) = 20   →  Epic, 17% to Lv 21
 ```
 
 **Rarity tiers** — level bands are front-loaded, so most active devs climb quickly
@@ -139,11 +158,11 @@ and **Mythic** stays a rare summit:
 | 🟢 Legendary   | 29 – 54 | 84,100             | ★★★★  |
 | 🔴 Mythic      | 55 +    | 302,500            | ★★★★★ |
 
-¹ Before the tenure multiplier — a long-tenured dev reaches each tier with
-proportionally less raw craft.
+¹ Before the tenure multiplier and combo bonus — a long-tenured or long-streak
+dev reaches each tier with proportionally less raw craft.
 
-> The single source of truth for these numbers is `XP_WEIGHTS`, `BASE_XP`, and
-> `TENURE` in [`src/engine.js`](src/engine.js); this table mirrors them.
+> The single source of truth for these numbers is `XP_WEIGHTS`, `BASE_XP`,
+> `TENURE`, and `COMBO` in [`src/engine.js`](src/engine.js); this doc mirrors them.
 
 ## `GET /api/card` — the character card
 
