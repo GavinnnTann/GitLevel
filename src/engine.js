@@ -13,10 +13,11 @@ import { computeAchievements } from "./achievements.js";
  * XP awarded per contribution — the single source of truth for the curve
  * (mirrored in README §XP & Levelling; keep them in sync).
  *
- * XP measures *craft/activity only* — what you built. Popularity (stars,
- * followers) is deliberately NOT here; it lives in Fame instead, so the two
- * stats stay orthogonal: a quiet high-level dev and a famous low-level dev read
- * as distinct characters rather than the same thing counted twice.
+ * XP measures *what you built and how consistently you show up* — craft plus
+ * the combo (contribution streak). Popularity (stars, followers) is deliberately
+ * NOT here; it lives in Fame instead, so a quiet high-level dev and a famous
+ * low-level dev still read as distinct characters rather than double-counting
+ * reach as level. Consistency, by contrast, IS craft — see COMBO below.
  */
 export const XP_WEIGHTS = {
   commit: 10,
@@ -38,7 +39,20 @@ export const BASE_XP = 100;
  */
 export const TENURE = { bonusPerYear: 0.05, maxYears: 15 }; // up to +75%
 
-export const DEFAULT_CONFIG = { xp: XP_WEIGHTS, baseXP: BASE_XP, tenure: TENURE };
+/**
+ * Combo — the contribution streak rewards *consistency*, which raw craft totals
+ * miss entirely: a solo dev who shows up every day (direct commits, few PRs, and
+ * whose commits GitHub often under-counts) barely moves on craft alone, yet a
+ * year-long daily streak is real, sustained work. Two levers, both RPG-authentic
+ * and deliberately dialled below their standalone strength since they stack:
+ *   xpPerDay      — each streak-day is a flat XP reward (showing up is craft).
+ *   maxMultiplier — a long run also amplifies your built work, combo-style.
+ * Both are capped at maxDays; the contribution calendar only spans ~a year, so
+ * the cap is really just belt-and-braces against a multi-year streak.
+ */
+export const COMBO = { xpPerDay: 8, maxMultiplier: 0.25, maxDays: 365 }; // long streak: +~2,900 XP & up to +25%
+
+export const DEFAULT_CONFIG = { xp: XP_WEIGHTS, baseXP: BASE_XP, tenure: TENURE, combo: COMBO };
 
 /** Raw craft XP before tenure — commits/issues/PRs/reviews/repos only. */
 export function computeCraftXP(profile, w = XP_WEIGHTS) {
@@ -51,11 +65,21 @@ export function computeCraftXP(profile, w = XP_WEIGHTS) {
   );
 }
 
-/** Total XP: craft amplified by tenure. Craft only — never popularity. */
+/**
+ * Total XP: craft amplified by tenure *and* the combo (streak) multiplier, plus
+ * a flat per-streak-day consistency reward. The multiplier scales your built
+ * work (a longer combo is worth more); the flat reward stands on its own so even
+ * a solo dev whose commits don't register still gets credit for showing up.
+ * Popularity (Fame) is still never counted — only craft and consistency.
+ */
 export function computeXP(profile, cfg = DEFAULT_CONFIG) {
   const craft = computeCraftXP(profile, cfg.xp);
   const years = Math.min(Math.max(profile.accountAgeYears ?? 0, 0), cfg.tenure.maxYears);
-  return Math.round(craft * (1 + years * cfg.tenure.bonusPerYear));
+  const tenureMult = 1 + years * cfg.tenure.bonusPerYear;
+  const streak = Math.min(Math.max(profile.streak ?? 0, 0), cfg.combo.maxDays);
+  const comboMult = 1 + (streak / cfg.combo.maxDays) * cfg.combo.maxMultiplier;
+  const streakXP = streak * cfg.combo.xpPerDay;
+  return Math.round(craft * tenureMult * comboMult + streakXP);
 }
 
 /**
