@@ -283,6 +283,39 @@ const BADGE_GLYPHS = {
   repo: (c) => `
     <rect x="4" y="4" width="16" height="16" rx="2.4" fill="none" stroke="${c}" stroke-width="1.7"/>
     <path d="M8 4v16 M4 9.5h4" fill="none" stroke="${c}" stroke-width="1.5" opacity="0.85"/>`,
+  // Solid where the shape reads better filled at ~12px (star, bolt, sparkle) —
+  // hairline strokes lose too much at pill scale.
+  star: (c) => `<path d="M12 2.6 14.9 8.5 21.4 9.45 16.7 14.05 17.8 20.55 12 17.5 6.2 20.55 7.3 14.05 2.6 9.45 9.1 8.5Z" fill="${c}"/>`,
+  bolt: (c) => `<path d="M13.6 2 4.4 13.8h6L10 22l9.6-11.9h-6.5Z" fill="${c}"/>`,
+  hourglass: (c) => `
+    <path d="M6 3h12M6 21h12" ${strokeAttrs(c, 1.8)}/>
+    <path d="M7.6 3c0 4 4.4 5.6 4.4 9s-4.4 5-4.4 9M16.4 3c0 4-4.4 5.6-4.4 9s4.4 5 4.4 9" ${strokeAttrs(c, 1.7)}/>`,
+  anchor: (c) => `
+    <circle cx="12" cy="4.4" r="2.2" fill="none" stroke="${c}" stroke-width="1.7"/>
+    <path d="M12 6.6V21M7.6 10h8.8" ${strokeAttrs(c, 1.7)}/>
+    <path d="M4 13.6a8 8 0 0 0 16 0" ${strokeAttrs(c, 1.7)}/>`,
+  beacon: (c) => `
+    <circle cx="12" cy="12" r="2.6" fill="${c}"/>
+    <path d="M6.6 6.6a7.6 7.6 0 0 0 0 10.8M17.4 6.6a7.6 7.6 0 0 1 0 10.8" ${strokeAttrs(c, 1.7)}/>
+    <path d="M3.4 3.4a12.1 12.1 0 0 0 0 17.2M20.6 3.4a12.1 12.1 0 0 1 0 17.2" ${strokeAttrs(c, 1.5)} opacity="0.55"/>`,
+  bug: (c) => `
+    <rect x="7.4" y="7.6" width="9.2" height="12" rx="4.6" fill="none" stroke="${c}" stroke-width="1.7"/>
+    <path d="M9.6 7.6a2.4 2.4 0 0 1 4.8 0" ${strokeAttrs(c, 1.6)}/>
+    <path d="M7.4 11.6H4M16.6 11.6H20M7.4 16H4.6M16.6 16H19.4M9.8 4.6 8.4 2.6M14.2 4.6 15.6 2.6" ${strokeAttrs(c, 1.5)}/>`,
+  // A single figure under an upward chevron — lifting others, distinct from
+  // `people` (which is a crowd) at a glance.
+  mentor: (c) => `
+    <circle cx="12" cy="10" r="3" fill="none" stroke="${c}" stroke-width="1.7"/>
+    <path d="M6 21a6 6 0 0 1 12 0" ${strokeAttrs(c, 1.7)}/>
+    <path d="M8.6 5.4 12 2.2l3.4 3.2" ${strokeAttrs(c, 1.7)}/>`,
+  wolf: (c) => `
+    <path d="M5 5.4 8.8 8.6h6.4L19 5.4v8.3c0 3.9-3.1 6.8-7 6.8s-7-2.9-7-6.8Z" fill="none" stroke="${c}" stroke-width="1.7" stroke-linejoin="round"/>
+    <circle cx="9.7" cy="12.8" r="1" fill="${c}"/>
+    <circle cx="14.3" cy="12.8" r="1" fill="${c}"/>
+    <path d="M12 15.6v2" ${strokeAttrs(c, 1.5)}/>`,
+  renaissance: (c) => `
+    <path d="M12 2.4 13.9 9.2 20.6 11 13.9 12.8 12 19.6 10.1 12.8 3.4 11 10.1 9.2Z" fill="${c}"/>
+    <path d="M18.4 16.4 19.3 18.9 21.8 19.8 19.3 20.7 18.4 23.2 17.5 20.7 15 19.8 17.5 18.9Z" fill="${c}" opacity="0.65"/>`,
 };
 
 /** A small earned-achievement pin: a tinted circular chip + glyph, with an
@@ -313,11 +346,22 @@ export function renderBadgePill(badge, { x = 0, y = 0, w = 80, h = 18, labelColo
     ? `<g transform="translate(${cx - 12 * s}, ${cy - 12 * s}) scale(${s})">${draw(badge.color)}</g>`
     : "";
   const labelX = cx + iconR + 5;
+
+  // Rare badges (top rung of a ladder, or an inferred one) earn a heavier fill
+  // and rim plus a glass sheen across the top half, so they're distinguishable
+  // from ordinary pills at a glance instead of only via their name. The sheen
+  // is a flat translucent-white cap rather than a gradient on purpose: a <defs>
+  // gradient would need a unique id per pill, and every theme here is dark.
+  const rare = !!badge.rare;
+  const sheen = rare
+    ? `<rect x="${x + 1}" y="${y + 1}" width="${w - 2}" height="${h / 2 - 1}" rx="${h / 2 - 1}" fill="#ffffff" fill-opacity="0.07"/>`
+    : "";
   return `<g>
     <title>${encodeHTML(`${badge.label} — ${badge.hint}`)}</title>
-    <rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${h / 2}" fill="${badge.color}" fill-opacity="0.13" stroke="${badge.color}" stroke-opacity="0.5" stroke-width="1"/>
+    <rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${h / 2}" fill="${badge.color}" fill-opacity="${rare ? 0.22 : 0.13}" stroke="${badge.color}" stroke-opacity="${rare ? 0.9 : 0.5}" stroke-width="${rare ? 1.3 : 1}"/>
+    ${sheen}
     ${glyph}
-    <text class="gl-badge-label" x="${labelX}" y="${cy + 3.6}" fill="${labelColor}">${encodeHTML(badge.label)}</text>
+    <text class="gl-badge-label" x="${labelX}" y="${cy + 3.6}" fill="${labelColor}"${rare ? ` font-weight="800"` : ""}>${encodeHTML(badge.label)}</text>
   </g>`;
 }
 

@@ -61,6 +61,42 @@ const MOCK_PROFILES = {
     stars: 12000, followers: 400, streak: 66,
     languages: [lang("Go"), lang("Rust")],
   },
+
+  // --- Badge showcases: each tuned to earn a specific inferred/rare pin, so
+  // the gallery proves the rare styling and the wrapping actually work. ---
+
+  // Reviews 9x more than they ship → Mentor (but NOT Lone Wolf).
+  badgeMentor: {
+    name: "Review Sage", login: "reviewsage", accountAgeYears: 6,
+    commits: 300, closedIssues: 15, mergedPRs: 20, reposCreated: 6, reviews: 180,
+    stars: 80, followers: 60, streak: 12,
+    languages: [lang("TypeScript"), lang("Go"), lang("Python")],
+  },
+  // Prolific across many own repos, reviews almost nothing → Lone Wolf.
+  badgeLoneWolf: {
+    name: "Solo Builder", login: "solobuilder", accountAgeYears: 4,
+    commits: 900, closedIssues: 8, mergedPRs: 40, reposCreated: 18, reviews: 1,
+    stars: 140, followers: 25, streak: 45,
+    languages: [lang("Rust"), lang("Zig")],
+  },
+  // Breadth + reach + generosity at once → Renaissance, without maxing anything.
+  badgeRenaissance: {
+    name: "Polymath", login: "polymath", accountAgeYears: 8,
+    commits: 1100, closedIssues: 90, mergedPRs: 160, reposCreated: 22, reviews: 60,
+    stars: 900, followers: 240, streak: 21,
+    languages: [lang("Rust"), lang("Go"), lang("Elixir"), lang("TypeScript"), lang("Python"), lang("C")],
+  },
+  // Everything maxed: every ladder at its top rung → an all-rare, 3-row footer.
+  // This is the worst case for the badge layout, so it belongs in the gallery.
+  badgeMaxed: {
+    name: "Day One", login: "dayone", accountAgeYears: 17.5,
+    commits: 4000, closedIssues: 800, mergedPRs: 900, reposCreated: 120, reviews: 900,
+    stars: 60000, followers: 40000, streak: 400,
+    languages: [
+      lang("C"), lang("Perl"), lang("Shell"), lang("Python"), lang("Go"),
+      lang("Rust"), lang("Ruby"), lang("Lua"), lang("Java"), lang("C++"),
+    ],
+  },
 };
 
 // A Legendary-scale profile (Lv 51+) so every class shows full regalia

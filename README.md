@@ -52,9 +52,29 @@ Or with sizing and a theme:
 - **Combo** — your contribution streak in days. Consistency *is* craft, so a
   long streak lifts your level too.
 - **Achievement badges** — earned *independent* of level, so a newer dev still
-  has something to show off: 🌱 **Rising** (new account, 30+ commits) ·
-  🔥 **On a Roll** (7+ day streak) · 🌐 **Polyglot** (3+ languages) ·
-  🤝 **Collaborator** (10+ PR reviews) · 📦 **Founder** (5+ repos).
+  has something to show off. Most are **ladders that evolve** as you grow, and
+  you only ever display the highest rung reached:
+
+  | Family | Signal | Rungs |
+  | --- | --- | --- |
+  | 🔥 Streak | contribution streak | On a Roll 7d → Ablaze 30d → Inferno 100d → **Eternal Flame** 365d |
+  | 🌐 Languages | languages shipped | Polyglot 3 → Hyperpolyglot 6 → **Babel** 10 |
+  | 🤝 Reviews | PR reviews (past yr) | Collaborator 10 → Gatekeeper 100 → **Guardian** 500 |
+  | 📦 Repos | repos created | Founder 5 → Architect 20 → **Worldbuilder** 50 |
+  | ⭐ Stars | stars earned | Starstruck 100 → Constellation 1k → **Supernova** 10k |
+  | ⏳ Tenure | account age | Veteran 5y → Elder 10y → Ancient One 15y → **Day One** 17y |
+  | ⚓ Merged PRs | merged PRs | Shipwright 25 → Fleetmaster 150 → **Armada** 500 |
+  | 📡 Followers | followers | Beacon 100 → Luminary 1k → **Icon** 10k |
+  | 🐛 Issues | issues closed | Bug Hunter 25 → Exorcist 150 → **Purifier** 500 |
+
+  Plus 🌱 **Rising** (account under a year old, 30+ commits — it expires), and
+  four **rare** pins inferred from the *shape* of an account rather than any one
+  number: ✨ **Mentor** (50+ reviews and 2× your own merged PRs), 🐺 **Lone Wolf**
+  (10+ repos, 300+ commits, almost no reviews), 🎭 **Renaissance** (6+ languages
+  *and* 100+ stars *and* 25+ reviews), ⚡ **Prolific** (2,000+ commits in a year).
+
+  Rare pins — the **bold** top rungs and all four inferred ones — render with a
+  brighter fill, a stronger rim and a glass sheen, and always sort to the front.
 
 A GitHub username is the **only** required input; everything else is inferred.
 
