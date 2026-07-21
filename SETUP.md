@@ -61,8 +61,11 @@ code changes:
 - **`GET /api/stats`** — returns `{ enabled, uniqueUsers, cardsServed }` as
   JSON: how many distinct usernames have generated a card on this deployment
   and how many cards have been served in total. Without the Upstash vars it
-  returns `{ enabled: false, message: "..." }` rather than an error, so it's
-  always safe to call.
+  returns the same shape with `enabled: false`, both counters at `0`, and a
+  `message` — never an error, so it's always safe to call. This also feeds the
+  **cards served** badge in the README and the counter in the landing-page
+  hero; the counter checks `enabled` and hides itself entirely on a deployment
+  that isn't tracking, so neither needs configuring separately.
 
 ## Local development
 

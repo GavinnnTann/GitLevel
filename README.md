@@ -11,6 +11,7 @@ config, nothing to install. Just an `<img>` tag.
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FGavinnnTann%2FGitLevel&env=GITHUB_TOKEN&envDescription=A%20GitHub%20token%20with%20public%20read%20access.%20The%20link%20shows%20how%20to%20create%20one.&envLink=https%3A%2F%2Fgithub.com%2FGavinnnTann%2FGitLevel%2Fblob%2Fmain%2F.env.example&project-name=gitlevel&repository-name=gitlevel)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Zero dependencies](https://img.shields.io/badge/dependencies-0-brightgreen.svg)](package.json)
+[![Cards served](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fgitlevel.vercel.app%2Fapi%2Fstats&query=%24.cardsServed&label=cards%20served&color=e3b341&cacheSeconds=300)](https://gitlevel.vercel.app/api/stats)
 
 **[gitlevel.vercel.app](https://gitlevel.vercel.app/)**
 
@@ -235,7 +236,11 @@ The card accent is tinted by your class colour automatically; theme params
 control the surrounding chrome.
 
 `GET /api/stats` — returns `{ enabled, uniqueUsers, cardsServed }` for a
-deployment. Requires the optional Upstash env vars ([SETUP.md](SETUP.md)).
+deployment. Requires the optional Upstash env vars ([SETUP.md](SETUP.md));
+without them it answers `enabled: false` with both counters at `0` rather than
+erroring. The **cards served** badge above and the counter on the landing page
+both read this endpoint, so they go live the moment Upstash is configured — and
+show nothing at all until then.
 
 ## Themes
 

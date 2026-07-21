@@ -12,8 +12,15 @@ export default async function handler(req, res) {
   res.setHeader("Cache-Control", "public, max-age=60, s-maxage=60");
 
   if (!kvEnabled()) {
+    // Zeroed counters are part of the disabled shape on purpose: the README's
+    // shields.io badge reads $.cardsServed, and a missing field renders as a
+    // broken "invalid" badge rather than a harmless 0. Consumers that care
+    // about the difference between "none yet" and "not tracked" read `enabled`
+    // — which is exactly what the landing-page counter does to stay hidden.
     res.status(200).json({
       enabled: false,
+      uniqueUsers: 0,
+      cardsServed: 0,
       message: "Usage tracking isn't configured on this deployment (no UPSTASH_REDIS_REST_URL/TOKEN).",
     });
     return;

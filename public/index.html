@@ -77,6 +77,10 @@
   .btn-primary:hover { transform:translateY(-2px); box-shadow:0 12px 34px #e3b34155; }
   .btn-ghost { background:#ffffff08; color:var(--ink); border-color:var(--line-2); }
   .btn-ghost:hover { background:#ffffff12; border-color:var(--gold-dim); }
+  /* cards-served counter — hidden until /api/stats confirms a tracked deployment */
+  .counter { display:none; margin:30px auto 0; font-family:var(--mono); font-size:12px; letter-spacing:.26em; text-transform:uppercase; color:var(--muted); }
+  .counter.show { display:block; }
+  .counter b { color:var(--gold-lt); font-size:15px; font-weight:600; letter-spacing:.1em; text-shadow:0 0 18px #ffd87344; }
   .hero-card { margin:52px auto 0; max-width:540px; position:relative; }
   .hero-card img { width:100%; height:auto; border-radius:16px; filter:drop-shadow(0 24px 60px #000a) drop-shadow(0 0 40px #e3b34118); }
   .hero-card .badge { position:absolute; z-index:2; top:-13px; right:18px; font-family:var(--mono); font-size:10px; letter-spacing:.22em; color:var(--gold-lt); background:#1e1608; border:1px solid #ffd87355; padding:5px 11px; border-radius:999px; box-shadow:0 4px 16px #ffd87333; }
@@ -232,6 +236,7 @@
     <a class="btn btn-primary" href="#forge">Forge your card</a>
     <a class="btn btn-ghost" href="#classes">Explore the classes</a>
   </div>
+  <p class="counter" id="counter" aria-live="polite"><b id="counterNum">0</b> cards forged</p>
   <figure class="hero-card floaty">
     <span class="badge">UNIQUE</span>
     <img src="/api/card?username=GavinnnTann" onerror="this.onerror=null;this.src='/cards/hero.svg'" alt="A GitLevel character card" width="500" />
@@ -389,6 +394,39 @@
     entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
   }, { threshold:0.14, rootMargin:'0px 0px -6% 0px' });
   document.querySelectorAll('[data-reveal]').forEach((el) => io.observe(el));
+
+  // ---- Cards-served counter ----
+  // Decoration, not structure: it stays hidden unless /api/stats reports a
+  // deployment that actually tracks usage, so a fork without Upstash (or a KV
+  // outage) simply renders the hero as it was before this existed.
+  (function(){
+    const MIN_TO_SHOW = 50; // "12 cards forged" undersells; a real number is social proof
+    const el = document.getElementById('counter'), num = document.getElementById('counterNum');
+    if (!el || !num) return;
+    fetch('/api/stats')
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => {
+        if (!d || !d.enabled) return;         // untracked deployment — stay hidden
+        const total = Number(d.cardsServed) || 0;
+        if (total < MIN_TO_SHOW) return;
+        el.classList.add('show');
+        countUp(total);
+      })
+      .catch(() => {});                       // never let stats break the hero
+
+    function countUp(total){
+      if (matchMedia('(prefers-reduced-motion:reduce)').matches) {
+        num.textContent = total.toLocaleString();
+        return;
+      }
+      const DUR = 1300, t0 = performance.now();
+      requestAnimationFrame(function step(now){
+        const p = Math.min(1, (now - t0) / DUR);
+        num.textContent = Math.round(total * (1 - Math.pow(1 - p, 3))).toLocaleString();
+        if (p < 1) requestAnimationFrame(step);
+      });
+    }
+  })();
 
   // ---- Class explorer ----
   (function(){
