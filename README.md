@@ -29,10 +29,12 @@ Paste this in and swap in your GitHub username — that's the only change:
 ![GitLevel](https://gitlevel.vercel.app/api/card?username=YOUR_GITHUB_LOGIN)
 ```
 
-Or with sizing and a theme:
+Or with sizing and a theme — size it with `card_width`, not a fixed `height`:
+the card grows a row taller as you earn more badges, so a hardcoded height
+squashes it.
 
 ```html
-<img height="220" src="https://gitlevel.vercel.app/api/card?username=YOUR_GITHUB_LOGIN&theme=volt" alt="GitLevel card" />
+<img src="https://gitlevel.vercel.app/api/card?username=YOUR_GITHUB_LOGIN&theme=volt&card_width=560" alt="GitLevel card" />
 ```
 
 > Running your own deployment? Swap `gitlevel.vercel.app` for your domain — see
@@ -52,31 +54,54 @@ Or with sizing and a theme:
 - **Combo** — your contribution streak in days. Consistency *is* craft, so a
   long streak lifts your level too.
 - **Achievement badges** — earned *independent* of level, so a newer dev still
-  has something to show off. Most are **ladders that evolve** as you grow, and
-  you only ever display the highest rung reached:
-
-  | Family | Signal | Rungs |
-  | --- | --- | --- |
-  | 🔥 Streak | contribution streak | On a Roll 7d → Ablaze 30d → Inferno 100d → **Eternal Flame** 365d |
-  | 🌐 Languages | languages shipped | Polyglot 3 → Hyperpolyglot 6 → **Babel** 10 |
-  | 🤝 Reviews | PR reviews (past yr) | Collaborator 10 → Gatekeeper 100 → **Guardian** 500 |
-  | 📦 Repos | repos created | Founder 5 → Architect 20 → **Worldbuilder** 50 |
-  | ⭐ Stars | stars earned | Starstruck 100 → Constellation 1k → **Supernova** 10k |
-  | ⏳ Tenure | account age | Veteran 5y → Elder 10y → Ancient One 15y → **Day One** 17y |
-  | ⚓ Merged PRs | merged PRs | Shipwright 25 → Fleetmaster 150 → **Armada** 500 |
-  | 📡 Followers | followers | Beacon 100 → Luminary 1k → **Icon** 10k |
-  | 🐛 Issues | issues closed | Bug Hunter 25 → Exorcist 150 → **Purifier** 500 |
-
-  Plus 🌱 **Rising** (account under a year old, 30+ commits — it expires), and
-  four **rare** pins inferred from the *shape* of an account rather than any one
-  number: ✨ **Mentor** (50+ reviews and 2× your own merged PRs), 🐺 **Lone Wolf**
-  (10+ repos, 300+ commits, almost no reviews), 🎭 **Renaissance** (6+ languages
-  *and* 100+ stars *and* 25+ reviews), ⚡ **Prolific** (2,000+ commits in a year).
-
-  Rare pins — the **bold** top rungs and all four inferred ones — render with a
-  brighter fill, a stronger rim and a glass sheen, and always sort to the front.
+  has something to show off. Most **evolve** as you grow (On a Roll → Ablaze →
+  Inferno → ***Eternal Flame***), and a few **rare** pins are inferred from the
+  *shape* of an account rather than any single number.
 
 A GitHub username is the **only** required input; everything else is inferred.
+
+<details>
+<summary><b>All 14 badge families</b></summary>
+
+Nine are **ladders** — you only ever display the highest rung you've reached, so
+a family is worth at most one badge and the card never fills up with near-misses:
+
+| Family         | Signal               | Rungs                                                                |
+| -------------- | -------------------- | -------------------------------------------------------------------- |
+| 🔥 Streak      | contribution streak  | On a Roll 7d → Ablaze 30d → Inferno 100d → **Eternal Flame** 365d     |
+| 🌐 Languages   | languages shipped    | Polyglot 3 → Hyperpolyglot 6 → **Babel** 10                           |
+| 🤝 Reviews     | PR reviews (past yr) | Collaborator 10 → Gatekeeper 100 → **Guardian** 500                   |
+| 📦 Repos       | repos created        | Founder 5 → Architect 20 → **Worldbuilder** 50                        |
+| ⭐ Stars        | stars earned         | Starstruck 100 → Constellation 1k → **Supernova** 10k                 |
+| ⏳ Tenure      | account age          | Veteran 5y → Elder 10y → Ancient One 15y → **Day One** 17y            |
+| ⚓ Merged PRs  | merged PRs           | Shipwright 25 → Fleetmaster 150 → **Armada** 500                      |
+| 📡 Followers   | followers            | Beacon 100 → Luminary 1k → **Icon** 10k                               |
+| 🐛 Issues      | issues closed        | Bug Hunter 25 → Exorcist 150 → **Purifier** 500                       |
+
+Plus 🌱 **Rising** — under a year old with 30+ commits. It expires, on purpose:
+it exists to give a brand-new account something on day one.
+
+Four are **rare** and inferred from the shape of an account. Each is a
+conjunction, which is what makes them uncommon *and* what lets them say
+something no single count can:
+
+| Badge             | Earned when                                                   |
+| ----------------- | ------------------------------------------------------------- |
+| ✨ **Mentor**      | 50+ reviews **and** 2× your own merged PRs — you review more than you ship |
+| 🐺 **Lone Wolf**  | 10+ repos, 300+ commits, almost no reviews — you build alone   |
+| 🎭 **Renaissance** | 6+ languages **and** 100+ stars **and** 25+ reviews            |
+| ⚡ **Prolific**    | 2,000+ commits in the last 12 months alone                     |
+
+Rare badges — the **bold** top rungs plus all four inferred ones — render with a
+brighter fill, a stronger rim and a glass sheen, and always sort to the front so
+they're the ones that survive if a row runs out of space.
+
+> Streak, reviews and commits are **last-12-months**; stars, followers, repos,
+> merged PRs, closed issues and tenure are **lifetime**. Thresholds account for
+> the difference. Single source of truth:
+> [`src/achievements.js`](src/achievements.js).
+
+</details>
 
 ## Classes
 
