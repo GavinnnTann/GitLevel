@@ -35,9 +35,10 @@ const ROW_STEP = BADGE.h + BADGE.rowGap;
 // pills never clip or overlap. Cheap stand-in for real text metrics (none here).
 const estTextWidth = (text, fontSize) => text.length * fontSize * 0.58;
 // A pill is: left inset (4) + glyph (iconW) + gap (5) + label + right pad (8).
-// Rare pills set their label at weight 800 (see renderBadgePill), which runs a
-// few percent wider than the 600 the estimate is calibrated for.
-const badgePillW = (badge) => 29 + estTextWidth(badge.label, BADGE.font) * (badge.rare ? 1.04 : 1);
+// Rare pills add a trailing star — gap (4) + star (9) — and set their label at
+// weight 800, which runs a few percent wider than the 600 this is calibrated for.
+const badgePillW = (badge) => (badge.rare ? 42 : 29)
+  + estTextWidth(badge.label, BADGE.font) * (badge.rare ? 1.04 : 1);
 
 export function renderGitLevelCard(character, {
   colors,

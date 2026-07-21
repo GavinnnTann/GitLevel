@@ -347,21 +347,29 @@ export function renderBadgePill(badge, { x = 0, y = 0, w = 80, h = 18, labelColo
     : "";
   const labelX = cx + iconR + 5;
 
-  // Rare badges (top rung of a ladder, or an inferred one) earn a heavier fill
-  // and rim plus a glass sheen across the top half, so they're distinguishable
-  // from ordinary pills at a glance instead of only via their name. The sheen
-  // is a flat translucent-white cap rather than a gradient on purpose: a <defs>
-  // gradient would need a unique id per pill, and every theme here is dark.
+  // Rare badges (top rung of a ladder, or an inferred one) carry a trailing
+  // star, a solid rim and a heavier fill.
+  //
+  // The star is the part that actually works, and it is worth understanding
+  // why: every badge already owns a distinct hue, so encoding rarity as "the
+  // same colour, but more of it" puts rarity in the very channel identity is
+  // already using — there is no baseline on the card to read "brighter"
+  // against, and it reads as just another coloured pill. A mark that is either
+  // present or absent is categorical, so it survives both the small size and
+  // the surrounding riot of colour. Fill/rim/weight only reinforce it.
   const rare = !!badge.rare;
   const sheen = rare
-    ? `<rect x="${x + 1}" y="${y + 1}" width="${w - 2}" height="${h / 2 - 1}" rx="${h / 2 - 1}" fill="#ffffff" fill-opacity="0.07"/>`
+    ? `<rect x="${x + 1}" y="${y + 1}" width="${w - 2}" height="${h / 2 - 1}" rx="${h / 2 - 1}" fill="#ffffff" fill-opacity="0.13"/>`
     : "";
+  // Sits in the width badgePillW() reserves for it: 4px gap + 9px star + 8px pad.
+  const mark = rare ? solidStar(x + w - 12.5, cy, 9, badge.color) : "";
   return `<g>
-    <title>${encodeHTML(`${badge.label} — ${badge.hint}`)}</title>
-    <rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${h / 2}" fill="${badge.color}" fill-opacity="${rare ? 0.22 : 0.13}" stroke="${badge.color}" stroke-opacity="${rare ? 0.9 : 0.5}" stroke-width="${rare ? 1.3 : 1}"/>
+    <title>${encodeHTML(`${badge.label}${rare ? " (rare)" : ""} — ${badge.hint}`)}</title>
+    <rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${h / 2}" fill="${badge.color}" fill-opacity="${rare ? 0.26 : 0.13}" stroke="${badge.color}" stroke-opacity="${rare ? 1 : 0.5}" stroke-width="${rare ? 1.6 : 1}"/>
     ${sheen}
     ${glyph}
     <text class="gl-badge-label" x="${labelX}" y="${cy + 3.6}" fill="${labelColor}"${rare ? ` font-weight="800"` : ""}>${encodeHTML(badge.label)}</text>
+    ${mark}
   </g>`;
 }
 
