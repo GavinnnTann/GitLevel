@@ -139,6 +139,25 @@
   @keyframes pulseGlow { 0%,100%{ box-shadow:0 0 22px -6px var(--c), inset 0 0 18px -8px var(--c);} 50%{ box-shadow:0 0 34px -2px var(--c), inset 0 0 22px -6px var(--c);} }
 
   /* ---------- what's next ---------- */
+  /* seasons */
+  .season-band { border-top:1px solid var(--line); background:linear-gradient(180deg,#080b12,#0a0d15); }
+  .season-row { display:grid; grid-template-columns:repeat(5,1fr); gap:12px; max-width:780px; margin:0 auto; }
+  .srank { text-align:center; padding:15px 8px; border:1px solid var(--line); border-radius:12px; background:#0b0e16; }
+  .srank b { display:block; font-family:var(--serif); font-size:19px; color:var(--c); line-height:1.25; }
+  .srank span { font-family:var(--mono); font-size:10.5px; color:var(--muted-2); }
+  .two-rules { display:grid; grid-template-columns:1fr 1fr; gap:16px; max-width:820px; margin:32px auto 0; }
+  .rule-card { border:1px solid var(--line); border-radius:12px; padding:18px 20px; background:#0b0e16; }
+  .rule-card h3 { font-family:var(--sans); font-size:15px; color:var(--ink); margin:0 0 6px; }
+  .rule-card p { font-size:13.5px; color:var(--muted); margin:0; line-height:1.6; }
+  .shelf-demo { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:16px; }
+  .shelf-chip { border:1px solid var(--line-2); border-radius:10px; padding:9px 15px; background:#101623; text-align:center; min-width:104px; }
+  .shelf-chip i { display:block; font-style:normal; font-family:var(--mono); font-size:10px; letter-spacing:.1em; color:var(--muted-2); }
+  .shelf-chip b { font-family:var(--serif); font-size:17px; font-weight:600; }
+  @media (max-width:860px) {
+    .season-row { grid-template-columns:repeat(2,1fr); }
+    .two-rules { grid-template-columns:1fr; }
+  }
+
   .next-band { border-top:1px solid var(--line); border-bottom:1px solid var(--line); background:linear-gradient(180deg,#0a0910,#0c0a14); }
   .concepts { display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
   .concept { position:relative; border-radius:16px; overflow:hidden; }
@@ -239,7 +258,13 @@
   <p class="counter" id="counter" aria-live="polite"><b id="counterNum">0</b> cards forged</p>
   <figure class="hero-card floaty">
     <span class="badge">UNIQUE</span>
-    <img src="/api/card?username=GavinnnTann" onerror="this.onerror=null;this.src='/cards/hero.svg'" alt="A GitLevel character card" width="500" />
+    <!-- animation=false deliberately. The card's fade-in elements start at
+         opacity:0, and an <img>-embedded SVG is not guaranteed to advance its
+         CSS animations — when it doesn't, this renders as an empty frame, and
+         the onerror fallback below can't help because the response is a
+         perfectly valid SVG. A blank hero is the worst failure this page has;
+         the wrapper's `floaty` animation carries the motion anyway. -->
+    <img src="/api/card?username=GavinnnTann&animation=false" onerror="this.onerror=null;this.src='/cards/hero.svg'" alt="A GitLevel character card" width="500" />
   </figure>
 </header>
 
@@ -313,13 +338,59 @@
   </div>
 </section>
 
+<!-- ===== SEASONS ===== -->
+<section class="season-band" id="seasons">
+  <div class="wrap">
+    <div class="shead" data-reveal>
+      <p class="eyebrow">The quarter</p>
+      <h2>Your level is a career.<br/>Your rank is right now.</h2>
+      <p>Levels are quadratic and honest, which means a veteran's card barely moves. So there's a second axis running underneath it: every calendar quarter is a season, and season XP counts only what you shipped inside it. One line on your card. It resets in January, April, July and October.</p>
+    </div>
+
+    <div class="season-row" data-reveal>
+      <div class="srank" style="--c:#8b98a8"><b>Iron</b><span>0</span></div>
+      <div class="srank" style="--c:#c08457"><b>Bronze</b><span>1,500</span></div>
+      <div class="srank" style="--c:#c9d3e0"><b>Silver</b><span>5,000</span></div>
+      <div class="srank" style="--c:#e3b341"><b>Gold</b><span>12,000</span></div>
+      <div class="srank" style="--c:#7ae7ff"><b>Mythril</b><span>30,000</span></div>
+    </div>
+
+    <div class="two-rules" data-reveal>
+      <div class="rule-card">
+        <h3>Nothing decays. Ever.</h3>
+        <p>A quiet quarter shows a low rank — and touches nothing else. Your level, class, tier and badges are untouched by seasons, and no rank you've earned is ever taken back. Decay is how a tool that's meant to flatter you starts making you resent it.</p>
+      </div>
+      <div class="rule-card">
+        <h3>No multipliers.</h3>
+        <p>Tenure, combo and fame exist to make a <em>career</em> legible. A season is just “what did you make in these 90 days”, so it reads exactly the same for someone in their first month and someone in their fifteenth year.</p>
+      </div>
+    </div>
+
+    <div class="shead" data-reveal style="margin:64px auto 18px">
+      <h2 style="font-size:clamp(22px,3vw,30px)">Finished seasons go on the shelf.</h2>
+      <p>Your character sheet keeps every quarter you've played. A season's mark can only be earned while that season is running — there is no way to go back and collect one later.</p>
+    </div>
+    <div class="shelf-demo" data-reveal>
+      <!-- Deliberately not a straight ascent: quiet quarters are normal, and the
+           shelf is a record of what happened, not a leaderboard. -->
+      <div class="shelf-chip"><i>S1 ’26</i><b style="color:#c9d3e0">Silver</b></div>
+      <div class="shelf-chip"><i>S2 ’26</i><b style="color:#c08457">Bronze</b></div>
+      <div class="shelf-chip"><i>S3 ’26</i><b style="color:#e3b341">Gold</b></div>
+      <div class="shelf-chip"><i>S4 ’26</i><b style="color:#c9d3e0">Silver</b></div>
+    </div>
+    <p class="muted" style="text-align:center;margin:26px auto 0;font-size:14px;max-width:620px">
+      Your card links to your <b style="color:var(--ink-2)">character sheet</b> — where the XP came from, your full class ladder, every badge's next rung, and the shelf.
+    </p>
+  </div>
+</section>
+
 <!-- ===== WHAT'S COMING NEXT ===== -->
 <section class="next-band">
   <div class="wrap">
     <div class="shead" data-reveal>
       <p class="eyebrow" style="color:#c9a9ff">The next chapter</p>
-      <h2>Painted portraits are coming.</h2>
-      <p>Today's crests are hand-drawn emblems. Next, each class ascends into fully illustrated character art — atmospheric, rarity-graded portraits that make a Mythic card feel truly earned. Early concepts:</p>
+      <h2>The art keeps ascending.</h2>
+      <p>Every class already carries its own painted emblem. The next step is full character art — atmospheric, rarity-graded portraits that make a Mythic card feel genuinely earned. Where that's heading:</p>
     </div>
     <div class="concepts">
       <figure class="concept" data-reveal><img src="/concept/python.svg" alt="Concept art — Python Godseer" /></figure>
@@ -330,7 +401,10 @@
       <li><span class="tag now">Live</span><div><b>Emblem crests &amp; the five-tier ascent</b><br/><span class="muted">31 class ladders, tenure-weighted XP, and the Mythic tier.</span></div></li>
       <li><span class="tag now">Live</span><div><b>Illustrated character portraits</b><br/><span class="muted">Painted, rarity-graded art for all 31 classes — the concepts above, brought to life.</span></div></li>
       <li><span class="tag now">Live</span><div><b>Achievement badges</b><br/><span class="muted">14 families, most of them ladders that evolve as you climb — plus rare pins inferred from the shape of your account.</span></div></li>
-      <li><span class="tag soon">Soon</span><div><b>Seasonal titles</b><br/><span class="muted">Limited titles that mark when you played the game.</span></div></li>
+      <li><span class="tag now">Live</span><div><b>Character sheets</b><br/><span class="muted">Every card links to a full sheet — where the XP came from, your class ladder, and what each badge's next rung costs.</span></div></li>
+      <li><span class="tag now">Live</span><div><b>Seasons &amp; the shelf</b><br/><span class="muted">A quarterly rank that actually moves, and a shelf of finished seasons you can only fill by being there.</span></div></li>
+      <li><span class="tag next">Next</span><div><b>Where you stand</b><br/><span class="muted">“Top 6% of Rust developers this season” — rarity as a population fact, not a curve position.</span></div></li>
+      <li><span class="tag soon">Soon</span><div><b>Try it before you earn it</b><br/><span class="muted">Scrub the numbers on your own sheet: 20 more merged PRs is Lv 33. Drop a language and watch your class change.</span></div></li>
     </ul>
   </div>
 </section>
