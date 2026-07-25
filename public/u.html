@@ -105,6 +105,27 @@
   .badge .next { font-family:var(--mono); font-size:11.5px; color:var(--muted-2); margin-top:7px; }
   .badge .next b { color:var(--ink-2); font-weight:600; }
 
+  /* ---- season ---- */
+  .seasonHead { display:flex; align-items:baseline; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-bottom:14px; }
+  .seasonRank { display:flex; align-items:baseline; gap:12px; }
+  .rankBadge { font-family:var(--serif); font-size:30px; color:var(--ink); line-height:1.1; }
+  .seasonXp { font-size:14px; color:var(--muted); }
+  .seasonLeft { font-size:12.5px; color:var(--muted-2); }
+  .rankTrack { display:flex; gap:5px; margin-bottom:9px; }
+  .rankTrack span { flex:1; text-align:center; font-family:var(--mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase; padding:4px 2px; border-radius:6px; border:1px solid var(--line); color:var(--muted-2); }
+  .rankTrack span.done { color:var(--ink); border-color:currentColor; }
+  .meter.big { height:8px; border-radius:5px; background:#1a2032; overflow:hidden; }
+  .meter.big span { display:block; height:100%; border-radius:5px; }
+  .nextRank { font-size:12px; color:var(--muted); margin:9px 0 0; }
+  .seasonRows { display:flex; flex-wrap:wrap; gap:8px; margin-top:16px; }
+  .seasonRows .pill i { color:var(--muted-2); }
+  .shelfTitle { font-size:16px; margin-top:26px; }
+  .shelf { display:flex; flex-wrap:wrap; gap:10px; margin-top:4px; }
+  .shelfItem { border:1px solid var(--line-2); border-radius:10px; padding:10px 14px; background:#101623; min-width:118px; }
+  .shelfItem .s { font-family:var(--mono); font-size:11px; color:var(--muted-2); letter-spacing:.08em; }
+  .shelfItem .r { font-family:var(--serif); font-size:17px; }
+  .shelfItem .x { font-family:var(--mono); font-size:11px; color:var(--muted); }
+
   /* ---- ladder ---- */
   .ladder { display:grid; gap:7px; }
   .step { display:grid; grid-template-columns:96px 1fr auto; gap:12px; align-items:center; border:1px solid transparent; border-radius:9px; padding:9px 13px; background:#101623; }
@@ -209,6 +230,29 @@
           <h2 id="ladderTitle">The path</h2>
           <p class="sub" id="ladderSub"></p>
           <div class="ladder" id="ladder"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="seasonSection" hidden>
+      <div class="panel">
+        <h2 id="seasonTitle">This season</h2>
+        <p class="sub" id="seasonSub"></p>
+        <div class="seasonHead">
+          <div class="seasonRank">
+            <span class="rankBadge" id="seasonRank">—</span>
+            <span class="seasonXp mono" id="seasonXp"></span>
+          </div>
+          <div class="seasonLeft mono" id="seasonLeft"></div>
+        </div>
+        <div class="rankTrack" id="rankTrack"></div>
+        <div class="meter big"><span id="seasonMeter"></span></div>
+        <p class="nextRank mono" id="seasonNext"></p>
+        <div id="seasonRows" class="seasonRows"></div>
+        <div id="shelfWrap" hidden>
+          <h3 class="shelfTitle">The shelf</h3>
+          <p class="sub">Finished seasons. A season's mark can only be earned while it's running.</p>
+          <div class="shelf" id="shelf"></div>
         </div>
       </div>
     </section>
@@ -343,6 +387,7 @@
       "[![GitLevel](" + origin + "/api/card?username=" + d.username + ")](" + origin + "/u/" + d.username + ")";
 
     renderXP(d);
+    renderSeason(d);
     renderLadder(d, accent);
     renderBadges(d);
 
@@ -374,6 +419,57 @@
         return "<div><span class='muted'>" + esc(r[0]) + "</span><span>" + esc(r[1]) + "</span></div>";
       }).join("") +
       "<div class='big'><span>Total</span><span>" + num(b.total) + " XP</span></div>";
+  }
+
+  function renderSeason(d) {
+    var s = d.season;
+    // The shelf can outlive the current season being unavailable (a cached
+    // profile straddling a quarter boundary), so it's shown independently.
+    var shelf = d.shelf || [];
+    if (!s && !shelf.length) return;
+    $("seasonSection").hidden = false;
+
+    if (s) {
+      $("seasonTitle").textContent = s.label;
+      $("seasonSub").textContent = "Resets every quarter. Your level, class and tier are untouched by it.";
+      $("seasonRank").textContent = s.rank.name;
+      $("seasonRank").style.color = s.rank.color;
+      $("seasonXp").textContent = num(s.xp) + " season XP";
+      $("seasonLeft").textContent = s.daysLeft === 0
+        ? "Final day"
+        : s.daysLeft + (s.daysLeft === 1 ? " day left" : " days left");
+
+      $("rankTrack").innerHTML = (d.seasonRanks || []).map(function (r, i) {
+        var done = i <= s.rank.index;
+        return '<span class="' + (done ? "done" : "") + '"' +
+          (done ? ' style="color:' + esc(r.color) + '"' : "") + ">" + esc(r.name) + "</span>";
+      }).join("");
+
+      $("seasonMeter").style.width = Math.round(s.rank.progress * 100) + "%";
+      $("seasonMeter").style.background = s.rank.color;
+      $("seasonNext").textContent = s.rank.next
+        ? num(s.rank.next.remaining) + " season XP to " + s.rank.next.name
+        : "Top rank reached — nothing above Mythril.";
+
+      $("seasonRows").innerHTML = s.rows.filter(function (r) { return r.count > 0; }).map(function (r) {
+        return '<span class="pill"><i>' + esc(r.label) + "</i> " + num(r.count) + "</span>";
+      }).join("") || '<span class="muted" style="font-size:13.5px">Nothing logged this season yet.</span>';
+    } else {
+      $("seasonTitle").textContent = "Seasons";
+      $("seasonSub").textContent = "This season's standing is refreshing — check back in a moment.";
+      $("rankTrack").innerHTML = "";
+    }
+
+    if (shelf.length) {
+      $("shelfWrap").hidden = false;
+      $("shelf").innerHTML = shelf.map(function (p) {
+        return '<div class="shelfItem">' +
+          '<div class="s">' + esc(p.short) + "</div>" +
+          '<div class="r" style="color:' + esc(p.rank.color) + '">' + esc(p.rank.name) + "</div>" +
+          '<div class="x">' + num(p.xp) + " XP</div>" +
+          "</div>";
+      }).join("");
+    }
   }
 
   function renderLadder(d, accent) {

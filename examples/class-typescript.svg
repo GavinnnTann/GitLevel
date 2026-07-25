@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="500" height="253" viewBox="0 0 500 253" role="img" aria-labelledby="card-title-a11y card-desc-a11y">
 <title id="card-title-a11y">TypeScript Dev — Level 61 TypeScript Lawgiver (Mythic)</title>
-<desc id="card-desc-a11y">Mythic TypeScript Lawgiver, subclass Go Worldwalker. Level 61, 372949 XP (7% to next). Fame +27400, Combo x200. Badges: Worldbuilder, Supernova, Armada, Purifier, Prolific, Inferno, Gatekeeper, Luminary, Veteran.</desc>
+<desc id="card-desc-a11y">Mythic TypeScript Lawgiver, subclass Go Worldwalker. Level 61, 372949 XP (7% to next). Fame +27400, Combo x200. Season 3 · 2026: Gold, 12870 season XP. Badges: Worldbuilder, Supernova, Armada, Purifier, Prolific, Inferno, Gatekeeper, Luminary, Veteran.</desc>
 <style>
 text { font-family: 'Segoe UI', Ubuntu, 'Helvetica Neue', sans-serif; }
 .title { font-size: 18px; font-weight: 600; fill: #58a6ff; }
@@ -20,6 +20,7 @@ text { font-family: 'Segoe UI', Ubuntu, 'Helvetica Neue', sans-serif; }
 .gl-badge-label { font-size: 10.5px; font-weight: 600; }
 .gl-rarity { font-size: 9px; font-weight: 700; letter-spacing: 2.5px; fill: #ff5edb; }
 .gl-brand { font-size: 9px; font-weight: 600; letter-spacing: 0.4px; fill: #c9d1d9; opacity: 0.4; }
+.gl-season { font-size: 10px; font-weight: 600; letter-spacing: 0.6px; fill: #c9d1d9; opacity: 0.8; }
 
 </style>
 <defs><linearGradient id="card-bg" x1="0" y1="0" x2="1" y2="1" gradientTransform="rotate(90, 0.5, 0.5)"><stop offset="0.0%" stop-color="#0d1117"/><stop offset="100.0%" stop-color="#101d33"/></linearGradient><filter id="card-glow" x="-50%" y="-50%" width="200%" height="200%">
@@ -95,6 +96,7 @@ text { font-family: 'Segoe UI', Ubuntu, 'Helvetica Neue', sans-serif; }
     <rect x="150" y="126" width="324" height="10" rx="5" fill="#c9d1d9" fill-opacity="0.14"/>
     <rect class="xp-fill " x="150" y="126" width="22.363902439024393" height="10" rx="5" fill="#58a6ff" filter="url(#gl-glow)"/>
     <text class="gl-hint" x="150" y="151">11.5k XP to Lv 62</text>
+    <text class="gl-season" x="474" y="151" text-anchor="end">S3 ’26 · <tspan fill="#e3b341" font-weight="800">GOLD</tspan></text>
 
     <g transform="translate(150, 176)">
       <svg class="icon" x="0" y="-11" width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path fill-rule="evenodd" d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25zm0 2.445L6.615 5.5a.75.75 0 0 1-.564.41l-3.097.45 2.24 2.184a.75.75 0 0 1 .216.664l-.528 3.084 2.769-1.456a.75.75 0 0 1 .698 0l2.77 1.456-.53-3.084a.75.75 0 0 1 .216-.664l2.24-2.183-3.096-.45a.75.75 0 0 1-.564-.41L8 2.694v.001z"/></svg>

@@ -89,6 +89,7 @@ export function renderGitLevelCard(character, {
 .gl-badge-label { font-size: ${BADGE.font}px; font-weight: 600; }
 .gl-rarity { font-size: 9px; font-weight: 700; letter-spacing: 2.5px; fill: ${rarity.color}; }
 .gl-brand { font-size: 9px; font-weight: 600; letter-spacing: 0.4px; fill: ${colors.text}; opacity: 0.4; }
+.gl-season { font-size: 10px; font-weight: 600; letter-spacing: 0.6px; fill: ${colors.text}; opacity: 0.8; }
 ${animation ? `
 .crest-pop { transform-box: fill-box; transform-origin: center; opacity: 0; animation: glPop .6s cubic-bezier(.2,.9,.3,1.2) forwards .2s; }
 .crest-breathe { transform-box: fill-box; transform-origin: center; animation: glBreathe 4s ease-in-out infinite .8s; }
@@ -160,6 +161,16 @@ ${nearLevel ? ".near-pulse { animation: glNear 1.3s ease-in-out infinite 1.6s; }
     ? `<text class="gl-sub" x="${COL_X}" y="94">Subclass · ${encodeHTML(character.subclass.name)}</text>`
     : "";
 
+  // The season standing (src/seasons.js) — the one part of this card that moves
+  // on a weekly timescale, so it earns its line even though the card is already
+  // dense. Sits opposite the "XP to next level" hint, using space that was
+  // otherwise empty, and stays a single right-aligned run: identity (crest,
+  // class, tier) must keep visual priority over a transient rank.
+  const season = character.season;
+  const seasonLine = season
+    ? `<text class="gl-season" x="${rightEdge}" y="151" text-anchor="end">${encodeHTML(season.short)} · <tspan fill="${season.rank.color}" font-weight="800">${encodeHTML(season.rank.name.toUpperCase())}</tspan></text>`
+    : "";
+
   const right = `<g class="fade" style="animation-delay:.15s">
     <text class="gl-name" x="${COL_X}" y="41">${encodeHTML(character.name)}</text>
     <text class="gl-lvl glow-pulse" x="${rightEdge}" y="39" text-anchor="end" filter="url(#gl-glow)">LV ${character.level}</text>
@@ -174,6 +185,7 @@ ${nearLevel ? ".near-pulse { animation: glNear 1.3s ease-in-out infinite 1.6s; }
     <rect x="${COL_X}" y="126" width="${barW}" height="10" rx="5" fill="${colors.text}" fill-opacity="0.14"/>
     <rect class="xp-fill ${nearLevel && animation ? "near-pulse" : ""}" x="${COL_X}" y="126" width="${fillW}" height="10" rx="5" fill="${uiAccent}" filter="url(#gl-glow)"/>
     <text class="gl-hint" x="${COL_X}" y="151">${xpToNext} XP to Lv ${character.level + 1}${nearLevel ? " — almost there!" : ""}</text>
+    ${seasonLine}
 
     <g transform="translate(${COL_X}, 176)">
       ${renderIcon("star", { x: 0, y: -11, size: 14 })}
@@ -214,7 +226,9 @@ ${nearLevel ? ".near-pulse { animation: glNear 1.3s ease-in-out infinite 1.6s; }
   const a11yTitle = `${character.name} — Level ${character.level} ${cls.name} (${rarityLabel})`;
   const badgeDesc = badges.length ? ` Badges: ${badges.map((b) => b.label).join(", ")}.` : "";
   const a11yDesc = `${rarityLabel} ${cls.name}${character.subclass ? `, subclass ${character.subclass.name}` : ""}. `
-    + `Level ${character.level}, ${character.xp} XP (${pct}% to next). Fame +${character.fame}, Combo x${character.combo}.${badgeDesc}`;
+    + `Level ${character.level}, ${character.xp} XP (${pct}% to next). Fame +${character.fame}, Combo x${character.combo}.`
+    + (season ? ` ${season.label}: ${season.rank.name}, ${season.xp} season XP.` : "")
+    + badgeDesc;
 
   return buildCard({
     width,

@@ -19,6 +19,7 @@ import { computeCharacter, scopeProfileLanguages, explainXP, levelFromXP, DEFAUL
 import { badgeProgress } from "../src/achievements.js";
 import { CLASS_PATHS, FALLBACK_PATH, RARITIES, TIER_BANDS } from "../src/classes.js";
 import { readHistory } from "../src/history.js";
+import { shelfFromHistory, SEASON_RANKS } from "../src/seasons.js";
 import { kvRateLimit } from "../src/kv.js";
 import { parseBoolean, pickFirst } from "../src/utils.js";
 
@@ -106,6 +107,13 @@ export default async function handler(req, res) {
       subclass: classPayload(character.subclass),
       fame: character.fame,
       combo: character.combo,
+      // The moving axis: this quarter's standing, plus every finished season
+      // reconstructed from the daily snapshots (src/seasons.js). The shelf is
+      // empty until a season has actually rolled over under a profile that was
+      // being viewed — it fills itself in over time rather than being seeded.
+      season: character.season,
+      shelf: shelfFromHistory(history, { excludeId: character.season?.id }),
+      seasonRanks: SEASON_RANKS,
       badges: character.badges,
       badgeProgress: badgeProgress(scoped),
       // The working behind the XP number, so the page can explain rather than
