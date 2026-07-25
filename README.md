@@ -122,7 +122,7 @@ crown, 4 of 5 stars):
 </table>
 
 <details>
-<summary><b>All 23 classes and their five tiers</b></summary>
+<summary><b>All 30 class ladders, across 31 languages, and their five tiers</b></summary>
 
 | Language       | Common      | Rare          | Epic            | Legendary          | Mythic            |
 | -------------- | ----------- | ------------- | --------------- | ------------------ | ----------------- |
@@ -149,6 +149,13 @@ crown, 4 of 5 stars):
 | Scala          | Climber     | Ridgewright   | Summit Sage     | Peak Lord          | Skybreaker        |
 | R              | Analyst     | Statmage      | Data Augur      | Grand Statistician | Numbermancer      |
 | SQL            | Clerk       | Archivist     | Query Weaver    | Grand Archivist    | Data Warden       |
+| Assembly       | Bitsmith    | Ironhand      | Forgewright     | Anvil Lord         | Worldforger       |
+| Julia          | Stargazer   | Starcaller    | Astral Sage     | Celestial Magus    | Cosmarch          |
+| Ada            | Loomhand    | Patternwright | Threadbinder    | Grand Weaver       | Fatespinner       |
+| Fortran        | Reckoner    | Tabulator     | Elder Numerist  | Ancient Reckoner   | Progenitor        |
+| COBOL          | Bookkeeper  | Auditor       | Vault Keeper    | High Auditor       | Eternal Ledger    |
+| Perl           | Sigilist    | Glyphbinder   | Scriptmage      | Arch-Sorcerer      | Wordbender        |
+| Erlang         | Nodekeeper  | Supervisor    | Crashbinder     | Lord of Nines      | The Unbroken      |
 
 </details>
 

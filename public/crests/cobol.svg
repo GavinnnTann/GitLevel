@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" width="160" height="160" role="img" aria-label="COBOL crest">
+  <circle cx="80" cy="80" r="70" fill="#c9a961" fill-opacity="0.08"/>
+  <circle cx="80" cy="80" r="70" fill="none" stroke="#c9a961" stroke-opacity="0.35" stroke-width="2"/>
+  <circle cx="80" cy="80" r="61" fill="none" stroke="#c9a961" stroke-opacity="0.5" stroke-width="1.3" stroke-dasharray="2 10" stroke-linecap="round"/>
+  <svg class="" x="30" y="30" width="100" height="100" viewBox="0 0 48 48" aria-hidden="true"><defs><radialGradient id="cbHalo" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#c9a961" stop-opacity="0.42"/><stop offset="1" stop-color="#c9a961" stop-opacity="0"/></radialGradient><linearGradient id="cbCover" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e9ddc0"/><stop offset="0.5" stop-color="#c9a961"/><stop offset="1" stop-color="#655531"/></linearGradient><linearGradient id="cbPage" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fbf6ed"/><stop offset="0.5" stop-color="#f5ecd6"/><stop offset="1" stop-color="#878276"/></linearGradient></defs>
+    <circle cx="24" cy="24" r="21" fill="url(#cbHalo)"/>
+    <path d="M24 12.5 Q13 7 4 10.5 V37.5 Q13 34 24 39.5 Q35 34 44 37.5 V10.5 Q35 7 24 12.5 Z"
+      fill="url(#cbCover)" stroke="#b8860b" stroke-width="1.1" stroke-linejoin="round"/>
+    <path d="M24 15.6 Q14.5 11 7 14 V35 Q14.5 32 24 36.6 Z" fill="url(#cbPage)" stroke="#b8860b" stroke-width="0.6"/>
+    <path d="M24 15.6 Q33.5 11 41 14 V35 Q33.5 32 24 36.6 Z" fill="url(#cbPage)" stroke="#b8860b" stroke-width="0.6"/>
+    <g stroke="#b8860b" stroke-width="1" stroke-linecap="round" stroke-opacity="0.7">
+      <path d="M9.8 20 H20.8 M9.8 24 H20.8 M9.8 28 H17.3"/></g>
+    <g stroke="#b8860b" stroke-width="1" stroke-linecap="round" stroke-opacity="0.7">
+      <path d="M27.2 20 H38.2 M27.2 24 H38.2 M27.2 28 H34.7"/></g>
+    <path d="M24 12.5 V39.5" stroke="#b8860b" stroke-width="1.5"/>
+    <path d="M21.4 22.5 H26.6 V30.5 L24 28.6 L21.4 30.5 Z" fill="url(#cbCover)" stroke="#e6bf55" stroke-width="0.7" stroke-linejoin="round"/>
+    <path d="M38.5 6.2 l0.8959999999999999 1.904 l1.904 0.8959999999999999 l-1.904 0.8959999999999999 l-0.8959999999999999 1.904 l-0.8959999999999999 -1.904 l-1.904 -0.8959999999999999 l1.904 -0.8959999999999999 Z" fill="#fff3c4"/></svg>
+</svg>

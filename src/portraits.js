@@ -384,6 +384,146 @@ function sqlArchivist() {
     <ellipse cx="24" cy="13" rx="13" ry="4.4" fill="none" stroke="${GOLD_L}" stroke-width="0.6" opacity="0.6"/>`;
 }
 
+// Assembly Anvil Lord — the forge under everything else: a struck anvil, face
+// still glowing, sparks thrown clear of the horn.
+function assemblyAnvil() {
+  const C = "#c2703a";
+  return `<defs>${haloGrad("asHalo", C)}${mGrad("asIron", C)}
+      <linearGradient id="asFace" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="${GOLD_L}" stop-opacity="0.2"/><stop offset="0.45" stop-color="${GOLD_L}" stop-opacity="0.95"/><stop offset="1" stop-color="${GOLD_L}" stop-opacity="0.25"/></linearGradient>
+    </defs>
+    ${halo("asHalo")}
+    <g stroke="${GOLD}" stroke-width="1.1" stroke-linecap="round" stroke-opacity="0.7"><path d="M24 12.5 V6 M16 14 L13 9.5 M32 14 L35 9.5 M9.5 19 L5.5 17.5 M39 18 L43 16.5"/></g>
+    <path d="M5 21 Q10 16.5 15 16.5 H39 A2 2 0 0 1 41 18.5 V22 A2 2 0 0 1 39 24 H31 L28 31 H34 A2 2 0 0 1 36 33 V41 H12 V33 A2 2 0 0 1 14 31 H20 L17 24 H12 Q8 24 5 21 Z"
+      fill="url(#asIron)" stroke="${GOLD_D}" stroke-width="1.1" stroke-linejoin="round"/>
+    <path d="M15.5 18.2 H38.5" stroke="url(#asFace)" stroke-width="1.7" stroke-linecap="round"/>
+    <rect x="31.6" y="19.6" width="3.6" height="2.6" rx="0.7" fill="${shade(C, -0.65)}"/>
+    <path d="M14.5 38.6 H33.5" stroke="${shade(C, -0.5)}" stroke-width="1.1" stroke-opacity="0.55"/>
+    <path d="M13.5 22 Q9.5 21.5 7 20" fill="none" stroke="${shade(C, 0.45)}" stroke-width="0.7" stroke-opacity="0.6"/>
+    ${spark(29, 11, 3.2, GOLD_L)}
+    ${spark(18, 10.5, 2.3, GOLD)}`;
+}
+
+// Julia Cosmarch — an orrery: three worlds bound in gilded orbits, the language's
+// own trinity of colors made into planets.
+function juliaOrrery() {
+  const C = "#9a5ce0";
+  const GREEN = "#389826", RED = "#cb3c33", PURPLE = "#9558b2";
+  const orbGrad = (id, base) =>
+    `<radialGradient id="${id}" cx="0.35" cy="0.3" r="0.78"><stop offset="0" stop-color="${shade(base, 0.7)}"/><stop offset="0.55" stop-color="${base}"/><stop offset="1" stop-color="${shade(base, -0.55)}"/></radialGradient>`;
+  const orb = (id, cx, cy, r) => `
+    <circle cx="${cx}" cy="${cy}" r="${r}" fill="url(#${id})" stroke="${GOLD}" stroke-width="0.7"/>
+    <circle cx="${cx - r * 0.32}" cy="${cy - r * 0.36}" r="${r * 0.26}" fill="#ffffff" opacity="0.7"/>`;
+  return `<defs>${haloGrad("jlHalo", C)}${orbGrad("jlG", GREEN)}${orbGrad("jlR", RED)}${orbGrad("jlP", PURPLE)}</defs>
+    ${halo("jlHalo")}
+    <ellipse cx="24" cy="25" rx="19" ry="8" transform="rotate(-24 24 25)" fill="none" stroke="${GOLD}" stroke-width="1.1" stroke-opacity="0.7"/>
+    <ellipse cx="24" cy="25" rx="19" ry="8" transform="rotate(24 24 25)" fill="none" stroke="${GOLD_D}" stroke-width="0.9" stroke-opacity="0.5"/>
+    <g fill="none" stroke="${GOLD}" stroke-width="0.7" stroke-opacity="0.45"><path d="M24 13 L14 32 L34 32 Z"/></g>
+    ${orb("jlG", 24, 13, 6)}
+    ${orb("jlP", 14, 32, 5.4)}
+    ${orb("jlR", 34, 32, 5.4)}
+    <g fill="${GOLD_L}"><circle cx="8.5" cy="16" r="1" opacity="0.85"/><circle cx="40" cy="34" r="0.9" opacity="0.7"/><circle cx="11" cy="38" r="0.8" opacity="0.6"/></g>
+    ${spark(38.5, 11, 3, GOLD_L)}`;
+}
+
+// Ada Grand Weaver — Lovelace's loom: a gilded frame, warp drawn taut, and a
+// band of pattern already woven (the Analytical Engine's own metaphor).
+function adaLoom() {
+  const C = "#35d17f";
+  return `<defs>${haloGrad("adHalo", C)}${mGrad("adFrame", "#e2ba5e")}${vGrad("adCloth", C)}</defs>
+    ${halo("adHalo")}
+    <g stroke="${shade(C, 0.35)}" stroke-width="1" stroke-opacity="0.65"><path d="M16 9 V39 M20 9 V39 M24 9 V39 M28 9 V39 M32 9 V39"/></g>
+    <rect x="12.5" y="18" width="23" height="13" rx="1" fill="url(#adCloth)" stroke="${GOLD_D}" stroke-width="0.8"/>
+    <g stroke="${shade(C, 0.8)}" stroke-width="1.3" stroke-opacity="0.85" fill="none" stroke-linejoin="round" stroke-linecap="round">
+      <path d="M13.5 23 L17 19.5 L20.5 23 L24 19.5 L27.5 23 L31 19.5 L34.5 23"/>
+      <path d="M13.5 29.5 L17 26 L20.5 29.5 L24 26 L27.5 29.5 L31 26 L34.5 29.5"/></g>
+    <rect x="7" y="5.5" width="34" height="4.2" rx="1.6" fill="url(#adFrame)" stroke="${GOLD_D}" stroke-width="0.7"/>
+    <rect x="7" y="38.3" width="34" height="4.2" rx="1.6" fill="url(#adFrame)" stroke="${GOLD_D}" stroke-width="0.7"/>
+    <rect x="7.4" y="7.5" width="3.6" height="33" rx="1.4" fill="url(#adFrame)" stroke="${GOLD_D}" stroke-width="0.7"/>
+    <rect x="37" y="7.5" width="3.6" height="33" rx="1.4" fill="url(#adFrame)" stroke="${GOLD_D}" stroke-width="0.7"/>
+    <g fill="${GOLD_L}" opacity="0.9"><circle cx="9.2" cy="7.6" r="1.5"/><circle cx="38.8" cy="7.6" r="1.5"/><circle cx="9.2" cy="40.4" r="1.5"/><circle cx="38.8" cy="40.4" r="1.5"/></g>
+    <path d="M25 35.6 Q30.5 31.2 37.5 32.9 Q32 37.9 25 35.6 Z" fill="url(#adFrame)" stroke="${GOLD_D}" stroke-width="0.7" stroke-linejoin="round"/>
+    <circle cx="31.4" cy="34.6" r="1.1" fill="${shade(C, -0.55)}"/>
+    <path d="M25.2 35.4 Q19.5 34.6 15.5 31.6" fill="none" stroke="${shade(C, 0.7)}" stroke-width="1" stroke-opacity="0.85"/>
+    ${spark(15, 14, 2.8, GOLD_L)}`;
+}
+
+// Fortran Ancient Reckoner — the elder monolith: numerals cut into stone in 1957
+// and still burning, on a stepped plinth nobody has managed to move since.
+function fortranMonolith() {
+  const C = "#5f4bd8";
+  return `<defs>${haloGrad("ftHalo", C)}${vGrad("ftStone", C)}${mGrad("ftCap", "#e2ba5e")}</defs>
+    ${halo("ftHalo")}
+    <path d="M24 4 L29.4 13 H18.6 Z" fill="url(#ftCap)" stroke="${GOLD_D}" stroke-width="0.7" stroke-linejoin="round"/>
+    <path d="M18.6 13 H29.4 L31 34.5 H17 Z" fill="url(#ftStone)" stroke="${GOLD_D}" stroke-width="1" stroke-linejoin="round"/>
+    <path d="M19.4 13 L18 34.5" fill="none" stroke="${shade(C, 0.5)}" stroke-width="0.8" stroke-opacity="0.5"/>
+    <g stroke="${GOLD}" stroke-width="1.4" stroke-linecap="round" stroke-opacity="0.9"><path d="M21 20 H27 M21 24 H27 M21 28 H26"/></g>
+    <g fill="${GOLD_L}" opacity="0.85"><circle cx="24" cy="16.6" r="0.9"/><circle cx="24" cy="31.4" r="0.9"/></g>
+    <rect x="13.6" y="34.5" width="20.8" height="4.2" rx="1" fill="url(#ftStone)" stroke="${GOLD_D}" stroke-width="0.9"/>
+    <rect x="10.4" y="38.7" width="27.2" height="4.6" rx="1.2" fill="url(#ftStone)" stroke="${GOLD_D}" stroke-width="0.9"/>
+    <g stroke="${GOLD}" stroke-width="0.9" stroke-opacity="0.35" stroke-linecap="round"><path d="M4.5 41 H9 M39 41 H43.5"/></g>
+    ${spark(33.5, 9.5, 3, GOLD_L)}`;
+}
+
+// COBOL High Auditor — the great ledger: gilded covers, columns of figures that
+// still reconcile, and a seal on the spine.
+function cobolLedger() {
+  const C = "#c9a961";
+  const figures = (x) => `<g stroke="${GOLD_D}" stroke-width="1" stroke-linecap="round" stroke-opacity="0.7">
+      <path d="M${x} 20 H${x + 11} M${x} 24 H${x + 11} M${x} 28 H${x + 7.5}"/></g>`;
+  return `<defs>${haloGrad("cbHalo", C)}${mGrad("cbCover", C)}${vGrad("cbPage", "#f5ecd6")}</defs>
+    ${halo("cbHalo")}
+    <path d="M24 12.5 Q13 7 4 10.5 V37.5 Q13 34 24 39.5 Q35 34 44 37.5 V10.5 Q35 7 24 12.5 Z"
+      fill="url(#cbCover)" stroke="${GOLD_D}" stroke-width="1.1" stroke-linejoin="round"/>
+    <path d="M24 15.6 Q14.5 11 7 14 V35 Q14.5 32 24 36.6 Z" fill="url(#cbPage)" stroke="${GOLD_D}" stroke-width="0.6"/>
+    <path d="M24 15.6 Q33.5 11 41 14 V35 Q33.5 32 24 36.6 Z" fill="url(#cbPage)" stroke="${GOLD_D}" stroke-width="0.6"/>
+    ${figures(9.8)}
+    ${figures(27.2)}
+    <path d="M24 12.5 V39.5" stroke="${GOLD_D}" stroke-width="1.5"/>
+    <path d="M21.4 22.5 H26.6 V30.5 L24 28.6 L21.4 30.5 Z" fill="url(#cbCover)" stroke="${GOLD}" stroke-width="0.7" stroke-linejoin="round"/>
+    ${spark(38.5, 9, 2.8, GOLD_L)}`;
+}
+
+// Perl Wordbender — the sigil-quill caught mid-stroke, its nib still wet. Line
+// noise to everyone else; script to the one holding the pen.
+function perlQuill() {
+  const C = "#2aa9c9";
+  return `<defs>${haloGrad("plHalo", C)}${vGrad("plVane", C)}${mGrad("plShaft", "#e2ba5e")}</defs>
+    ${halo("plHalo")}
+    <path d="M38 6 Q42.5 16.5 34.5 26.5 Q27 35.5 16.5 38 Q19.5 26.5 25 18.5 Q31 9.5 38 6 Z"
+      fill="url(#plVane)" stroke="${GOLD_D}" stroke-width="0.8" stroke-linejoin="round"/>
+    <g fill="none" stroke="${shade(C, 0.72)}" stroke-width="0.85" stroke-opacity="0.7" stroke-linecap="round">
+      <path d="M31 10 L36 13.5 M27 16.5 L34 21 M23 23.5 L30 28 M19.8 30.5 L24 33.5"/></g>
+    <path d="M37.6 6.6 Q30.8 10.2 25 18.8 Q19.6 27 16.8 37.6" fill="none" stroke="url(#plShaft)" stroke-width="1.8" stroke-linecap="round"/>
+    <path d="M15.3 36.6 L18.3 38.6 L11.5 44 Z" fill="url(#plShaft)" stroke="${GOLD_D}" stroke-width="0.6" stroke-linejoin="round"/>
+    <path d="M16.8 37.8 L12.8 42.8" stroke="${shade(C, -0.4)}" stroke-width="0.7" stroke-linecap="round"/>
+    <path d="M20.5 42.5 Q25.5 39.4 30.5 42 Q35.5 44.6 40 41.4" fill="none" stroke="${C}" stroke-width="1.3" stroke-linecap="round" stroke-opacity="0.8"/>
+    ${spark(41.5, 9, 3, GOLD_L)}
+    ${spark(21.5, 27, 2.2, GOLD)}`;
+}
+
+// Erlang The Unbroken — a supervision tree: a crowned root watching over links
+// that are allowed to crash but never allowed to stay down.
+function erlangSupervision() {
+  const C = "#c246a4";
+  const node = (cx, cy, r) => `
+    <circle cx="${cx}" cy="${cy}" r="${r}" fill="url(#erNode)" stroke="${GOLD}" stroke-width="0.7"/>
+    <circle cx="${cx - r * 0.3}" cy="${cy - r * 0.34}" r="${r * 0.28}" fill="#ffffff" opacity="0.6"/>`;
+  return `<defs>${haloGrad("erHalo", C)}
+      <radialGradient id="erNode" cx="0.35" cy="0.3" r="0.78"><stop offset="0" stop-color="${shade(C, 0.72)}"/><stop offset="0.55" stop-color="${C}"/><stop offset="1" stop-color="${shade(C, -0.55)}"/></radialGradient>
+    </defs>
+    ${halo("erHalo")}
+    <g stroke="${GOLD}" stroke-width="1.3" stroke-opacity="0.8" stroke-linecap="round">
+      <path d="M24 13 L12 27 M24 13 L36 27 M12 27 L6.5 40 M12 27 L17 40 M36 27 L31 40 M36 27 L41.5 40"/></g>
+    ${node(24, 13, 6.4)}
+    ${node(12, 27, 4.6)}
+    ${node(36, 27, 4.6)}
+    ${node(6.5, 40, 3.1)}
+    ${node(17, 40, 3.1)}
+    ${node(31, 40, 3.1)}
+    ${node(41.5, 40, 3.1)}
+    ${spark(24, 4, 3, GOLD_L)}`;
+}
+
 const PORTRAITS = {
   Creator: creatorSigil,
   Python: pythonOracle,
@@ -410,6 +550,13 @@ const PORTRAITS = {
   Scala: scalaPeak,
   R: rStatistician,
   SQL: sqlArchivist,
+  Assembly: assemblyAnvil,
+  Julia: juliaOrrery,
+  Ada: adaLoom,
+  Fortran: fortranMonolith,
+  COBOL: cobolLedger,
+  Perl: perlQuill,
+  Erlang: erlangSupervision,
 };
 
 export function hasPortrait(language) {

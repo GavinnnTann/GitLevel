@@ -43,6 +43,18 @@ export const CLASS_PATHS = {
   Scala:      { symbol: "peak",       color: "#dc3d54", flourish: "banner", tiers: ["Climber", "Ridgewright", "Summit Sage", "Peak Lord", "Skybreaker"] },
   R:          { symbol: "chart",      color: "#2f9ff0", flourish: "wings",  tiers: ["Analyst", "Statmage", "Data Augur", "Grand Statistician", "Numbermancer"] },
   SQL:        { symbol: "database",   color: "#e0a13b", flourish: "banner", tiers: ["Clerk", "Archivist", "Query Weaver", "Grand Archivist", "Data Warden"] },
+
+  // The elder and the uncommon — the machine's own tongue, the sciences, and the
+  // mainframes still quietly running the world. Same treatment as everything
+  // above (bespoke ladder + a full portrait emblem), because a dev whose primary
+  // language is COBOL or Ada has earned a class, not the generic rune.
+  Assembly:   { symbol: "anvil",      color: "#c2703a", flourish: "banner", tiers: ["Bitsmith", "Ironhand", "Forgewright", "Anvil Lord", "Worldforger"] },
+  Julia:      { symbol: "orbit",      color: "#9a5ce0", flourish: "wings",  tiers: ["Stargazer", "Starcaller", "Astral Sage", "Celestial Magus", "Cosmarch"] },
+  Ada:        { symbol: "loom",       color: "#35d17f", flourish: "laurel", tiers: ["Loomhand", "Patternwright", "Threadbinder", "Grand Weaver", "Fatespinner"] },
+  Fortran:    { symbol: "obelisk",    color: "#5f4bd8", flourish: "laurel", tiers: ["Reckoner", "Tabulator", "Elder Numerist", "Ancient Reckoner", "Progenitor"] },
+  COBOL:      { symbol: "tome",       color: "#c9a961", flourish: "banner", tiers: ["Bookkeeper", "Auditor", "Vault Keeper", "High Auditor", "Eternal Ledger"] },
+  Perl:       { symbol: "quill",      color: "#2aa9c9", flourish: "wings",  tiers: ["Sigilist", "Glyphbinder", "Scriptmage", "Arch-Sorcerer", "Wordbender"] },
+  Erlang:     { symbol: "nodes",      color: "#c246a4", flourish: "laurel", tiers: ["Nodekeeper", "Supervisor", "Crashbinder", "Lord of Nines", "The Unbroken"] },
 };
 
 /**

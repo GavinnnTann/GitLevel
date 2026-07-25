@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" width="160" height="160" role="img" aria-label="Erlang crest">
+  <circle cx="80" cy="80" r="70" fill="#c246a4" fill-opacity="0.08"/>
+  <circle cx="80" cy="80" r="70" fill="none" stroke="#c246a4" stroke-opacity="0.35" stroke-width="2"/>
+  <circle cx="80" cy="80" r="61" fill="none" stroke="#c246a4" stroke-opacity="0.5" stroke-width="1.3" stroke-dasharray="2 10" stroke-linecap="round"/>
+  <svg class="" x="30" y="30" width="100" height="100" viewBox="0 0 48 48" aria-hidden="true"><defs><radialGradient id="erHalo" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#c246a4" stop-opacity="0.42"/><stop offset="1" stop-color="#c246a4" stop-opacity="0"/></radialGradient>
+      <radialGradient id="erNode" cx="0.35" cy="0.3" r="0.78"><stop offset="0" stop-color="#eecbe6"/><stop offset="0.55" stop-color="#c246a4"/><stop offset="1" stop-color="#57204a"/></radialGradient>
+    </defs>
+    <circle cx="24" cy="24" r="21" fill="url(#erHalo)"/>
+    <g stroke="#e6bf55" stroke-width="1.3" stroke-opacity="0.8" stroke-linecap="round">
+      <path d="M24 13 L12 27 M24 13 L36 27 M12 27 L6.5 40 M12 27 L17 40 M36 27 L31 40 M36 27 L41.5 40"/></g>
+    
+    <circle cx="24" cy="13" r="6.4" fill="url(#erNode)" stroke="#e6bf55" stroke-width="0.7"/>
+    <circle cx="22.08" cy="10.824" r="1.7920000000000003" fill="#ffffff" opacity="0.6"/>
+    
+    <circle cx="12" cy="27" r="4.6" fill="url(#erNode)" stroke="#e6bf55" stroke-width="0.7"/>
+    <circle cx="10.620000000000001" cy="25.436" r="1.288" fill="#ffffff" opacity="0.6"/>
+    
+    <circle cx="36" cy="27" r="4.6" fill="url(#erNode)" stroke="#e6bf55" stroke-width="0.7"/>
+    <circle cx="34.62" cy="25.436" r="1.288" fill="#ffffff" opacity="0.6"/>
+    
+    <circle cx="6.5" cy="40" r="3.1" fill="url(#erNode)" stroke="#e6bf55" stroke-width="0.7"/>
+    <circle cx="5.57" cy="38.946" r="0.8680000000000001" fill="#ffffff" opacity="0.6"/>
+    
+    <circle cx="17" cy="40" r="3.1" fill="url(#erNode)" stroke="#e6bf55" stroke-width="0.7"/>
+    <circle cx="16.07" cy="38.946" r="0.8680000000000001" fill="#ffffff" opacity="0.6"/>
+    
+    <circle cx="31" cy="40" r="3.1" fill="url(#erNode)" stroke="#e6bf55" stroke-width="0.7"/>
+    <circle cx="30.07" cy="38.946" r="0.8680000000000001" fill="#ffffff" opacity="0.6"/>
+    
+    <circle cx="41.5" cy="40" r="3.1" fill="url(#erNode)" stroke="#e6bf55" stroke-width="0.7"/>
+    <circle cx="40.57" cy="38.946" r="0.8680000000000001" fill="#ffffff" opacity="0.6"/>
+    <path d="M24 1 l0.96 2.04 l2.04 0.96 l-2.04 0.96 l-0.96 2.04 l-0.96 -2.04 l-2.04 -0.96 l2.04 -0.96 Z" fill="#fff3c4"/></svg>
+</svg>

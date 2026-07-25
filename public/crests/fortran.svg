@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" width="160" height="160" role="img" aria-label="Fortran crest">
+  <circle cx="80" cy="80" r="70" fill="#5f4bd8" fill-opacity="0.08"/>
+  <circle cx="80" cy="80" r="70" fill="none" stroke="#5f4bd8" stroke-opacity="0.35" stroke-width="2"/>
+  <circle cx="80" cy="80" r="61" fill="none" stroke="#5f4bd8" stroke-opacity="0.5" stroke-width="1.3" stroke-dasharray="2 10" stroke-linecap="round"/>
+  <svg class="" x="30" y="30" width="100" height="100" viewBox="0 0 48 48" aria-hidden="true"><defs><radialGradient id="ftHalo" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#5f4bd8" stop-opacity="0.42"/><stop offset="1" stop-color="#5f4bd8" stop-opacity="0"/></radialGradient><linearGradient id="ftStone" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b7aeed"/><stop offset="0.5" stop-color="#5f4bd8"/><stop offset="1" stop-color="#342977"/></linearGradient><linearGradient id="ftCap" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f3e3bf"/><stop offset="0.5" stop-color="#e2ba5e"/><stop offset="1" stop-color="#715d2f"/></linearGradient></defs>
+    <circle cx="24" cy="24" r="21" fill="url(#ftHalo)"/>
+    <path d="M24 4 L29.4 13 H18.6 Z" fill="url(#ftCap)" stroke="#b8860b" stroke-width="0.7" stroke-linejoin="round"/>
+    <path d="M18.6 13 H29.4 L31 34.5 H17 Z" fill="url(#ftStone)" stroke="#b8860b" stroke-width="1" stroke-linejoin="round"/>
+    <path d="M19.4 13 L18 34.5" fill="none" stroke="#afa5ec" stroke-width="0.8" stroke-opacity="0.5"/>
+    <g stroke="#e6bf55" stroke-width="1.4" stroke-linecap="round" stroke-opacity="0.9"><path d="M21 20 H27 M21 24 H27 M21 28 H26"/></g>
+    <g fill="#fff3c4" opacity="0.85"><circle cx="24" cy="16.6" r="0.9"/><circle cx="24" cy="31.4" r="0.9"/></g>
+    <rect x="13.6" y="34.5" width="20.8" height="4.2" rx="1" fill="url(#ftStone)" stroke="#b8860b" stroke-width="0.9"/>
+    <rect x="10.4" y="38.7" width="27.2" height="4.6" rx="1.2" fill="url(#ftStone)" stroke="#b8860b" stroke-width="0.9"/>
+    <g stroke="#e6bf55" stroke-width="0.9" stroke-opacity="0.35" stroke-linecap="round"><path d="M4.5 41 H9 M39 41 H43.5"/></g>
+    <path d="M33.5 6.5 l0.96 2.04 l2.04 0.96 l-2.04 0.96 l-0.96 2.04 l-0.96 -2.04 l-2.04 -0.96 l2.04 -0.96 Z" fill="#fff3c4"/></svg>
+</svg>

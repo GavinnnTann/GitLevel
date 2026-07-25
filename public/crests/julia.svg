@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" width="160" height="160" role="img" aria-label="Julia crest">
+  <circle cx="80" cy="80" r="70" fill="#9a5ce0" fill-opacity="0.08"/>
+  <circle cx="80" cy="80" r="70" fill="none" stroke="#9a5ce0" stroke-opacity="0.35" stroke-width="2"/>
+  <circle cx="80" cy="80" r="61" fill="none" stroke="#9a5ce0" stroke-opacity="0.5" stroke-width="1.3" stroke-dasharray="2 10" stroke-linecap="round"/>
+  <svg class="" x="30" y="30" width="100" height="100" viewBox="0 0 48 48" aria-hidden="true"><defs><radialGradient id="jlHalo" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#9a5ce0" stop-opacity="0.42"/><stop offset="1" stop-color="#9a5ce0" stop-opacity="0"/></radialGradient><radialGradient id="jlG" cx="0.35" cy="0.3" r="0.78"><stop offset="0" stop-color="#c3e0be"/><stop offset="0.55" stop-color="#389826"/><stop offset="1" stop-color="#194411"/></radialGradient><radialGradient id="jlR" cx="0.35" cy="0.3" r="0.78"><stop offset="0" stop-color="#efc5c2"/><stop offset="0.55" stop-color="#cb3c33"/><stop offset="1" stop-color="#5b1b17"/></radialGradient><radialGradient id="jlP" cx="0.35" cy="0.3" r="0.78"><stop offset="0" stop-color="#dfcde8"/><stop offset="0.55" stop-color="#9558b2"/><stop offset="1" stop-color="#432850"/></radialGradient></defs>
+    <circle cx="24" cy="24" r="21" fill="url(#jlHalo)"/>
+    <ellipse cx="24" cy="25" rx="19" ry="8" transform="rotate(-24 24 25)" fill="none" stroke="#e6bf55" stroke-width="1.1" stroke-opacity="0.7"/>
+    <ellipse cx="24" cy="25" rx="19" ry="8" transform="rotate(24 24 25)" fill="none" stroke="#b8860b" stroke-width="0.9" stroke-opacity="0.5"/>
+    <g fill="none" stroke="#e6bf55" stroke-width="0.7" stroke-opacity="0.45"><path d="M24 13 L14 32 L34 32 Z"/></g>
+    
+    <circle cx="24" cy="13" r="6" fill="url(#jlG)" stroke="#e6bf55" stroke-width="0.7"/>
+    <circle cx="22.08" cy="10.84" r="1.56" fill="#ffffff" opacity="0.7"/>
+    
+    <circle cx="14" cy="32" r="5.4" fill="url(#jlP)" stroke="#e6bf55" stroke-width="0.7"/>
+    <circle cx="12.272" cy="30.056" r="1.4040000000000001" fill="#ffffff" opacity="0.7"/>
+    
+    <circle cx="34" cy="32" r="5.4" fill="url(#jlR)" stroke="#e6bf55" stroke-width="0.7"/>
+    <circle cx="32.272" cy="30.056" r="1.4040000000000001" fill="#ffffff" opacity="0.7"/>
+    <g fill="#fff3c4"><circle cx="8.5" cy="16" r="1" opacity="0.85"/><circle cx="40" cy="34" r="0.9" opacity="0.7"/><circle cx="11" cy="38" r="0.8" opacity="0.6"/></g>
+    <path d="M38.5 8 l0.96 2.04 l2.04 0.96 l-2.04 0.96 l-0.96 2.04 l-0.96 -2.04 l-2.04 -0.96 l2.04 -0.96 Z" fill="#fff3c4"/></svg>
+</svg>

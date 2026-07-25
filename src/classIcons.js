@@ -139,6 +139,52 @@ const SYMBOLS = {
     <path d="M5 6 V18 A7 2.6 0 0 0 19 18 V6" ${strokeAttrs(c)}/>
     <path d="M5 12 A7 2.6 0 0 0 19 12" ${strokeAttrs(c, 1.3)}/>`,
 
+  // Assembly — the forge anvil, struck
+  anvil: (c) => `
+    <path d="M3.5 9.5 Q6.5 7.5 9.5 7.5 H20.5 V12 H16 L14.6 16 H18.5 V20.5 H5.5 V16 H9.4 L8 12 H6.5 Q5 12 3.5 9.5 Z" ${strokeAttrs(c, 1.7)}/>
+    <path d="M12 5.5 V3 M16.5 6 L18 4 M7.5 6 L6 4" ${strokeAttrs(c, 1.4)}/>`,
+
+  // Julia — three worlds inside one orbit
+  orbit: (c) => `
+    <circle cx="12" cy="12" r="9.6" ${strokeAttrs(c, 1.3)} stroke-dasharray="2 3.6"/>
+    <circle cx="12" cy="6.2" r="2.6" fill="${c}"/>
+    <circle cx="7" cy="16.4" r="2.6" fill="${c}"/>
+    <circle cx="17" cy="16.4" r="2.6" fill="${c}"/>`,
+
+  // Ada — the loom, warp taut and a band already woven
+  loom: (c) => `
+    <path d="M4.5 3.5 H19.5 M4.5 20.5 H19.5 M6 3.5 V20.5 M18 3.5 V20.5" ${strokeAttrs(c, 1.7)}/>
+    <path d="M9 5 V19 M12 5 V19 M15 5 V19" ${strokeAttrs(c, 1)}/>
+    <rect x="7.6" y="9.8" width="8.8" height="4.4" rx="0.8" fill="${c}"/>`,
+
+  // Fortran — the elder monolith on its stepped plinth
+  obelisk: (c) => `
+    <path d="M12 2 L15 8 V17 H9 V8 Z" ${strokeAttrs(c, 1.7)}/>
+    <path d="M9 8 H15" ${strokeAttrs(c, 1.2)}/>
+    <path d="M10.4 11 H13.6 M10.4 14 H13.6" ${strokeAttrs(c, 1.2)}/>
+    <path d="M7 17 H17 V19.4 H7 Z M5.4 19.4 H18.6 V21.8 H5.4 Z" ${strokeAttrs(c, 1.5)}/>`,
+
+  // COBOL — the great ledger, open
+  tome: (c) => `
+    <path d="M12 6.6 Q7.5 3.9 3 5.1 V18 Q7.5 16.8 12 19.5 Q16.5 16.8 21 18 V5.1 Q16.5 3.9 12 6.6 Z" ${strokeAttrs(c, 1.7)}/>
+    <path d="M12 6.6 V19.5" ${strokeAttrs(c, 1.3)}/>
+    <path d="M5.6 9 H9.6 M5.6 12 H9.6 M14.4 9 H18.4 M14.4 12 H18.4" ${strokeAttrs(c, 1)}/>`,
+
+  // Perl — the sigil-quill
+  quill: (c) => `
+    <path d="M20 2.6 Q21.6 8.4 18 13.4 Q14.2 18.6 7.4 20.6 Q9.2 13.8 12.6 9.4 Q16 5 20 2.6 Z" ${strokeAttrs(c, 1.6)}/>
+    <path d="M18.6 4.4 L4.4 21.4" ${strokeAttrs(c, 1.4)}/>
+    <path d="M16.4 7 L13.2 10 M17.4 10.6 L13 14.4 M15.4 14.2 L11.4 17.2" ${strokeAttrs(c, 1)}/>`,
+
+  // Erlang — a supervision tree that never drops a link
+  nodes: (c) => `
+    <path d="M12 5 L6.5 14.6 M12 5 L17.5 14.6 M6.5 14.6 V20 M17.5 14.6 V20" ${strokeAttrs(c, 1.4)}/>
+    <circle cx="12" cy="4.8" r="2.9" fill="${c}"/>
+    <circle cx="6.5" cy="14.6" r="2.3" fill="${c}"/>
+    <circle cx="17.5" cy="14.6" r="2.3" fill="${c}"/>
+    <circle cx="6.5" cy="20" r="1.7" fill="${c}"/>
+    <circle cx="17.5" cy="20" r="1.7" fill="${c}"/>`,
+
   // Fallback — rune
   rune: (c) => `
     <path d="M12 3 L20 12 L12 21 L4 12 Z" ${strokeAttrs(c)}/>
