@@ -276,7 +276,8 @@ back and collect Season 1, which is the point.
 | `glow_color`    | color  | theme   | drives the neon glow filter                                                   |
 | `border_radius` | number | `14`    | clamped 0–60                                                                  |
 | `card_width`    | int    | `500`   | clamped 440–800                                                               |
-| `cache_seconds` | int    | `86400` | clamped 3600–86400 (24h default)                                              |
+| `badges`        | int    | `4`     | how many earned badges the card shows, rarest first; `0` hides the strip. The full set (and each one's next rung) lives on your character sheet |
+| `cache_seconds` | int    | `21600` | clamped 3600–86400 (6h default)                                               |
 | `animation`     | bool   | `true`  | `false` renders a static card                                                 |
 | `creator`       | bool   | `true`  | `false` shows a creator's real class instead of the sigil                     |
 
@@ -293,9 +294,19 @@ and `creator` like the card. Unlike the card this answers real status codes
 exists to protect a README `<img>`, and there isn't one here.
 
 `GET /u/USERNAME` — the character sheet the linked card opens: the card itself,
-where the XP came from, the class ladder, and every badge's next rung. Built on
-`/api/profile`, so the page is a static asset and the data is cached once for
-both it and the card.
+where the XP came from, the class ladder, your season standing and shelf, and
+every badge's next rung. Two things there are interactive:
+
+- **What if?** — the real XP model running client-side off the `config` the API
+  ships (not a second copy of the formula), so you can see what 20 more merged
+  PRs is actually worth.
+- **Your class, your call** — click a language to drop it and watch who you'd be
+  instead. Exact rather than an estimate, because `exclude_langs` only changes
+  which class you resolve to; XP never comes from language bytes. It hands back
+  the `exclude_langs` snippet when you're happy.
+
+Built on `/api/profile`, so the page is a static asset and the data is cached
+once for both it and the card.
 
 `GET /api/stats` — returns `{ enabled, uniqueUsers, cardsServed }` for a
 deployment. Requires the optional Upstash env vars ([SETUP.md](SETUP.md));
