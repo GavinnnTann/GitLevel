@@ -125,12 +125,18 @@ export default async function handler(req, res) {
       // The working behind the XP number, so the page can explain rather than
       // assert — and so a client-side simulator reuses the real model.
       xpBreakdown: xp,
+      // Everything a client needs to re-run the XP model itself — the /u/
+      // simulator uses exactly these rather than a second copy of the formula,
+      // so it can't drift from the engine when a weight is tuned.
       config: {
         weights: DEFAULT_CONFIG.xp,
         baseXP: DEFAULT_CONFIG.baseXP,
         tenure: DEFAULT_CONFIG.tenure,
         combo: DEFAULT_CONFIG.combo,
         fame: DEFAULT_CONFIG.fame,
+        // Infinity doesn't survive JSON, so the open-ended top band ends null.
+        tierBands: TIER_BANDS.map(([lo, hi]) => [lo, Number.isFinite(hi) ? hi : null]),
+        rarities: RARITIES,
       },
       languages: (scoped.languages ?? []).slice(0, 8).map((l) => ({ name: l.name, size: l.size, color: l.color })),
       counts: {

@@ -30,6 +30,13 @@ const COL_X = 150; // right column left edge
 // fixed-slot, because labels vary in length — and rows WRAP rather than
 // collapsing, since a "+2" chip tells a viewer nothing about what was earned.
 const BADGE = { x: 26, y: 194, h: 18, gap: 6, rowGap: 5, font: 10.5, iconW: 12, overflowW: 30, maxRows: 3 };
+// Badges shown by default. Nine equal-weight pills flatten the hierarchy the
+// crest, title and XP bar work to build — the card stops reading as a character
+// and starts reading as a dashboard. Now that every card links to a character
+// sheet listing all 14 families *and* their next rungs, the card only has to
+// show the best of them. `?badges=N` overrides (0 = hide the strip entirely);
+// computeAchievements already sorts by prestige, so the top N are the rarest.
+const DEFAULT_BADGES = 4;
 const ROW_STEP = BADGE.h + BADGE.rowGap;
 // Rough advance width for a ~10px semibold sans label — errs a touch wide so
 // pills never clip or overlap. Cheap stand-in for real text metrics (none here).
@@ -47,6 +54,7 @@ export function renderGitLevelCard(character, {
   cardWidth = 500,
   animation = true,
   brand = "gitlevel.vercel.app",
+  maxBadges = DEFAULT_BADGES,
 } = {}) {
   const width = clampValue(cardWidth, 440, 800);
   const rightEdge = width - 26;
@@ -55,7 +63,11 @@ export function renderGitLevelCard(character, {
   // Badge wrapping decides how tall the card is, so it must resolve before the
   // chrome. Extra rows extend the card downward — the footer's bottom margin
   // stays put no matter how many badges are earned.
-  const badges = character.badges ?? [];
+  // Trimmed before layout, not after, so the card's height reflects what's
+  // actually drawn. The tail isn't collapsed into a "+N" here — it's simply not
+  // on the card, because the character sheet is where the full set lives now.
+  const allBadges = character.badges ?? [];
+  const badges = maxBadges >= 0 ? allBadges.slice(0, maxBadges) : allBadges;
   const { rows: badgeRows, overflow: badgeOverflow } = layoutBadges(badges, rightEdge - BADGE.x);
   const height = BASE_HEIGHT + (badgeRows.length - 1) * ROW_STEP;
 
@@ -207,9 +219,14 @@ ${nearLevel ? ".near-pulse { animation: glNear 1.3s ease-in-out infinite 1.6s; }
   // Wrap in one outer .fade group (rather than putting .fade on the pill
   // elements themselves) so it doesn't fight .gl-hint's own opacity rule.
   const badgeRule = `<line x1="${BADGE.x}" y1="${BADGE.y - 8}" x2="${rightEdge}" y2="${BADGE.y - 8}" stroke="${colors.text}" stroke-opacity="0.1" stroke-width="1"/>`;
-  const badgeFooter = `<g class="fade" style="animation-delay:.2s">${badgeRule}${badges.length
-    ? renderBadgeRows(badgeRows, badgeOverflow, colors)
-    : `<text class="gl-hint" x="${BADGE.x}" y="${BADGE.y + 13}">No badges yet — a streak or a merged review earns the first one</text>`}</g>`;
+  // "No badges yet" must only appear when there are genuinely none — with
+  // ?badges=0 the strip is suppressed entirely rather than claiming an
+  // accomplished profile has nothing.
+  const badgeFooter = badges.length
+    ? `<g class="fade" style="animation-delay:.2s">${badgeRule}${renderBadgeRows(badgeRows, badgeOverflow, colors)}</g>`
+    : allBadges.length
+      ? ""
+      : `<g class="fade" style="animation-delay:.2s">${badgeRule}<text class="gl-hint" x="${BADGE.x}" y="${BADGE.y + 13}">No badges yet — a streak or a merged review earns the first one</text></g>`;
 
   // ---- Wordmark ----------------------------------------------------------
   // This card's whole distribution model is travelling into strangers' READMEs
@@ -224,7 +241,12 @@ ${nearLevel ? ".near-pulse { animation: glNear 1.3s ease-in-out infinite 1.6s; }
     : "";
 
   const a11yTitle = `${character.name} — Level ${character.level} ${cls.name} (${rarityLabel})`;
-  const badgeDesc = badges.length ? ` Badges: ${badges.map((b) => b.label).join(", ")}.` : "";
+  // The description covers every earned badge, not just the ones drawn — a
+  // screen reader shouldn't lose the rest just because the card shows a subset.
+  const hidden = allBadges.length - badges.length;
+  const badgeDesc = allBadges.length
+    ? ` Badges: ${badges.map((b) => b.label).join(", ")}${hidden > 0 ? `, and ${hidden} more: ${allBadges.slice(badges.length).map((b) => b.label).join(", ")}` : ""}.`
+    : "";
   const a11yDesc = `${rarityLabel} ${cls.name}${character.subclass ? `, subclass ${character.subclass.name}` : ""}. `
     + `Level ${character.level}, ${character.xp} XP (${pct}% to next). Fame +${character.fame}, Combo x${character.combo}.`
     + (season ? ` ${season.label}: ${season.rank.name}, ${season.xp} season XP.` : "")

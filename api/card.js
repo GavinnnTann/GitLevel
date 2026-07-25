@@ -68,7 +68,15 @@ export default async function handler(req, res) {
   }
 
   const theme = getTheme(themeName);
-  const cacheSeconds = clampValue(parseIntParam(pickFirst(q.cache_seconds), 86400), 3600, 86400);
+  // 6h rather than the old 24h. Two reasons: GitHub's proxy (Camo) layers its
+  // own cache on top of this, so a 24h s-maxage with a 24h stale-while-revalidate
+  // meant a README card could be ~2 days behind — which flatly contradicts a
+  // season rank built to move weekly. And the GitHub cost of lowering it is
+  // near zero: fetchProfile caches per user for PROFILE_CACHE_TTL_MS (10 min),
+  // so the API spend is bounded by unique users per 10 minutes, not by card
+  // requests. What this actually buys back is Vercel invocations, which are
+  // cheap. Still overridable per-card with ?cache_seconds=.
+  const cacheSeconds = clampValue(parseIntParam(pickFirst(q.cache_seconds), 21600), 3600, 86400);
 
   const rl = await kvRateLimit(clientIp(req), RATE_LIMIT_MAX, RATE_LIMIT_WINDOW_S);
   if (!rl.allowed) {
@@ -95,6 +103,9 @@ export default async function handler(req, res) {
       cardWidth: parseIntParam(pickFirst(q.card_width), 500),
       animation: parseBoolean(pickFirst(q.animation), true),
       brand: brandHost(req),
+      // ?badges=N — 0 hides the strip, higher values show more of what was
+      // earned. Clamped to the 9 that could ever fit in maxRows.
+      maxBadges: clampValue(parseIntParam(pickFirst(q.badges), 4), 0, 9),
     });
     res.setHeader(
       "Cache-Control",

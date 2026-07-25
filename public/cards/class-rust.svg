@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="500" height="253" viewBox="0 0 500 253" role="img" aria-labelledby="card-title-a11y card-desc-a11y">
+<svg xmlns="http://www.w3.org/2000/svg" width="500" height="230" viewBox="0 0 500 230" role="img" aria-labelledby="card-title-a11y card-desc-a11y">
 <title id="card-title-a11y">Kael Rourke — Level 60 Rust Undying (Mythic)</title>
-<desc id="card-desc-a11y">Mythic Rust Undying, subclass TypeScript Lawgiver. Level 60, 370336 XP (85% to next). Fame +9320, Combo x66. Season 3 · 2026: Silver, 10900 season XP. Badges: Guardian, Worldbuilder, Armada, Purifier, Prolific, Ablaze, Constellation, Veteran, Beacon.</desc>
+<desc id="card-desc-a11y">Mythic Rust Undying, subclass TypeScript Lawgiver. Level 60, 370336 XP (85% to next). Fame +9320, Combo x66. Season 3 · 2026: Silver, 10900 season XP. Badges: Guardian, Worldbuilder, Armada, Purifier, and 5 more: Prolific, Ablaze, Constellation, Veteran, Beacon.</desc>
 <style>
 text { font-family: 'Segoe UI', Ubuntu, 'Helvetica Neue', sans-serif; }
 .title { font-size: 18px; font-weight: 600; fill: #58a6ff; }
@@ -37,10 +37,10 @@ text { font-family: 'Segoe UI', Ubuntu, 'Helvetica Neue', sans-serif; }
   <filter id="gl-rarity" x="-20%" y="-20%" width="140%" height="140%">
     <feGaussianBlur stdDeviation="2.4"/>
   </filter></defs>
-<rect x="0.5" y="0.5" width="499" height="252" rx="14" fill="url(#card-bg)" stroke="#ff5edb" stroke-width="1.4" stroke-opacity="0.6"/>
-<rect x="3.5" y="3.5" width="493" height="246" rx="11" fill="none" stroke="#30363d" stroke-opacity="0.4"/>
+<rect x="0.5" y="0.5" width="499" height="229" rx="14" fill="url(#card-bg)" stroke="#ff5edb" stroke-width="1.4" stroke-opacity="0.6"/>
+<rect x="3.5" y="3.5" width="493" height="223" rx="11" fill="none" stroke="#30363d" stroke-opacity="0.4"/>
 
-<rect x="2" y="2" width="496" height="249" rx="13" fill="none" stroke="#ff5edb" stroke-width="3.5" stroke-opacity="0.4" filter="url(#gl-rarity)"/>
+<rect x="2" y="2" width="496" height="226" rx="13" fill="none" stroke="#ff5edb" stroke-width="3.5" stroke-opacity="0.4" filter="url(#gl-rarity)"/>
 <g class="fade">
     <g class="">
       <g class="flourish"><g transform="translate(84,0)"><g transform="translate(0,92)" fill="#dea584">
@@ -155,48 +155,6 @@ text { font-family: 'Segoe UI', Ubuntu, 'Helvetica Neue', sans-serif; }
     <g class="" transform="translate(410.3424, 198.5) scale(0.375)" fill="#d4f88f" stroke="#d4f88f" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" opacity="1">
     <path d="M12 3 L14.5 8.6 L20.6 9.3 L16 13.5 L17.4 19.6 L12 16.5 L6.6 19.6 L8 13.5 L3.4 9.3 L9.5 8.6 Z"/>
   </g>
-  </g><g>
-    <title>Prolific (rare) — 2,000+ commits in the last 12 months alone</title>
-    <rect x="26" y="217" width="92.6688" height="18" rx="9" fill="#fb923c" fill-opacity="0.26" stroke="#fb923c" stroke-opacity="1" stroke-width="1.6"/>
-    <rect x="27" y="218" width="90.6688" height="8" rx="8" fill="#ffffff" fill-opacity="0.13"/>
-    <g transform="translate(30.3, 220.3) scale(0.4749999999999999)"><path d="M13.6 2 4.4 13.8h6L10 22l9.6-11.9h-6.5Z" fill="#fb923c"/></g>
-    <text class="gl-badge-label" x="47" y="229.6" fill="#c9d1d9" font-weight="800">Prolific</text>
-    <g class="" transform="translate(101.6688, 221.5) scale(0.375)" fill="#fb923c" stroke="#fb923c" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" opacity="1">
-    <path d="M12 3 L14.5 8.6 L20.6 9.3 L16 13.5 L17.4 19.6 L12 16.5 L6.6 19.6 L8 13.5 L3.4 9.3 L9.5 8.6 Z"/>
-  </g>
-  </g><g>
-    <title>Ablaze — 30-day contribution streak</title>
-    <rect x="124.6688" y="217" width="65.53999999999999" height="18" rx="9" fill="#ff9436" fill-opacity="0.13" stroke="#ff9436" stroke-opacity="0.5" stroke-width="1"/>
-    
-    <g transform="translate(128.96880000000002, 220.3) scale(0.4749999999999999)"><path d="M12 2c2.5 3.4 6.2 6 6.2 10.6a6.2 6.2 0 0 1-12.4 0c0-1.6.6-3 1.6-4.1-.1 1.5.8 2.6 2 2.8-.1-2.8.9-5.4 2.6-7.5.2 1.5.9 2.4 2.1 2.8-.2-2-.8-4-2.1-5.6Z" fill="#ff9436"/></g>
-    <text class="gl-badge-label" x="145.6688" y="229.6" fill="#c9d1d9">Ablaze</text>
-    
-  </g><g>
-    <title>Constellation — 1,000+ stars across their repos</title>
-    <rect x="196.2088" y="217" width="108.16999999999999" height="18" rx="9" fill="#fcd34d" fill-opacity="0.13" stroke="#fcd34d" stroke-opacity="0.5" stroke-width="1"/>
-    
-    <g transform="translate(200.5088, 220.3) scale(0.4749999999999999)"><path d="M12 2.6 14.9 8.5 21.4 9.45 16.7 14.05 17.8 20.55 12 17.5 6.2 20.55 7.3 14.05 2.6 9.45 9.1 8.5Z" fill="#fcd34d"/></g>
-    <text class="gl-badge-label" x="217.2088" y="229.6" fill="#c9d1d9">Constellation</text>
-    
-  </g><g>
-    <title>Veteran — 5+ years on GitHub</title>
-    <rect x="310.37879999999996" y="217" width="71.63" height="18" rx="9" fill="#8098b0" fill-opacity="0.13" stroke="#8098b0" stroke-opacity="0.5" stroke-width="1"/>
-    
-    <g transform="translate(314.67879999999997, 220.3) scale(0.4749999999999999)">
-    <path d="M6 3h12M6 21h12" fill="none" stroke="#8098b0" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
-    <path d="M7.6 3c0 4 4.4 5.6 4.4 9s-4.4 5-4.4 9M16.4 3c0 4-4.4 5.6-4.4 9s4.4 5 4.4 9" fill="none" stroke="#8098b0" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"/></g>
-    <text class="gl-badge-label" x="331.37879999999996" y="229.6" fill="#c9d1d9">Veteran</text>
-    
-  </g><g>
-    <title>Beacon — 100+ followers</title>
-    <rect x="388.00879999999995" y="217" width="65.53999999999999" height="18" rx="9" fill="#22d3ee" fill-opacity="0.13" stroke="#22d3ee" stroke-opacity="0.5" stroke-width="1"/>
-    
-    <g transform="translate(392.30879999999996, 220.3) scale(0.4749999999999999)">
-    <circle cx="12" cy="12" r="2.6" fill="#22d3ee"/>
-    <path d="M6.6 6.6a7.6 7.6 0 0 0 0 10.8M17.4 6.6a7.6 7.6 0 0 1 0 10.8" fill="none" stroke="#22d3ee" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"/>
-    <path d="M3.4 3.4a12.1 12.1 0 0 0 0 17.2M20.6 3.4a12.1 12.1 0 0 1 0 17.2" fill="none" stroke="#22d3ee" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" opacity="0.55"/></g>
-    <text class="gl-badge-label" x="409.00879999999995" y="229.6" fill="#c9d1d9">Beacon</text>
-    
   </g></g>
-<text class="gl-brand" x="474" y="245" text-anchor="end">gitlevel.vercel.app</text>
+<text class="gl-brand" x="474" y="222" text-anchor="end">gitlevel.vercel.app</text>
 </svg>
