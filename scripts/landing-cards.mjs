@@ -16,11 +16,20 @@ import { fileURLToPath } from "node:url";
 import { computeCharacter } from "../src/engine.js";
 import { renderGitLevelCard } from "../src/renderCard.js";
 import { themes } from "../src/themes.js";
+import { seasonBounds } from "../src/seasons.js";
 
 const outDir = path.join(path.dirname(fileURLToPath(import.meta.url)), "..", "public", "cards");
 const lang = (name) => ({ name, color: "#888", size: 1 });
+
+// A mock profile carries no season window, so its card would render without the
+// season line (src/seasons.js). Injected by default rather than repeated on
+// every profile below — any card that wants a different standing can override.
+const DEMO_SEASON = {
+  ...seasonBounds(),
+  counts: { commits: 380, pullRequests: 64, reviews: 45, issues: 26, repos: 3 },
+};
 const card = (profile, theme = themes.volt) =>
-  renderGitLevelCard(computeCharacter(profile), { colors: theme, animation: false });
+  renderGitLevelCard(computeCharacter({ season: DEMO_SEASON, ...profile }), { colors: theme, animation: false });
 
 const files = [
   // Creator card (login-gated Mythic sigil) — the hero fallback.

@@ -20,16 +20,22 @@ import { renderGitLevelCard } from "../src/renderCard.js";
 import { themes } from "../src/themes.js";
 import { CLASS_PATHS } from "../src/classes.js";
 import { hasPortrait } from "../src/portraits.js";
+import { seasonBounds } from "../src/seasons.js";
 
 const outDir = path.join(path.dirname(fileURLToPath(import.meta.url)), "..", "examples");
 const lang = (name) => ({ name, color: "#888", size: 1 });
 
 // A Legendary-band profile so every crest shows its full regalia (emblem +
 // crown + rune ring + 4 of 5 stars) — the best showcase for the art.
+// Mock profiles need a season window or the card renders without its season
+// line — and the README gallery should show the real thing (see src/seasons.js).
+const season = (counts) => ({ ...seasonBounds(), counts });
+
 const LEGENDARY = {
   accountAgeYears: 8,
   commits: 9000, closedIssues: 600, mergedPRs: 1500, reviews: 300, reposCreated: 90,
   stars: 24000, followers: 3400, streak: 200,
+  season: season({ commits: 420, pullRequests: 76, reviews: 58, issues: 31, repos: 4 }),
 };
 
 // The profile used for the theme showcase — a mid-journey Epic so the numbers
@@ -39,6 +45,7 @@ const THEME_DEMO = {
   commits: 3200, closedIssues: 210, mergedPRs: 430, reposCreated: 48,
   stars: 12500, followers: 420, streak: 66,
   languages: [lang("TypeScript"), lang("Rust")],
+  season: season({ commits: 260, pullRequests: 41, reviews: 24, issues: 18, repos: 2 }),
 };
 
 const files = [];

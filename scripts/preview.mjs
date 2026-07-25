@@ -15,10 +15,13 @@ import { renderGitLevelCard } from "../src/renderCard.js";
 import { renderErrorCard } from "../src/renderError.js";
 import { themes } from "../src/themes.js";
 import { CLASS_PATHS } from "../src/classes.js";
+import { seasonBounds } from "../src/seasons.js";
 
 const outDir = path.join(path.dirname(fileURLToPath(import.meta.url)), "..", "preview");
 
 const lang = (name) => ({ name, color: "#888", size: 1 });
+/** Mock profiles need a season window to render the card's season line. */
+const season = (counts) => ({ ...seasonBounds(), counts });
 
 // Profiles chosen to land on specific levels/tiers via the real XP curve.
 const MOCK_PROFILES = {
@@ -27,6 +30,7 @@ const MOCK_PROFILES = {
     commits: 1300, closedIssues: 40, mergedPRs: 90, reposCreated: 24, reviews: 12,
     stars: 480, followers: 210, streak: 37,
     languages: [lang("Python"), lang("C++"), lang("TypeScript")],
+    season: season({ commits: 190, pullRequests: 22, reviews: 9, issues: 11, repos: 2 }),
   },
   // No accountAgeYears on purpose — a brand-new account is the point.
   rookie: {
@@ -105,6 +109,7 @@ const LEGENDARY = {
   accountAgeYears: 9,
   commits: 9000, closedIssues: 600, mergedPRs: 1200, reposCreated: 90, reviews: 30,
   stars: 24000, followers: 3400, streak: 200,
+  season: season({ commits: 420, pullRequests: 76, reviews: 58, issues: 31, repos: 4 }),
 };
 
 const files = [];

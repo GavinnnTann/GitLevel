@@ -8,6 +8,7 @@
 
 import { resolveClass, rarityForTier, creatorClassFor, UNIQUE_RARITY, fameTierFloor, divisionForLevel } from "./classes.js";
 import { computeAchievements } from "./achievements.js";
+import { computeSeason } from "./seasons.js";
 
 /**
  * XP awarded per contribution — the single source of truth for the curve
@@ -174,7 +175,7 @@ export function scopeProfileLanguages(profile, excludeCsv) {
  * `creator` (default true) applies the bespoke Creator class for creator logins;
  * pass false (e.g. from `?creator=false`) to see the real language-based class.
  */
-export function computeCharacter(profile, cfg = DEFAULT_CONFIG, { creator = true } = {}) {
+export function computeCharacter(profile, cfg = DEFAULT_CONFIG, { creator = true, now = new Date() } = {}) {
   const xp = computeXP(profile, cfg);
   const { level, nextXP, progress } = levelFromXP(xp, cfg.baseXP);
 
@@ -209,5 +210,9 @@ export function computeCharacter(profile, cfg = DEFAULT_CONFIG, { creator = true
     fame,
     combo: profile.streak ?? 0,
     badges: computeAchievements(profile),   // earned independent of level/tier
+    // This quarter's standing — the moving axis alongside the permanent one
+    // (src/seasons.js). Null when the profile has no season window, or a cached
+    // one from a season that has since rolled over.
+    season: computeSeason(profile, now, cfg.xp),
   };
 }

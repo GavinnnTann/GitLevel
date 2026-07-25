@@ -224,6 +224,41 @@ stays craft-honest. Thresholds this high can't be faked by one viral repo.
 > `COMBO`, `FAME` in [`src/engine.js`](src/engine.js), and `FAME_TIER_FLOORS` in
 > [`src/classes.js`](src/classes.js). This doc mirrors them.
 
+## Seasons
+
+Level is a career. **Season rank is this quarter.**
+
+The level curve is quadratic, which is honest but means an established dev's
+card effectively stops moving — Lv 30 → 31 is around 350 commits. So there's a
+second axis that runs on a weekly timescale: every calendar quarter is a season,
+and season XP counts only what you shipped inside that window.
+
+| Rank    | Season XP |
+| ------- | --------- |
+| Iron    | 0         |
+| Bronze  | 1,500     |
+| Silver  | 5,000     |
+| Gold    | 12,000    |
+| Mythril | 30,000    |
+
+Two deliberate rules:
+
+- **Season rank is purely additive.** A quiet quarter shows a low rank. It never
+  touches your level, class, tier or badges, and **nothing decays** — rank decay
+  is how a tool meant to flatter people starts making them resent it.
+- **No multipliers.** Tenure, combo and fame exist to make a *career* legible. A
+  season is just "what did you make in these 90 days", and it reads the same for
+  a newcomer and a fifteen-year veteran.
+
+Finished seasons accumulate on **the shelf** on your character sheet. A season's
+mark can only be earned while that season is running — there is no way to go
+back and collect Season 1, which is the point.
+
+> Season XP uses PRs **opened** in the window, not merged: a windowed
+> `contributionsCollection` is the only per-period signal GitHub exposes, and it
+> counts openings. Lifetime XP still uses merged PRs. The two ladders are only
+> ever compared to themselves. See [`src/seasons.js`](src/seasons.js).
+
 ## API
 
 `GET /api/card` — the character card. `/api` is an alias, so both URLs work.

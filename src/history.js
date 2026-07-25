@@ -44,6 +44,13 @@ export function snapshotOf(character, now = new Date()) {
     s: character.subclass?.language ?? null,
     f: character.fame,
     k: character.combo,
+    // Season id / XP / rank index. Carrying these in the daily row is what lets
+    // seasons.js reconstruct the shelf later with no separate storage and no
+    // extra write per card render — a finished season is just the best row
+    // recorded while it was running.
+    sid: character.season?.id ?? null,
+    sx: character.season?.xp ?? 0,
+    sr: character.season?.rank?.index ?? 0,
     // "id:rung" keeps a badge's *rung* so an evolution (Ablaze → Inferno) is
     // visible in history, not just the family.
     b: (character.badges ?? []).map((x) => `${x.id}:${x.tier}`),

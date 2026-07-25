@@ -10,6 +10,7 @@
 
 import { githubGraphQL, pickToken, StatsError } from "./github.js";
 import { kvGet, kvSetEx } from "./kv.js";
+import { seasonBounds } from "./seasons.js";
 
 const FALLBACK_COLOR = "#8b949e";
 
@@ -59,7 +60,7 @@ function cacheSet(key, profile) {
  * `reposCreated` uses `totalCount`, which is exact regardless of the sample.
  */
 const buildProfileQuery = ({ repos, langs }) => `
-query gitlevel($login: String!) {
+query gitlevel($login: String!, $seasonFrom: DateTime!, $seasonTo: DateTime!) {
   rateLimit { limit cost remaining resetAt }
   user(login: $login) {
     name
@@ -73,6 +74,18 @@ query gitlevel($login: String!) {
       contributionCalendar {
         weeks { contributionDays { date contributionCount } }
       }
+    }
+    # The current quarter, aliased into the same round trip (see src/seasons.js).
+    # Totals only, deliberately no contributionCalendar — the aggregates are
+    # precomputed and cheap, while a second calendar would meaningfully add to
+    # the query cost the tier fallback below exists to manage.
+    season: contributionsCollection(from: $seasonFrom, to: $seasonTo) {
+      totalCommitContributions
+      restrictedContributionsCount
+      totalPullRequestContributions
+      totalPullRequestReviewContributions
+      totalIssueContributions
+      totalRepositoryContributions
     }
     mergedPRs: pullRequests(states: MERGED) { totalCount }
     closedIssues: issues(states: CLOSED) { totalCount }
@@ -198,7 +211,11 @@ export async function fetchProfile({ username }) {
   }
 
   const token = pickToken();
-  const data = await fetchWithResourceLimitFallback({ login: username }, token);
+  const season = seasonBounds();
+  const data = await fetchWithResourceLimitFallback(
+    { login: username, seasonFrom: season.from, seasonTo: season.to },
+    token,
+  );
 
   // Rate-limit budget is diagnosable in the deployment logs rather than mysterious.
   const rl = data?.rateLimit;
@@ -212,6 +229,7 @@ export async function fetchProfile({ username }) {
   }
 
   const contribs = user.contributionsCollection ?? {};
+  const seasonContribs = user.season ?? {};
   const repos = user.repositories?.nodes ?? [];
   const totalStars = repos.reduce((sum, r) => sum + (r?.stargazers?.totalCount ?? 0), 0);
   const accountAgeYears = user.createdAt
@@ -231,6 +249,23 @@ export async function fetchProfile({ username }) {
     followers: user.followers?.totalCount ?? 0,
     streak: currentStreak(contribs.contributionCalendar),
     languages: aggregateLanguages(repos),
+    // This quarter's window, stamped with the season it belongs to. The id
+    // matters because profiles are cached for PROFILE_TTL_MS: just after a
+    // quarter boundary a cached entry still holds the old window, and
+    // computeSeason() compares ids so it reports nothing rather than crediting
+    // last season's work to this one (see src/seasons.js).
+    season: {
+      id: season.id,
+      from: season.from,
+      to: season.to,
+      counts: {
+        commits: (seasonContribs.totalCommitContributions ?? 0) + (seasonContribs.restrictedContributionsCount ?? 0),
+        pullRequests: seasonContribs.totalPullRequestContributions ?? 0,
+        reviews: seasonContribs.totalPullRequestReviewContributions ?? 0,
+        issues: seasonContribs.totalIssueContributions ?? 0,
+        repos: seasonContribs.totalRepositoryContributions ?? 0,
+      },
+    },
   };
   cacheSet(key, profile);
   await kvSetEx(`profile:${key}`, JSON.stringify(profile), Math.round(PROFILE_TTL_MS / 1000));
