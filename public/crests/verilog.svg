@@ -2,9 +2,11 @@
   <circle cx="80" cy="80" r="70" fill="#b2b7f8" fill-opacity="0.08"/>
   <circle cx="80" cy="80" r="70" fill="none" stroke="#b2b7f8" stroke-opacity="0.35" stroke-width="2"/>
   <circle cx="80" cy="80" r="61" fill="none" stroke="#b2b7f8" stroke-opacity="0.5" stroke-width="1.3" stroke-dasharray="2 10" stroke-linecap="round"/>
-  <svg class="crest-icon" x="42" y="42" width="76" height="76" viewBox="0 0 24 24" aria-hidden="true">
-    <path d="M4 8 H9 M15 8 H20 M12 4 V9 M12 15 V20 M4 16 H9 M15 16 H20" fill="none" stroke="#b2b7f8" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
-    <circle cx="12" cy="12" r="3.2" fill="none" stroke="#b2b7f8" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
-    <circle cx="9" cy="8" r="1.3" fill="#b2b7f8"/><circle cx="15" cy="16" r="1.3" fill="#b2b7f8"/>
-    <path d="M9.6 8.6 L10.5 10 M14.4 15.4 L13.5 14" fill="none" stroke="#b2b7f8" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/></svg>
+  <svg class="" x="30" y="30" width="100" height="100" viewBox="0 0 48 48" aria-hidden="true"><defs><radialGradient id="vgHalo" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#b2b7f8" stop-opacity="0.42"/><stop offset="1" stop-color="#b2b7f8" stop-opacity="0"/></radialGradient><linearGradient id="vgMetal" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e0e2fc"/><stop offset="0.5" stop-color="#b2b7f8"/><stop offset="1" stop-color="#595c7c"/></linearGradient></defs>
+    <circle cx="24" cy="24" r="21" fill="url(#vgHalo)"/>
+    <path d="M24 6 L38 14 V34 L24 42 L10 34 V14 Z" fill="none" stroke="url(#vgMetal)" stroke-width="1.6" stroke-linejoin="round"/>
+    <g stroke="#e6bf55" stroke-width="1.2" stroke-linecap="round"><path d="M24 6 V14 M38 14 L31 18 M38 34 L31 30 M24 42 V34 M10 34 L17 30 M10 14 L17 18"/></g>
+    <circle cx="24" cy="24" r="7" fill="none" stroke="#b8860b" stroke-width="1.6"/>
+    <circle cx="24" cy="24" r="2.6" fill="#e6bf55"/>
+    <g fill="#b8860b"><circle cx="24" cy="14" r="1"/><circle cx="31" cy="18" r="1"/><circle cx="31" cy="30" r="1"/><circle cx="24" cy="34" r="1"/><circle cx="17" cy="30" r="1"/><circle cx="17" cy="18" r="1"/></g></svg>
 </svg>
