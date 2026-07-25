@@ -475,7 +475,13 @@
     const ex = document.getElementById('exclude').value.split(',').map((s)=>s.trim()).filter(Boolean).join(',');
     if (ex) q += '&exclude_langs=' + encodeURIComponent(ex).replace(/%2C/g, ',');
     document.getElementById('cardPreview').src = '/api/card?' + q;
-    document.getElementById('snippet').textContent = '![GitLevel](https://gitlevel.vercel.app/api/card?' + q + ')';
+    // Linked form, always: the card travels into other people's READMEs on its
+    // own, and a plain <img> is a dead end for everyone who sees it there. The
+    // link points at the character sheet, which is also where a visitor finds
+    // the button to make their own.
+    const origin = location.origin;
+    document.getElementById('snippet').textContent =
+      '[![GitLevel](' + origin + '/api/card?' + q + ')](' + origin + '/u/' + u + ')';
     document.getElementById('genout').classList.add('show');
   }
   document.getElementById('uname').addEventListener('keydown', (e)=>{ if(e.key==='Enter') forge(); });

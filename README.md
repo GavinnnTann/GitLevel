@@ -27,15 +27,21 @@ more fun question: **"who are you becoming as a developer?"**
 Paste this in and swap in your GitHub username — that's the only change:
 
 ```md
-![GitLevel](https://gitlevel.vercel.app/api/card?username=YOUR_GITHUB_LOGIN)
+[![GitLevel](https://gitlevel.vercel.app/api/card?username=YOUR_GITHUB_LOGIN)](https://gitlevel.vercel.app/u/YOUR_GITHUB_LOGIN)
 ```
+
+The link wraps the image so the card opens your **character sheet** —
+`/u/YOUR_GITHUB_LOGIN` — where the XP breakdown, the full class ladder and every
+badge's next rung live. A bare `![...](...)` works too, it just goes nowhere.
 
 Or with sizing and a theme — size it with `card_width`, not a fixed `height`:
 the card grows a row taller as you earn more badges, so a hardcoded height
 squashes it.
 
 ```html
-<img src="https://gitlevel.vercel.app/api/card?username=YOUR_GITHUB_LOGIN&theme=volt&card_width=560" alt="GitLevel card" />
+<a href="https://gitlevel.vercel.app/u/YOUR_GITHUB_LOGIN">
+  <img src="https://gitlevel.vercel.app/api/card?username=YOUR_GITHUB_LOGIN&theme=volt&card_width=560" alt="GitLevel card" />
+</a>
 ```
 
 > Running your own deployment? Swap `gitlevel.vercel.app` for your domain — see
@@ -166,7 +172,7 @@ Your class comes from language bytes across your **own, non-fork** repos. If a
 data dump or vendored code skews it, drop those languages with `exclude_langs`:
 
 ```md
-![GitLevel](https://gitlevel.vercel.app/api/card?username=YOU&exclude_langs=HTML,Jupyter%20Notebook,CSS)
+[![GitLevel](https://gitlevel.vercel.app/api/card?username=YOU&exclude_langs=HTML,Jupyter%20Notebook,CSS)](https://gitlevel.vercel.app/u/YOU)
 ```
 
 ## XP & levelling
@@ -241,6 +247,20 @@ stays craft-honest. Thresholds this high can't be faked by one viral repo.
 
 The card accent is tinted by your class colour automatically; theme params
 control the surrounding chrome.
+
+`GET /api/profile?username=…` — the same character as JSON: level, class and
+its full five-title ladder, rarity + division, the **XP breakdown** (every
+contribution row, the tenure/combo multipliers, the flat streak and fame
+bonuses), every badge family with its next rung and how far off it is, plus the
+tunable config so a client can re-run the model itself. Accepts `exclude_langs`
+and `creator` like the card. Unlike the card this answers real status codes
+(`404` unknown user, `429` rate-limited, `503` upstream) — the always-200 rule
+exists to protect a README `<img>`, and there isn't one here.
+
+`GET /u/USERNAME` — the character sheet the linked card opens: the card itself,
+where the XP came from, the class ladder, and every badge's next rung. Built on
+`/api/profile`, so the page is a static asset and the data is cached once for
+both it and the card.
 
 `GET /api/stats` — returns `{ enabled, uniqueUsers, cardsServed }` for a
 deployment. Requires the optional Upstash env vars ([SETUP.md](SETUP.md));

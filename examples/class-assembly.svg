@@ -19,6 +19,7 @@ text { font-family: 'Segoe UI', Ubuntu, 'Helvetica Neue', sans-serif; }
 .gl-hint { font-size: 10px; fill: #c9d1d9; opacity: 0.62; }
 .gl-badge-label { font-size: 10.5px; font-weight: 600; }
 .gl-rarity { font-size: 9px; font-weight: 700; letter-spacing: 2.5px; fill: #ff5edb; }
+.gl-brand { font-size: 9px; font-weight: 600; letter-spacing: 0.4px; fill: #c9d1d9; opacity: 0.4; }
 
 </style>
 <defs><linearGradient id="card-bg" x1="0" y1="0" x2="1" y2="1" gradientTransform="rotate(90, 0.5, 0.5)"><stop offset="0.0%" stop-color="#0d1117"/><stop offset="100.0%" stop-color="#101d33"/></linearGradient><filter id="card-glow" x="-50%" y="-50%" width="200%" height="200%">
@@ -197,4 +198,5 @@ text { font-family: 'Segoe UI', Ubuntu, 'Helvetica Neue', sans-serif; }
     <text class="gl-badge-label" x="402.91880000000003" y="229.6" fill="#c9d1d9">Veteran</text>
     
   </g></g>
+<text class="gl-brand" x="474" y="245" text-anchor="end">gitlevel.vercel.app</text>
 </svg>

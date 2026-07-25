@@ -106,6 +106,39 @@ export function rarityForTier(tier) {
 }
 
 /**
+ * The level band each tier covers (index = tier). Mirrors tierForLevel below —
+ * that function is still the authority; this is the same split expressed as
+ * ranges so a level can be located *within* its band. Mythic is open-ended.
+ */
+export const TIER_BANDS = [[1, 5], [6, 14], [15, 28], [29, 54], [55, Infinity]];
+
+export const DIVISIONS = ["I", "II", "III"];
+
+/**
+ * Sub-rank within a tier — I → II → III, ascending, so III is the top of the
+ * band and the ladder reads as forward progress.
+ *
+ * Mythic is deliberately out of human reach, which quietly makes Legendary the
+ * real summit — and Legendary spans Lv 29–54, more XP than every tier beneath
+ * it combined. Without divisions that entire range renders identically: the
+ * players most likely to embed a card are exactly the ones whose card would
+ * never visibly change again. Divisions give those 26 levels somewhere to go
+ * without inflating the tier ladder or touching the level curve.
+ *
+ * Returns null where a division would be meaningless — Mythic (unbounded), and
+ * any tier reached via a Fame floor rather than the curve, since then the level
+ * sits outside the band and its position within it says nothing.
+ */
+export function divisionForLevel(level, tier) {
+  const band = TIER_BANDS[tier];
+  if (!band || !Number.isFinite(band[1])) return null;
+  const [lo, hi] = band;
+  if (level < lo) return null;
+  const span = (hi - lo + 1) / DIVISIONS.length;
+  return DIVISIONS[Math.min(DIVISIONS.length - 1, Math.floor((Math.min(level, hi) - lo) / span))];
+}
+
+/**
  * Unique — a bespoke rarity outside the community's five-tier ladder,
  * reserved for `creatorClassFor` logins. Golden hue (border/glow/gem), a
  * single faceted diamond instead of a star count (see solidDiamond in

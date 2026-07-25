@@ -6,7 +6,7 @@
  * §XP System). A memorable interpretation beats a mathematically perfect one.
  */
 
-import { resolveClass, rarityForTier, creatorClassFor, UNIQUE_RARITY, fameTierFloor } from "./classes.js";
+import { resolveClass, rarityForTier, creatorClassFor, UNIQUE_RARITY, fameTierFloor, divisionForLevel } from "./classes.js";
 import { computeAchievements } from "./achievements.js";
 
 /**
@@ -86,14 +86,49 @@ export function computeCraftXP(profile, w = XP_WEIGHTS) {
  * dominating (see FAME).
  */
 export function computeXP(profile, cfg = DEFAULT_CONFIG) {
-  const craft = computeCraftXP(profile, cfg.xp);
+  return explainXP(profile, cfg).total;
+}
+
+/**
+ * computeXP with its working shown — every intermediate value, plus the
+ * per-contribution rows that make up craft.
+ *
+ * This exists so the profile page can explain a number instead of asserting it
+ * ("your 50k XP is 62% merged PRs, ×1.3 for tenure"), and so a client-side
+ * what-if simulator can reuse the real model. computeXP delegates here rather
+ * than the reverse, deliberately: two copies of this arithmetic would drift the
+ * moment anyone tuned a weight, and the card and the page disagreeing about
+ * someone's XP is the one bug that would discredit the whole thing.
+ */
+export function explainXP(profile, cfg = DEFAULT_CONFIG) {
+  const w = cfg.xp;
+  const sources = [
+    { key: "commits", label: "Commits", hint: "last 12 months", count: profile.commits ?? 0, weight: w.commit },
+    { key: "mergedPRs", label: "Merged PRs", hint: "lifetime", count: profile.mergedPRs ?? 0, weight: w.mergedPR },
+    { key: "reviews", label: "Reviews", hint: "last 12 months", count: profile.reviews ?? 0, weight: w.review },
+    { key: "closedIssues", label: "Issues closed", hint: "lifetime", count: profile.closedIssues ?? 0, weight: w.closedIssue },
+    { key: "reposCreated", label: "Repos created", hint: "lifetime", count: profile.reposCreated ?? 0, weight: w.repoCreated },
+  ].map((s) => ({ ...s, xp: s.count * s.weight }));
+
+  const craft = sources.reduce((sum, s) => sum + s.xp, 0);
   const years = Math.min(Math.max(profile.accountAgeYears ?? 0, 0), cfg.tenure.maxYears);
   const tenureMult = 1 + years * cfg.tenure.bonusPerYear;
   const streak = Math.min(Math.max(profile.streak ?? 0, 0), cfg.combo.maxDays);
   const comboMult = 1 + (streak / cfg.combo.maxDays) * cfg.combo.maxMultiplier;
   const streakXP = streak * cfg.combo.xpPerDay;
-  const fameXP = Math.min(cfg.fame.xpCap, Math.round(cfg.fame.xpPerRoot * Math.sqrt(Math.max(0, computeFame(profile)))));
-  return Math.round(craft * tenureMult * comboMult + streakXP + fameXP);
+  const fame = computeFame(profile);
+  const fameXP = Math.min(cfg.fame.xpCap, Math.round(cfg.fame.xpPerRoot * Math.sqrt(Math.max(0, fame))));
+  const amplified = Math.round(craft * tenureMult * comboMult);
+
+  return {
+    sources,
+    craft,
+    years, tenureMult,
+    streak, comboMult, streakXP,
+    fame, fameXP,
+    amplified,                                  // craft after both multipliers
+    total: Math.round(craft * tenureMult * comboMult + streakXP + fameXP),
+  };
 }
 
 /**
@@ -168,6 +203,9 @@ export function computeCharacter(profile, cfg = DEFAULT_CONFIG, { creator = true
     // Creators get the bespoke Unique rarity (gold, outside the community
     // ladder) instead of whatever tier their level maps to.
     rarity: primaryClass?.creator ? UNIQUE_RARITY : rarityForTier(primaryClass?.tier ?? 0),
+    // Sub-rank inside the tier (see divisionForLevel) — null for Unique, for
+    // Mythic, and whenever Fame set the tier floor instead of the level.
+    division: primaryClass?.creator ? null : divisionForLevel(level, primaryClass?.tier ?? 0),
     fame,
     combo: profile.streak ?? 0,
     badges: computeAchievements(profile),   // earned independent of level/tier
