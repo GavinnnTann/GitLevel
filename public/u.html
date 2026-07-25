@@ -114,8 +114,10 @@
   .rankTrack { display:flex; gap:5px; margin-bottom:9px; }
   .rankTrack span { flex:1; text-align:center; font-family:var(--mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase; padding:4px 2px; border-radius:6px; border:1px solid var(--line); color:var(--muted-2); }
   .rankTrack span.done { color:var(--ink); border-color:currentColor; }
+  /* Iron's rank colour is a dim grey, so a bar tinted with it all but vanishes
+     against the track. The glow keeps the fill readable at every rank. */
   .meter.big { height:8px; border-radius:5px; background:#1a2032; overflow:hidden; }
-  .meter.big span { display:block; height:100%; border-radius:5px; }
+  .meter.big span { display:block; height:100%; border-radius:5px; box-shadow:0 0 8px currentColor; filter:brightness(1.15); }
   .nextRank { font-size:12px; color:var(--muted); margin:9px 0 0; }
   .seasonRows { display:flex; flex-wrap:wrap; gap:8px; margin-top:16px; }
   .seasonRows .pill i { color:var(--muted-2); }
@@ -343,7 +345,13 @@
     document.title = "GitLevel — " + (d.name || d.username);
 
     // ---- hero ----
-    $("cardImg").src = "/api/card?username=" + encodeURIComponent(d.username);
+    // animation=false, same reasoning as scripts/examples.mjs and
+    // landing-cards.mjs: an <img>-embedded SVG is not guaranteed to advance its
+    // CSS animations, and this card's fade-in elements start at opacity:0 — so
+    // when it doesn't, the card renders as an empty frame. The entry animation
+    // is worth little on a page someone opened to read numbers; a card that is
+    // always visible is worth a lot.
+    $("cardImg").src = "/api/card?username=" + encodeURIComponent(d.username) + "&animation=false";
     // github.com/<login>.png needs no API call, but it 404s for deleted or
     // renamed accounts — fall back to the site icon rather than a broken image.
     $("avatar").onerror = function () { this.onerror = null; this.src = "/icon.png"; };
@@ -447,6 +455,7 @@
 
       $("seasonMeter").style.width = Math.round(s.rank.progress * 100) + "%";
       $("seasonMeter").style.background = s.rank.color;
+      $("seasonMeter").style.color = s.rank.color;   // drives the glow above
       $("seasonNext").textContent = s.rank.next
         ? num(s.rank.next.remaining) + " season XP to " + s.rank.next.name
         : "Top rank reached — nothing above Mythril.";
@@ -475,7 +484,12 @@
   function renderLadder(d, accent) {
     if (!d.class) { $("ladderTitle").textContent = "The path"; $("ladder").innerHTML = ""; return; }
     $("ladderTitle").textContent = "The " + d.class.language + " path";
-    $("ladderSub").textContent = "Five titles. Mythic is reserved for the platform's legends.";
+    // Without this note, a Fame-floored profile (Linus: Mythic at Lv 32) shows
+    // a highlighted rung labelled "Lv 55+" beside "Level 32" and reads as a bug.
+    $("ladderSub").textContent = d.tierSource === "fame"
+      ? "Reach set this rank, not the level curve — " + num(d.fame) +
+        " followers + stars puts them at " + (d.rarity ? d.rarity.name : "this tier") + " regardless of level."
+      : "Five titles. Mythic is reserved for the platform's legends.";
     $("ladder").innerHTML = d.class.ladder.map(function (s) {
       return '<div class="step' + (s.current ? " on" : "") + '" style="color:' + esc(s.color) + '">' +
         '<span class="band">' + esc(s.rarity) + (s.current && d.division ? " " + esc(d.division) : "") + "</span>" +

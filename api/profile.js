@@ -17,7 +17,7 @@ import { fetchProfile } from "../src/fetchProfile.js";
 import { StatsError } from "../src/github.js";
 import { computeCharacter, scopeProfileLanguages, explainXP, levelFromXP, DEFAULT_CONFIG } from "../src/engine.js";
 import { badgeProgress } from "../src/achievements.js";
-import { CLASS_PATHS, FALLBACK_PATH, RARITIES, TIER_BANDS } from "../src/classes.js";
+import { CLASS_PATHS, FALLBACK_PATH, RARITIES, TIER_BANDS, tierForLevel } from "../src/classes.js";
 import { readHistory } from "../src/history.js";
 import { shelfFromHistory, SEASON_RANKS } from "../src/seasons.js";
 import { kvRateLimit } from "../src/kv.js";
@@ -103,6 +103,12 @@ export default async function handler(req, res) {
       progress: character.progress,
       rarity: character.rarity,
       division: character.division,
+      // Where the tier actually came from. Elite Fame sets a floor independent
+      // of level (FAME_TIER_FLOORS), which is why Linus reads Mythic at Lv 32 —
+      // but a ladder highlighting "Mythic · Lv 55+" next to "Level 32" looks
+      // like a bug unless the page can say why.
+      tierSource: character.primaryClass && !character.primaryClass.creator
+        && tierForLevel(character.level) < character.primaryClass.tier ? "fame" : "level",
       class: classPayload(character.primaryClass),
       subclass: classPayload(character.subclass),
       fame: character.fame,
