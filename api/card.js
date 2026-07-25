@@ -13,6 +13,7 @@ import { renderGitLevelCard } from "../src/renderCard.js";
 import { renderErrorCard } from "../src/renderError.js";
 import { getTheme } from "../src/themes.js";
 import { kvRateLimit, kvSAdd, kvIncr } from "../src/kv.js";
+import { recordSnapshot } from "../src/history.js";
 import {
   clampValue,
   parseBoolean,
@@ -35,6 +36,19 @@ function clientIp(req) {
   const fwd = req.headers?.["x-forwarded-for"];
   const first = String(pickFirst(fwd) ?? "").split(",")[0].trim();
   return first || req.socket?.remoteAddress || "unknown";
+}
+
+// Hostnames only — the Host header is attacker-controllable and this string is
+// drawn on the card, so anything that isn't a plausible host is dropped in
+// favour of renderGitLevelCard's default rather than rendered.
+const HOST_RE = /^[a-z0-9.-]{1,120}$/i;
+
+/** The host that actually served this card, for the wordmark: a self-hosted
+ *  deployment should point home, not advertise the public one. */
+function brandHost(req) {
+  const raw = pickFirst(req.headers?.["x-forwarded-host"]) ?? req.headers?.host;
+  const host = String(raw ?? "").split(":")[0].trim().toLowerCase();
+  return HOST_RE.test(host) ? host : undefined;
 }
 
 export default async function handler(req, res) {
@@ -80,6 +94,7 @@ export default async function handler(req, res) {
       borderRadius: clampValue(parseIntParam(pickFirst(q.border_radius), 14), 0, 60),
       cardWidth: parseIntParam(pickFirst(q.card_width), 500),
       animation: parseBoolean(pickFirst(q.animation), true),
+      brand: brandHost(req),
     });
     res.setHeader(
       "Cache-Control",
@@ -87,8 +102,15 @@ export default async function handler(req, res) {
     );
     // Usage tracking — "how many users have generated a card" (a no-op
     // without Upstash configured). Counted on real success only, not on
-    // invalid/unknown usernames.
-    await Promise.all([kvSAdd("usage:usernames", username.toLowerCase()), kvIncr("usage:hits")]);
+    // invalid/unknown usernames. `recordSnapshot` rides along here for the
+    // same reason: this is the one code path that runs whenever anybody's card
+    // is actually viewed, and history can only be built forward (see
+    // src/history.js). All three are best-effort and never throw.
+    await Promise.all([
+      kvSAdd("usage:usernames", username.toLowerCase()),
+      kvIncr("usage:hits"),
+      recordSnapshot(username, character),
+    ]);
     res.status(200).send(svg);
   } catch (err) {
     console.error(err);

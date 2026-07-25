@@ -192,6 +192,48 @@ export const ACHIEVEMENTS = [
  */
 const prestige = (b) => (b.rare ? 1000 : 0) + b.tier * 100 - b.order;
 
+/**
+ * The whole badge set with this profile's standing in each family — earned or
+ * not, and for ladders, how far the next rung is.
+ *
+ * The card can only show what someone already has, which makes every badge a
+ * past-tense fact. This turns the same data into something forward-looking:
+ * "Ablaze at 30 days, Inferno at 100, you're on 41" is a goal, and a goal is
+ * the thing that earns a return visit. Ladders report their next threshold;
+ * inferred badges can't (they're conjunctions, so there's no single number to
+ * count toward) and instead expose the condition verbatim.
+ */
+export function badgeProgress(profile) {
+  return ACHIEVEMENTS.map((def) => {
+    if (!def.tiers) {
+      const earned = def.test(profile);
+      return {
+        id: def.id, icon: def.icon, kind: "inferred", earned,
+        label: def.label, hint: def.hint, color: def.color, rare: !!def.rare,
+        rungs: [{ label: def.label, hint: def.hint, at: null, reached: earned }],
+      };
+    }
+    const value = def.value(profile);
+    let idx = -1;
+    for (let i = 0; i < def.tiers.length; i++) if (value >= def.tiers[i].at) idx = i;
+    const current = idx >= 0 ? def.tiers[idx] : null;
+    const next = def.tiers[idx + 1] ?? null;
+    return {
+      id: def.id, icon: def.icon, kind: "ladder", earned: idx >= 0,
+      label: current?.label ?? def.tiers[0].label,
+      hint: current?.hint ?? def.tiers[0].hint,
+      color: current?.color ?? def.tiers[0].color,
+      rare: !!current?.rare,
+      value,
+      next: next && { label: next.label, at: next.at, remaining: Math.max(0, next.at - value) },
+      // Progress across the *current* rung only, so a long ladder doesn't look
+      // permanently stalled near zero while you climb its early rungs.
+      progress: next ? Math.min(1, Math.max(0, (value - (current?.at ?? 0)) / (next.at - (current?.at ?? 0)))) : 1,
+      rungs: def.tiers.map((t, i) => ({ label: t.label, hint: t.hint, at: t.at, rare: !!t.rare, reached: i <= idx })),
+    };
+  });
+}
+
 /** Every achievement the profile qualifies for, most impressive first. */
 export function computeAchievements(profile) {
   const earned = [];

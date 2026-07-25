@@ -54,6 +54,35 @@ export async function kvIncr(key) {
   return kvCommand(["INCR", PREFIX + key]);
 }
 
+/**
+ * SET key value NX EX ttl — returns "OK" only if the key did *not* exist.
+ * A one-round-trip "am I the first this window?" gate, used by history.js to
+ * take one snapshot per user per day out of however many card requests arrive.
+ */
+export async function kvSetNxEx(key, value, ttlSeconds) {
+  return kvCommand(["SET", PREFIX + key, value, "NX", "EX", String(Math.max(1, Math.round(ttlSeconds)))]);
+}
+
+/**
+ * Push onto the head of a list and trim it to `keep` entries — an append-only
+ * feed with a fixed ceiling, so a busy profile can't grow unbounded in KV.
+ *
+ * Note both the value and the key travel in the URL path (see kvCommand), so
+ * callers must keep values small; history.js's snapshots are ~150 bytes.
+ */
+export async function kvLPushCapped(key, value, keep) {
+  const pushed = await kvCommand(["LPUSH", PREFIX + key, value]);
+  if (pushed === null) return null;
+  await kvCommand(["LTRIM", PREFIX + key, "0", String(Math.max(0, keep - 1))]);
+  return pushed;
+}
+
+/** Read a list slice, newest first. Returns [] rather than null when disabled. */
+export async function kvLRange(key, start = 0, stop = -1) {
+  const rows = await kvCommand(["LRANGE", PREFIX + key, String(start), String(stop)]);
+  return Array.isArray(rows) ? rows : [];
+}
+
 export async function kvSAdd(setKey, member) {
   return kvCommand(["SADD", PREFIX + setKey, member]);
 }

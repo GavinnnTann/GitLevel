@@ -3,5 +3,8 @@
     "api/*.js": {
       "maxDuration": 15
     }
-  }
+  },
+  "rewrites": [
+    { "source": "/u/:username", "destination": "/u.html" }
+  ]
 }

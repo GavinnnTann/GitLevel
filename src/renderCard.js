@@ -46,6 +46,7 @@ export function renderGitLevelCard(character, {
   borderRadius = 14,
   cardWidth = 500,
   animation = true,
+  brand = "gitlevel.vercel.app",
 } = {}) {
   const width = clampValue(cardWidth, 440, 800);
   const rightEdge = width - 26;
@@ -71,6 +72,9 @@ export function renderGitLevelCard(character, {
   const fillW = Math.max(0, barW * progress);
   const stars = (cls.tier ?? 0) + 1; // 1..5 filled (Common..Mythic)
   const isUnique = rarity.name === "Unique"; // creator-only: one gem, no star count
+  // "LEGENDARY II" — the sub-rank inside the tier (classes.js → divisionForLevel).
+  // Null for Unique/Mythic and for Fame-floored tiers, where it'd be meaningless.
+  const rarityLabel = character.division ? `${rarity.name} ${character.division}` : rarity.name;
 
   const css = `
 .gl-name { font-size: 21px; font-weight: 700; fill: ${colors.title}; }
@@ -84,6 +88,7 @@ export function renderGitLevelCard(character, {
 .gl-hint { font-size: 10px; fill: ${colors.text}; opacity: 0.62; }
 .gl-badge-label { font-size: ${BADGE.font}px; font-weight: 600; }
 .gl-rarity { font-size: 9px; font-weight: 700; letter-spacing: 2.5px; fill: ${rarity.color}; }
+.gl-brand { font-size: 9px; font-weight: 600; letter-spacing: 0.4px; fill: ${colors.text}; opacity: 0.4; }
 ${animation ? `
 .crest-pop { transform-box: fill-box; transform-origin: center; opacity: 0; animation: glPop .6s cubic-bezier(.2,.9,.3,1.2) forwards .2s; }
 .crest-breathe { transform-box: fill-box; transform-origin: center; animation: glBreathe 4s ease-in-out infinite .8s; }
@@ -145,7 +150,7 @@ ${nearLevel ? ".near-pulse { animation: glNear 1.3s ease-in-out infinite 1.6s; }
             i < stars ? rarity.color : colors.text,
             { opacity: i < stars ? 1 : 0.22, className: i < stars && animation ? "twinkle" : "" },
           )).join("")}</g>
-    <text class="gl-rarity" x="${CREST.cx}" y="${CREST.cy + CREST.r + 36}" text-anchor="middle">${encodeHTML(rarity.name.toUpperCase())}</text>
+    <text class="gl-rarity" x="${CREST.cx}" y="${CREST.cy + CREST.r + 36}" text-anchor="middle">${encodeHTML(rarityLabel.toUpperCase())}</text>
   </g>`;
 
   // ---- Right: identity + progression ----
@@ -194,9 +199,21 @@ ${nearLevel ? ".near-pulse { animation: glNear 1.3s ease-in-out infinite 1.6s; }
     ? renderBadgeRows(badgeRows, badgeOverflow, colors)
     : `<text class="gl-hint" x="${BADGE.x}" y="${BADGE.y + 13}">No badges yet — a streak or a merged review earns the first one</text>`}</g>`;
 
-  const a11yTitle = `${character.name} — Level ${character.level} ${cls.name} (${rarity.name})`;
+  // ---- Wordmark ----------------------------------------------------------
+  // This card's whole distribution model is travelling into strangers' READMEs
+  // on its own. Unmarked, someone who likes it has no way back to the source —
+  // which severs the only loop the project has. It sits in the constant ~18px
+  // margin below the badge footer (that gap doesn't move as rows wrap), right-
+  // aligned and dim, so it never competes with the crest. The host is passed in
+  // by the handler rather than hardcoded, so a self-hosted deployment points at
+  // itself instead of advertising someone else's.
+  const wordmark = brand
+    ? `<text class="gl-brand" x="${rightEdge}" y="${height - 8}" text-anchor="end">${encodeHTML(brand)}</text>`
+    : "";
+
+  const a11yTitle = `${character.name} — Level ${character.level} ${cls.name} (${rarityLabel})`;
   const badgeDesc = badges.length ? ` Badges: ${badges.map((b) => b.label).join(", ")}.` : "";
-  const a11yDesc = `${rarity.name} ${cls.name}${character.subclass ? `, subclass ${character.subclass.name}` : ""}. `
+  const a11yDesc = `${rarityLabel} ${cls.name}${character.subclass ? `, subclass ${character.subclass.name}` : ""}. `
     + `Level ${character.level}, ${character.xp} XP (${pct}% to next). Fame +${character.fame}, Combo x${character.combo}.${badgeDesc}`;
 
   return buildCard({
@@ -213,7 +230,7 @@ ${nearLevel ? ".near-pulse { animation: glNear 1.3s ease-in-out infinite 1.6s; }
     frameColor: rarity.color, // the rarity frame — a thin translucent edge…
     frameWidth: 1.4,
     frameOpacity: 0.6,        // …softened, with the blurred glow above doing the work
-    body: `${rarityGlow}\n${crest}\n${right}\n${badgeFooter}`,
+    body: `${rarityGlow}\n${crest}\n${right}\n${badgeFooter}\n${wordmark}`,
     a11yTitle,
     a11yDesc,
   });
