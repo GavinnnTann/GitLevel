@@ -31,8 +31,20 @@ Paste this in and swap in your GitHub username — that's the only change:
 ```
 
 The link wraps the image so the card opens your **character sheet** —
-`/u/YOUR_GITHUB_LOGIN` — where the XP breakdown, the full class ladder and every
-badge's next rung live. A bare `![...](...)` works too, it just goes nowhere.
+`/u/YOUR_GITHUB_LOGIN` — where the XP breakdown, the full class ladder, your
+season standing and every badge's next rung live. A bare `![...](...)` still
+works, it just goes nowhere when clicked.
+
+> **Already embedded a card?** Cards used to be plain images, and a plain image
+> in a README opens the image when clicked — not your sheet. The link lives in
+> your markdown, so no update on our side can fix an embed that's already out
+> there. Wrap what you have in `[...](https://gitlevel.vercel.app/u/YOUR_LOGIN)`
+> and it becomes clickable:
+>
+> ```diff
+> - ![GitLevel](https://gitlevel.vercel.app/api/card?username=YOU&theme=volt)
+> + [![GitLevel](https://gitlevel.vercel.app/api/card?username=YOU&theme=volt)](https://gitlevel.vercel.app/u/YOU)
+> ```
 
 Or with sizing and a theme — size it with `card_width`, not a fixed `height`:
 the card grows a row taller as you earn more badges, so a hardcoded height
@@ -60,12 +72,18 @@ squashes it.
   truly elite reach sets a rarity floor.
 - **Combo** — your contribution streak in days. Consistency *is* craft, so a
   long streak lifts your level too.
+- **Season rank** — one line (`S3 ’26 · SILVER`) for the current quarter. Level
+  is a career and barely moves once you're established; this moves weekly. See
+  [Seasons](#seasons).
 - **Achievement badges** — earned *independent* of level, so a newer dev still
   has something to show off. Most **evolve** as you grow (On a Roll → Ablaze →
   Inferno → ***Eternal Flame***), and a few **rare** pins are inferred from the
-  *shape* of an account rather than any single number.
+  *shape* of an account rather than any single number. The card shows your best
+  **four** so the crest keeps top billing; the rest — and what each one's next
+  rung costs — live on your character sheet. `?badges=N` if you want more.
 
 A GitHub username is the **only** required input; everything else is inferred.
+Click the card and it opens your **character sheet** at `/u/YOUR_LOGIN`.
 
 <details>
 <summary><b>All 14 badge families</b></summary>
@@ -169,11 +187,20 @@ Any other language falls back to a generic path (*Novice → Adept → Expert �
 Master → Grandmaster*) so every developer still gets classed.
 
 Your class comes from language bytes across your **own, non-fork** repos. If a
-data dump or vendored code skews it, drop those languages with `exclude_langs`:
+data dump or vendored code skews it, drop those languages with `exclude_langs`.
+
+Easiest way: enter your username on
+**[gitlevel.vercel.app](https://gitlevel.vercel.app/#forge)** and the forge
+lists the languages you actually ship as clickable chips — drop one and the
+preview and snippet update as you go, so you can't misspell a language into
+doing nothing. Or write it by hand:
 
 ```md
 [![GitLevel](https://gitlevel.vercel.app/api/card?username=YOU&exclude_langs=HTML,Jupyter%20Notebook,CSS)](https://gitlevel.vercel.app/u/YOU)
 ```
+
+Exclusions only change which class you resolve to — XP never comes from language
+bytes, so dropping a language never costs you a level.
 
 ## XP & levelling
 
@@ -294,16 +321,16 @@ and `creator` like the card. Unlike the card this answers real status codes
 exists to protect a README `<img>`, and there isn't one here.
 
 `GET /u/USERNAME` — the character sheet the linked card opens: the card itself,
-where the XP came from, the class ladder, your season standing and shelf, and
-every badge's next rung. Two things there are interactive:
+where the XP came from, the class ladder, the season standing and shelf, and
+every badge's next rung.
 
-- **What if?** — the real XP model running client-side off the `config` the API
-  ships (not a second copy of the formula), so you can see what 20 more merged
-  PRs is actually worth.
-- **Your class, your call** — click a language to drop it and watch who you'd be
-  instead. Exact rather than an estimate, because `exclude_langs` only changes
-  which class you resolve to; XP never comes from language bytes. It hands back
-  the `exclude_langs` snippet when you're happy.
+It's a **public record, not a control panel**. Anyone can open anyone's sheet,
+so it describes its subject rather than addressing whoever's reading, and it
+takes no settings — configuration happens once, at embed time, in the forge.
+The one interactive piece is **What if?**, which configures nothing: it runs the
+real XP model client-side from the `config` block `/api/profile` returns (not a
+second copy of the formula) so you can see what twenty more merged PRs would be
+worth. That serves a curious visitor as much as the person on the card.
 
 Built on `/api/profile`, so the page is a static asset and the data is cached
 once for both it and the card.
