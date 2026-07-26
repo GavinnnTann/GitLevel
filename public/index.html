@@ -181,16 +181,24 @@
   .genout.show { opacity:1; transform:none; pointer-events:auto; }
   .genout img { width:100%; max-width:500px; border-radius:14px; filter:drop-shadow(0 18px 46px #000a); }
   .snip { position:relative; max-width:620px; margin:22px auto 0; text-align:left; }
-  .snip pre { background:#0c0f18; border:1px solid var(--line); border-radius:11px; padding:15px 16px; overflow-x:auto; font-family:var(--mono); font-size:13px; color:#d7e2fb; margin:0; }
+  /* Wraps rather than scrolling: with exclude_langs the snippet is long, and a
+     horizontal scrollbar hides the half that matters behind the Copy button. */
+  .snip pre { background:#0c0f18; border:1px solid var(--line); border-radius:11px; padding:15px 78px 15px 16px; font-family:var(--mono); font-size:13px; color:#d7e2fb; margin:0; white-space:pre-wrap; overflow-wrap:anywhere; }
   .snip .copy { position:absolute; top:9px; right:9px; background:#1a2136; border:1px solid var(--line-2); color:var(--ink-2); border-radius:7px; padding:5px 11px; font-size:12px; cursor:pointer; }
   .snip .copy:hover { color:#fff; border-color:var(--gold-dim); }
   .theme-select { display:flex; gap:8px; justify-content:center; flex-wrap:wrap; margin:16px auto 0; }
   .tchip { font-family:var(--mono); font-size:12.5px; color:var(--ink-2); background:#0d1119; border:1px solid var(--line); border-radius:999px; padding:7px 15px; cursor:pointer; transition:.2s; }
   .tchip:hover { border-color:var(--line-2); color:var(--ink); }
   .tchip.active { color:#2a1e05; background:linear-gradient(180deg,var(--gold-lt),var(--gold)); border-color:transparent; font-weight:600; }
-  .ex-input { display:block; width:100%; max-width:520px; margin:14px auto 0; background:#0c0f18; border:1px solid var(--line); color:var(--ink-2); border-radius:11px; padding:11px 15px; font-family:var(--mono); font-size:13px; outline:none; text-align:center; }
-  .ex-input:focus { border-color:var(--gold-dim); box-shadow:0 0 0 3px #e3b34114; }
-  .ex-input::placeholder { color:var(--muted-2); }
+  /* language picker — replaces the old free-text exclude box */
+  .langPick { max-width:620px; margin:20px auto 0; }
+  .langPickLabel { font-size:13px; color:var(--muted); text-align:center; margin:0 0 11px; }
+  .langPickChips { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; }
+  .lpchip { display:inline-flex; align-items:center; gap:7px; border:1px solid var(--line-2); border-radius:999px;
+    padding:6px 14px; background:#111726; color:var(--ink-2); font-family:var(--sans); font-size:13px; cursor:pointer; }
+  .lpchip i { width:8px; height:8px; border-radius:50%; flex:none; }
+  .lpchip:hover { border-color:var(--gold-dim); color:var(--ink); }
+  .lpchip.off { opacity:.4; text-decoration:line-through; background:#0b0e16; }
 
   /* ---------- class explorer ---------- */
   .class-tabs { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; max-width:900px; margin:0 auto 30px; }
@@ -430,9 +438,13 @@
       <button class="tchip" data-theme="matrix">matrix</button>
       <button class="tchip" data-theme="transparent">transparent</button>
     </div>
-    <input id="exclude" class="ex-input" type="text" spellcheck="false" data-reveal
-           placeholder="exclude languages — optional, e.g. HTML, CSS, Jupyter Notebook"
-           aria-label="Languages to exclude from class detection" />
+    <!-- Populated from /api/profile once a username resolves. Replaces the old
+         free-text box, where "Jupyter Notebook" was one typo away from silently
+         doing nothing — you can only exclude languages you actually ship. -->
+    <div class="langPick" id="langPick" hidden>
+      <p class="langPickLabel">Not the class you expected? Click a language to drop it from the reckoning.</p>
+      <div class="langPickChips" id="langPickChips"></div>
+    </div>
     <div class="genout" id="genout">
       <img id="cardPreview" alt="Your GitLevel card preview" />
       <div class="snip">
@@ -540,15 +552,32 @@
   })();
 
   // ---- Forge (with theme) ----
+  // This is the one place configuration belongs: you tune the card here, at the
+  // moment you generate the URL you'll paste. The character sheet at /u/ is a
+  // public record and deliberately takes no settings.
   let currentTheme = 'volt';
+  let forgeUser = '';            // the login the chips below belong to
+  const dropped = new Set();     // languages excluded from class detection
+
+  function excludeParam(){
+    return [...dropped].join(',');
+  }
+
   function forge(){
     const u = document.getElementById('uname').value.trim().replace(/[^a-zA-Z0-9-]/g,'');
     if(!u) { document.getElementById('uname').focus(); return; }
+    if (u.toLowerCase() !== forgeUser.toLowerCase()) { dropped.clear(); loadLanguages(u); }
+    forgeUser = u;
     let q = 'username=' + encodeURIComponent(u);
     if (currentTheme !== 'volt') q += '&theme=' + currentTheme;
-    const ex = document.getElementById('exclude').value.split(',').map((s)=>s.trim()).filter(Boolean).join(',');
+    const ex = excludeParam();
     if (ex) q += '&exclude_langs=' + encodeURIComponent(ex).replace(/%2C/g, ',');
-    document.getElementById('cardPreview').src = '/api/card?' + q;
+    // animation=false on the PREVIEW only — an <img>-embedded SVG may not run
+    // its CSS animations, and this card's elements start at opacity:0, so it can
+    // render as an empty frame at the exact moment someone decides whether to
+    // use this. The snippet below deliberately keeps animation on: it's going
+    // into a README, where it works and looks better.
+    document.getElementById('cardPreview').src = '/api/card?' + q + '&animation=false';
     // Linked form, always: the card travels into other people's READMEs on its
     // own, and a plain <img> is a dead end for everyone who sees it there. The
     // link points at the character sheet, which is also where a visitor finds
@@ -558,10 +587,35 @@
       '[![GitLevel](' + origin + '/api/card?' + q + ')](' + origin + '/u/' + u + ')';
     document.getElementById('genout').classList.add('show');
   }
+  // Fetch the languages this account actually ships, so exclusion is a set of
+  // real options rather than free text. Fails quietly — an unreachable profile
+  // endpoint should cost you the chips, not the card.
+  function loadLanguages(user){
+    const pick = document.getElementById('langPick'), chips = document.getElementById('langPickChips');
+    pick.hidden = true;
+    fetch('/api/profile?username=' + encodeURIComponent(user))
+      .then((r)=> r.ok ? r.json() : Promise.reject())
+      .then((d)=>{
+        const langs = (d.languages || []).filter((l)=>l.name);
+        if (!langs.length || user.toLowerCase() !== forgeUser.toLowerCase()) return;
+        chips.innerHTML = langs.map((l)=>
+          '<button class="lpchip" type="button" data-lang="' + l.name.replace(/"/g,'&quot;') + '">' +
+          '<i style="background:' + (l.color || '#8b949e') + '"></i>' + l.name.replace(/</g,'&lt;') + '</button>').join('');
+        pick.hidden = false;
+      })
+      .catch(()=>{});
+  }
+
+  document.getElementById('langPickChips').addEventListener('click', (e)=>{
+    const c = e.target.closest('.lpchip');
+    if (!c) return;
+    const name = c.dataset.lang;
+    if (dropped.has(name)) dropped.delete(name); else dropped.add(name);
+    c.classList.toggle('off', dropped.has(name));
+    forge();                       // re-render the preview and snippet immediately
+  });
+
   document.getElementById('uname').addEventListener('keydown', (e)=>{ if(e.key==='Enter') forge(); });
-  const exEl = document.getElementById('exclude');
-  exEl.addEventListener('keydown', (e)=>{ if(e.key==='Enter') forge(); });
-  exEl.addEventListener('change', ()=>{ if(document.getElementById('genout').classList.contains('show')) forge(); });
   document.querySelectorAll('.tchip').forEach((b) => b.addEventListener('click', () => {
     currentTheme = b.dataset.theme;
     document.querySelectorAll('.tchip').forEach((x) => x.classList.toggle('active', x === b));
