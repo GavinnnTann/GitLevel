@@ -67,6 +67,12 @@
   .who .handle { font-family:var(--mono); font-size:13px; color:var(--muted); }
   .rankline { font-size:15px; margin:14px 0 0; }
   .rankline b { color:var(--ink); }
+  /* Mirrors the card's subclass row rather than restating it as grey text: the
+     class's own crest, its accent on the name, and a quiet tag doing the naming
+     — so the sheet and the card beside it read as one object. */
+  .subline { display:flex; align-items:center; gap:9px; margin-top:10px; }
+  .subline img { width:28px; height:28px; flex:none; }
+  .subline .tag { font-family:var(--mono); font-size:9.5px; letter-spacing:.22em; text-transform:uppercase; color:var(--muted); }
   .pillrow { display:flex; flex-wrap:wrap; gap:8px; margin-top:16px; }
   .pill { border:1px solid var(--line-2); border-radius:999px; padding:5px 12px; font-size:12.5px; background:#111726; }
   .pill i { font-style:normal; color:var(--muted); }
@@ -239,7 +245,7 @@
         </div>
         <p class="eyebrow" id="rarityLine">—</p>
         <p class="rankline" id="classLine"></p>
-        <p class="rankline muted" id="subLine"></p>
+        <p class="rankline subline" id="subLine"></p>
         <div class="pillrow" id="pills"></div>
         <p class="rankline muted" id="nextLine" style="margin-top:18px"></p>
       </div>
@@ -418,7 +424,18 @@
     } else {
       $("classLine").textContent = "Unclassed — no public repositories yet.";
     }
-    $("subLine").textContent = d.subclass ? "Subclass · " + d.subclass.name : "";
+    // `safe` is null for languages on the generic fallback ladder — they have no
+    // published crest, so the line falls back to name + tag rather than a broken
+    // image. Hidden outright when there's no second language at all, so a
+    // single-language dev doesn't get an empty gap under their class.
+    const sub = d.subclass;
+    $("subLine").style.display = sub ? "flex" : "none";
+    if (sub) {
+      $("subLine").innerHTML =
+        (sub.safe ? '<img src="/crests/' + esc(sub.safe) + '.svg" alt="" />' : "")
+        + '<b style="color:' + esc(sub.color) + '">' + esc(sub.name) + "</b>"
+        + '<span class="tag">Subclass</span>';
+    }
 
     $("pills").innerHTML = [
       ["XP", num(d.xp)],

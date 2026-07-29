@@ -63,7 +63,9 @@ squashes it.
 
 - **Class** — your most-used language becomes an RPG profession
   (Python → *Oracle*, Rust → *Sentinel*, C++ → *Warlord*, …), with a crest glyph.
-- **Subclass** — your second language (e.g. *Python Oracle · C++ Warlord*).
+- **Subclass** — your second language, drawn beneath your class as a matching
+  mini crest with a glyph and accent colour of its own (*Python Oracle*, then
+  *C++ Warlord*) — so the card shows both halves of what you actually write.
 - **Level & XP** — earned from craft, consistency, and a dampened dash of reach.
   Early levels come fast; the top tiers take real work.
 - **Rarity** — five bands (*Common → Rare → Epic → Legendary → **Mythic***),

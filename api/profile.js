@@ -17,7 +17,7 @@ import { fetchProfile } from "../src/fetchProfile.js";
 import { StatsError } from "../src/github.js";
 import { computeCharacter, scopeProfileLanguages, explainXP, levelFromXP, DEFAULT_CONFIG } from "../src/engine.js";
 import { badgeProgress } from "../src/achievements.js";
-import { CLASS_PATHS, FALLBACK_PATH, RARITIES, TIER_BANDS, tierForLevel } from "../src/classes.js";
+import { CLASS_PATHS, FALLBACK_PATH, RARITIES, TIER_BANDS, tierForLevel, crestSlug } from "../src/classes.js";
 import { readHistory } from "../src/history.js";
 import { shelfFromHistory, SEASON_RANKS } from "../src/seasons.js";
 import { kvRateLimit } from "../src/kv.js";
@@ -37,9 +37,14 @@ function clientIp(req) {
  *  the page can show where this rank falls in the lineage. */
 function classPayload(cls) {
   if (!cls) return null;
-  const path = CLASS_PATHS[cls.language] ?? FALLBACK_PATH;
+  const known = CLASS_PATHS[cls.language];
+  const path = known ?? FALLBACK_PATH;
   return {
     language: cls.language,
+    // Points at public/crests/<safe>.svg. Null for anything on the generic
+    // fallback ladder — only the mapped classes have crest art published, so the
+    // page must be able to tell "no crest for this one" from "crest missing".
+    safe: known ? crestSlug(cls.language) : null,
     title: cls.title,
     name: cls.name,
     color: cls.color,

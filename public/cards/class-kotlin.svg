@@ -11,7 +11,8 @@ text { font-family: 'Segoe UI', Ubuntu, 'Helvetica Neue', sans-serif; }
 .gl-name { font-size: 21px; font-weight: 700; fill: #58a6ff; }
 .gl-lvl { font-size: 15px; font-weight: 800; letter-spacing: 1.5px; fill: #58a6ff; }
 .gl-class { font-size: 17px; font-weight: 700; fill: #b57bff; }
-.gl-sub { font-size: 13px; font-weight: 600; fill: #c9d1d9; opacity: 0.75; }
+.gl-sub { font-size: 13.5px; font-weight: 700; fill: #f05138; opacity: 0.9; }
+.gl-sub-tag { font-size: 8px; font-weight: 700; letter-spacing: 1.8px; fill: #c9d1d9; opacity: 0.45; }
 .gl-meta { font-size: 11px; fill: #c9d1d9; opacity: 0.7; }
 .gl-pct { font-size: 16px; font-weight: 800; fill: #58a6ff; }
 .gl-chip-label { font-size: 12px; font-weight: 600; fill: #c9d1d9; }
@@ -117,9 +118,17 @@ text { font-family: 'Segoe UI', Ubuntu, 'Helvetica Neue', sans-serif; }
     <text class="gl-lvl glow-pulse" x="474" y="39" text-anchor="end" filter="url(#gl-glow)">LV 57</text>
     <line x1="150" y1="51" x2="474" y2="51" stroke="#b57bff" stroke-opacity="0.22" stroke-width="1"/>
 
-    <circle cx="154" cy="70" r="4" fill="#b57bff"/>
-    <text class="gl-class" x="166" y="75">Kotlin Ascended</text>
-    <text class="gl-sub" x="150" y="94">Subclass · Swift Blademaster</text>
+    <circle cx="158" cy="70" r="4" fill="#b57bff"/>
+    <text class="gl-class" x="174" y="75">Kotlin Ascended</text>
+    <g>
+    <circle cx="158" cy="93" r="9" fill="#f05138" fill-opacity="0.12" stroke="#f05138" stroke-opacity="0.45" stroke-width="1.1"/>
+    <svg class="crest-icon" x="151.75" y="86.75" width="12.5" height="12.5" viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M12 2 V15" fill="none" stroke="#f05138" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    <path d="M8 15 C9 12 15 12 16 15 M12 15 V20" fill="none" stroke="#f05138" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="12" cy="21" r="1.1" fill="#f05138"/></svg>
+    <text class="gl-sub" x="174" y="97.7">Swift Blademaster</text>
+    <text class="gl-sub-tag" x="325.09659999999997" y="97.4">SUBCLASS</text>
+  </g>
 
     <text class="gl-meta" x="150" y="118">333.6k / 336.4k XP</text>
     <text class="gl-pct " x="474" y="119" text-anchor="end">75%</text>

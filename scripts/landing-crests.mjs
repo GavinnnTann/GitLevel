@@ -13,13 +13,12 @@ import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { CLASS_PATHS } from "../src/classes.js";
+import { CLASS_PATHS, crestSlug as safe } from "../src/classes.js";
 import { renderPortrait, hasPortrait } from "../src/portraits.js";
 import { renderClassIcon } from "../src/classIcons.js";
 
 const pub = path.join(path.dirname(fileURLToPath(import.meta.url)), "..", "public");
 const crestDir = path.join(pub, "crests");
-const safe = (l) => l.toLowerCase().replace(/\+/g, "p").replace(/#/g, "sharp").replace(/[^a-z0-9]+/g, "");
 
 /** A standalone 160×160 crest: tinted disc + rune ring + the class emblem/glyph. */
 function crest(lang, cfg) {

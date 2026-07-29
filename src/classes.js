@@ -58,6 +58,17 @@ export const CLASS_PATHS = {
 };
 
 /**
+ * The filename a class's standalone crest art is published under:
+ * `public/crests/<crestSlug(language)>.svg`, written by scripts/landing-crests.mjs.
+ * Lives here, beside the class table, because two independent consumers now
+ * depend on the two agreeing — the generator that writes those files and the
+ * API payload that points the character sheet at them. A drifting copy of this
+ * would surface as a silently broken image, not an error.
+ */
+export const crestSlug = (language) =>
+  language.toLowerCase().replace(/\+/g, "p").replace(/#/g, "sharp").replace(/[^a-z0-9]+/g, "");
+
+/**
  * Creator's edition — the developers who built GitLevel get a unique class that
  * overrides their language entirely: a bespoke gold sigil (see `creatorSigil` in
  * portraits.js, keyed by `language: "Creator"`), a custom title, and full Mythic

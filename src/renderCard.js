@@ -4,10 +4,15 @@
  * border (Common → Legendary by tier). Pure — character model in, SVG out.
  * Builds on card.js's buildCard() for the shared chrome.
  *
- * Two accents, on purpose:
+ * Three accents, on purpose:
  *   classAccent — the class's signature color → crest, class name (identity).
  *   uiAccent    — the theme accent → level pill, XP bar, chips (chrome), so the
  *                 progress UI harmonizes with the theme instead of clashing.
+ *   subAccent   — the *subclass's* signature color, confined to its mini crest
+ *                 and its one 13.5px name run. A second language is a second
+ *                 identity, and identity is the one thing on this card allowed
+ *                 to be polychrome; it never touches chrome, so the two-accent
+ *                 discipline still holds everywhere progress is drawn.
  *
  * Animation invariants (see card.js): elements animated with CSS `transform`
  * (the crest float/pop, rune-ring spin, XP-bar scaleX) carry NO transform
@@ -23,6 +28,14 @@ import { encodeHTML, kFormatter, clampValue } from "./utils.js";
 const BASE_HEIGHT = 230; // one badge row; grows by ROW_STEP for each extra row
 const CREST = { cx: 84, cy: 92, r: 44 };
 const COL_X = 150; // right column left edge
+// The class and subclass rows share one marker axis — a filled dot for the
+// class, a mini crest for the subclass — and one text left edge. Centering two
+// very different shapes on MARK_X (rather than left-aligning both to COL_X) is
+// what makes the pair read as a single stack; the disc's ~1px overhang past
+// COL_X is the optical alignment a round shape wants anyway.
+const MARK_X = COL_X + 8;
+const ROW_TEXT_X = COL_X + 24;
+const SUB_CY = 93; // subclass row center — clears the class descenders and the XP numbers
 
 // Badge pills live in a full-width footer strip below BOTH columns, not tucked
 // under the right one: the space beneath the crest is dead otherwise, and the
@@ -78,6 +91,7 @@ export function renderGitLevelCard(character, {
 
   const classAccent = cls.color || colors.title;
   const uiAccent = colors.ring || colors.title;
+  const subAccent = character.subclass?.color || colors.text;
   const progress = clampValue(character.progress ?? 0, 0, 1);
   const pct = Math.round(progress * 100);
   const nearLevel = progress >= 0.9; // "so close to LV up" — pulse it
@@ -92,7 +106,8 @@ export function renderGitLevelCard(character, {
 .gl-name { font-size: 21px; font-weight: 700; fill: ${colors.title}; }
 .gl-lvl { font-size: 15px; font-weight: 800; letter-spacing: 1.5px; fill: ${uiAccent}; }
 .gl-class { font-size: 17px; font-weight: 700; fill: ${classAccent}; }
-.gl-sub { font-size: 13px; font-weight: 600; fill: ${colors.text}; opacity: 0.75; }
+.gl-sub { font-size: 13.5px; font-weight: 700; fill: ${subAccent}; opacity: 0.9; }
+.gl-sub-tag { font-size: 8px; font-weight: 700; letter-spacing: 1.8px; fill: ${colors.text}; opacity: 0.45; }
 .gl-meta { font-size: 11px; fill: ${colors.text}; opacity: 0.7; }
 .gl-pct { font-size: 16px; font-weight: 800; fill: ${uiAccent}; }
 .gl-chip-label { font-size: 12px; font-weight: 600; fill: ${colors.text}; }
@@ -169,9 +184,31 @@ ${nearLevel ? ".near-pulse { animation: glNear 1.3s ease-in-out infinite 1.6s; }
   // ---- Right: identity + progression ----
   const xpNumbers = `${kFormatter(character.xp)} / ${kFormatter(character.nextXP)} XP`;
   const xpToNext = kFormatter(character.xpToNext ?? Math.max(0, (character.nextXP ?? 0) - (character.xp ?? 0)));
-  const subclassLine = character.subclass
-    ? `<text class="gl-sub" x="${COL_X}" y="94">Subclass · ${encodeHTML(character.subclass.name)}</text>`
+  // The subclass is a fully resolved class — its own glyph, its own accent, its
+  // own tier title — and the card was spending all of it on one dim grey run of
+  // text that didn't even share a left edge with the class above it. It now
+  // mirrors that class row: same marker axis, same text edge, one step down in
+  // scale, with a mini crest that rhymes with the big one on the left (same
+  // tinted disc, same glyph, 1/5 the size). That parallel structure is what says
+  // "second discipline" — the trailing micro-caps tag only has to name it for a
+  // first-time reader, the way LEGENDARY II names the stars.
+  const sub = character.subclass;
+  // The tag is the first thing to go when a long title meets a narrow card
+  // (?card_width=440 + "Verilog Silicon Sovereign"): it's the one part of the
+  // row a reader can do without, since the mini crest and the parallel with the
+  // class row already carry the meaning. ~52px covers it at 8px + 1.8 tracking.
+  const subTagX = ROW_TEXT_X + estTextWidth(sub?.name ?? "", 13.5) * 1.06 + 10;
+  const subTag = sub && subTagX + 52 <= rightEdge
+    ? `<text class="gl-sub-tag" x="${subTagX}" y="${SUB_CY + 4.4}">SUBCLASS</text>`
     : "";
+  // A line glyph, never a portrait — portraits are the primary class's
+  // privilege, and one would be mush at 12.5px anyway.
+  const subclassRow = sub ? `<g>
+    <circle cx="${MARK_X}" cy="${SUB_CY}" r="9" fill="${subAccent}" fill-opacity="0.12" stroke="${subAccent}" stroke-opacity="0.45" stroke-width="1.1"/>
+    ${renderClassIcon(sub.symbol, { x: MARK_X - 6.25, y: SUB_CY - 6.25, size: 12.5, color: subAccent })}
+    <text class="gl-sub" x="${ROW_TEXT_X}" y="${SUB_CY + 4.7}">${encodeHTML(sub.name)}</text>
+    ${subTag}
+  </g>` : "";
 
   // The season standing (src/seasons.js) — the one part of this card that moves
   // on a weekly timescale, so it earns its line even though the card is already
@@ -188,9 +225,9 @@ ${nearLevel ? ".near-pulse { animation: glNear 1.3s ease-in-out infinite 1.6s; }
     <text class="gl-lvl glow-pulse" x="${rightEdge}" y="39" text-anchor="end" filter="url(#gl-glow)">LV ${character.level}</text>
     <line x1="${COL_X}" y1="51" x2="${rightEdge}" y2="51" stroke="${classAccent}" stroke-opacity="0.22" stroke-width="1"/>
 
-    <circle cx="${COL_X + 4}" cy="70" r="4" fill="${classAccent}"/>
-    <text class="gl-class" x="${COL_X + 16}" y="75">${encodeHTML(cls.name)}</text>
-    ${subclassLine}
+    <circle cx="${MARK_X}" cy="70" r="4" fill="${classAccent}"/>
+    <text class="gl-class" x="${ROW_TEXT_X}" y="75">${encodeHTML(cls.name)}</text>
+    ${subclassRow}
 
     <text class="gl-meta" x="${COL_X}" y="118">${encodeHTML(xpNumbers)}</text>
     <text class="gl-pct ${nearLevel && animation ? "near-pulse" : ""}" x="${rightEdge}" y="119" text-anchor="end">${pct}%</text>
